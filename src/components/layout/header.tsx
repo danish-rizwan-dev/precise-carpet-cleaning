@@ -1,13 +1,28 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, ChevronDown } from "lucide-react";
+import { Phone, Mail, ChevronDown, Menu, X } from "lucide-react";
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Track scroll progress for mobile header transformation
+  useEffect(() => {
+    const handleScroll = () => {
+      // Transition completes over 300px (roughly half of the mobile hero section)
+      const currentScroll = window.scrollY;
+      const progress = Math.min(currentScroll / 300, 1);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const openDropdown = useCallback(() => {
     if (closeTimerRef.current) {
@@ -23,53 +38,58 @@ export default function Header() {
     }, 300);
   }, []);
 
-  const dropdownLinksLeft = [
+  const navLinks = [
     { name: "Homepage", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Service Details", href: "/services/details" },
     { name: "Blogs", href: "/blogs" },
     { name: "Blog Details", href: "/blogs/details" },
-  ];
-
-  const dropdownLinksRight = [
     { name: "Contact", href: "/contact" },
     { name: "Appointment", href: "/appointment" },
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "404", href: "/404" },
   ];
 
+  const dropdownLinksLeft = navLinks.slice(0, 6);
+  const dropdownLinksRight = navLinks.slice(6);
+
+  // Dynamic values calculated from scroll progress (Mobile only)
+  const isScrolled = scrollProgress > 0.5;
+  const mobileBgStyle = {
+    backgroundColor: `rgba(255, 255, 252, ${scrollProgress})`,
+  };
+
   return (
     <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50">
-      {/* Top Blue Bar */}
-      <div className="w-full bg-[#0b4255] text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
-        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between pl-[124px] pr-[124px]">
+      {/* Top Blue Bar - Hidden on Mobile */}
+      <div className="hidden lg:block w-full bg-[#0b4255] text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
+        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-[124px]">
           {/* Left Side: Contact Details */}
           <div className="flex items-center gap-6">
             <a
               href="tel:0434161161"
-              className="flex items-center gap-2 hover:text-red-500 transition-colors"
+              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Phone size={14} className="stroke-[2.5]" />
               <span>Call us: 0434 161 161</span>
             </a>
             <a
               href="mailto:precisecarpetcleaningservices@gmail.com"
-              className="flex items-center gap-2 hover:text-red-500 transition-colors"
+              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Mail size={14} className="stroke-[2.5]" />
               <span>precisecarpetcleaningservices@gmail.com</span>
             </a>
           </div>
 
-          {/* Right Side: Social Media SVG Icons */}
+          {/* Right Side: Social Icons */}
           <div className="flex items-center gap-4">
-            {/* Facebook SVG */}
             <a
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-red-500 transition-colors"
+              className="text-white hover:text-[#ffb400] transition-colors"
               aria-label="Facebook"
             >
               <svg
@@ -82,13 +102,11 @@ export default function Header() {
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C20.007 23.027 24 18.062 24 12.073z" />
               </svg>
             </a>
-
-            {/* Instagram SVG */}
             <a
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-red-500 transition-colors"
+              className="text-white hover:text-[#ffb400] transition-colors"
               aria-label="Instagram"
             >
               <svg
@@ -105,23 +123,30 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main Bottom Navigation */}
-      <div className="w-full h-[105px] bg-transparent flex items-center justify-between pl-[124px] pr-[124px] max-w-[1920px] mx-auto relative">
-        {/* Logo */}
-        <Link href="/home" className="relative w-[162px] h-[50px]">
+      {/* Main Navigation Bar (Fixed & Dynamic Background on Mobile) */}
+      <div
+        style={mobileBgStyle}
+        className="fixed lg:relative top-0 left-0 right-0 w-full h-[70px] sm:h-[76px] lg:h-[105px] flex items-center justify-between px-4 sm:px-6 lg:px-[124px] max-w-[1920px] mx-auto transition-colors duration-200 z-50 backdrop-blur-[2px] lg:backdrop-blur-none"
+      >
+        {/* Logo Left */}
+        <Link href="/" className="relative w-[145px] sm:w-[175px] h-[48px] sm:h-[56px]">
           <Image
             src="/logo.svg"
             alt="Precise Carpet Cleaning Services"
             fill
-            className="object-contain"
+            style={{
+              filter: isScrolled
+                ? "brightness(0) saturate(100%) invert(18%) sepia(48%) saturate(1540%) hue-rotate(159deg) brightness(94%) contrast(96%)"
+                : "none",
+            }}
+            className="object-contain object-left transition-all duration-300"
             priority
           />
         </Link>
 
-        {/* Navigation Menu & Call Us CTA */}
-        <div className="flex items-center gap-8">
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center gap-8">
           <nav className="flex items-center gap-8 text-white font-semibold text-[16px]">
-            {/* All Pages Dropdown Toggle */}
             <div
               className="relative group cursor-pointer"
               onMouseEnter={openDropdown}
@@ -140,7 +165,6 @@ export default function Header() {
                 />
               </button>
 
-              {/* Dropdown Menu Container */}
               {isDropdownOpen && (
                 <div
                   className="absolute left-0 top-full pt-2"
@@ -175,30 +199,20 @@ export default function Header() {
               )}
             </div>
 
-            <Link
-              href="/services"
-              className="hover:text-[#ff0000] transition-colors"
-            >
+            <Link href="/services" className="hover:text-[#ff0000] transition-colors">
               Services
             </Link>
-            <Link
-              href="/pricing"
-              className="hover:text-[#ff0000] transition-colors"
-            >
+            <Link href="/pricing" className="hover:text-[#ff0000] transition-colors">
               Pricing
             </Link>
-            <Link
-              href="/contact"
-              className="hover:text-[#ff0000] transition-colors"
-            >
+            <Link href="/contact" className="hover:text-[#ff0000] transition-colors">
               Contact
             </Link>
           </nav>
 
-          {/* Call Us Action Button */}
           <a
             href="tel:0434161161"
-            className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px]  min-w-[230px] transition-all duration-300"
+            className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[230px] transition-all duration-300"
           >
             <div className="bg-white rounded-[8px] h-[53px] flex items-center justify-center absolute left-[4px] z-0 transition-all duration-700 ease-in-out w-[52px] group-hover:w-[calc(100%-8px)]" />
             <Phone className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[18px] z-10" />
@@ -207,6 +221,37 @@ export default function Header() {
             </span>
           </a>
         </div>
+
+        {/* Mobile Hamburger / Close Button (Shifted right) */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden p-1 -mr-1 transition-colors duration-300 focus:outline-none z-50"
+          aria-label="Toggle Navigation"
+        >
+          {isMobileMenuOpen ? (
+            <X size={32} className={isScrolled ? "text-[#0b4255]" : "text-white"} />
+          ) : (
+            <Menu size={32} className={isScrolled ? "text-[#0b4255]" : "text-white"} />
+          )}
+        </button>
+
+        {/* Mobile Dropdown Card */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden fixed inset-x-4 top-[76px] z-40">
+            <div className="bg-white text-[#111111] rounded-[24px] p-6 shadow-2xl flex flex-col gap-4 max-h-[calc(100vh-100px)] overflow-y-auto">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="font-semibold text-[20px] tracking-tight hover:text-[#0b4255] transition-colors py-1"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

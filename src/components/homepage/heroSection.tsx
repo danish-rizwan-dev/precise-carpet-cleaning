@@ -9,13 +9,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
 
-  // Parallax scroll effect
+  // Parallax & Zoom scroll effect
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.1, 1]);
 
   // Stagger animations
   const containerVariants = {
@@ -41,21 +42,21 @@ export default function Hero() {
   return (
     <div ref={heroRef} className="w-full font-['Plus_Jakarta_Sans',sans-serif] bg-white">
       {/* Upper Hero Section */}
-      <section className="relative w-full min-h-[720px] lg:min-h-[820px] bg-black text-white -mt-[105px] overflow-hidden flex flex-col justify-between">
-        {/* Parallax Background Image */}
+      <section className="relative w-full min-h-[700px] sm:min-h-[760px] lg:min-h-[1000px] overflow-hidden bg-black text-white -mt-[130px] lg:-mt-[205px] flex flex-col justify-between">
+        {/* Parallax & Zooming Background Image */}
         <motion.div
-          style={{ y: backgroundY }}
-          className="absolute inset-0 z-0 -mt-[80px] h-[115%]"
+          style={{ y: backgroundY, scale: backgroundScale }}
+          className="absolute inset-0 z-0 h-[115%] origin-center"
         >
           <Image
             src="/hero/herobackgroundimage.png"
             alt="Carpet Cleaning background"
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-[55%_center] sm:object-center"
           />
           {/* Dark gradient overlay from left across the image */}
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/95 via-black/75 to-black/30 sm:from-black/85 sm:via-black/50 sm:to-transparent" />
         </motion.div>
 
         {/* Main Hero Content */}
@@ -63,16 +64,17 @@ export default function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-10 max-w-[1920px] mx-auto pt-[120px] md:pt-[140px] px-6 sm:px-12 md:px-20 lg:px-[124px] pb-16 w-full"
+          className="relative z-10 max-w-[1920px] mx-auto pt-[130px] sm:pt-[190px] md:pt-[220px] px-5 sm:px-12 md:px-20 lg:px-[124px] pb-28 sm:pb-32 w-full"
         >
-          <div className="max-w-[1272px] w-full flex flex-col gap-6">
-            {/* Reviews Top Bar */}
+          <div className="max-w-[1272px] w-full flex flex-col gap-5 sm:gap-6">
+            
+            {/* Reviews Top Bar - Text Below Avatars */}
             <motion.div
               variants={itemVariants}
-              className="flex items-center gap-3"
+              className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-5"
             >
-              <div className="flex -space-x-3 overflow-hidden h-[48px] items-center">
-                <div className="relative w-11 h-11 rounded-full border-2 border-white overflow-hidden shrink-0">
+              <div className="flex -space-x-2.5 overflow-hidden h-[46px] items-center">
+                <div className="relative w-[46px] h-[46px] rounded-full border-2 border-white overflow-hidden shrink-0">
                   <Image
                     src="/hero/review1.png"
                     alt="User"
@@ -80,7 +82,7 @@ export default function Hero() {
                     className="object-cover"
                   />
                 </div>
-                <div className="relative w-11 h-11 rounded-full border-2 border-white overflow-hidden shrink-0">
+                <div className="relative w-[46px] h-[46px] rounded-full border-2 border-white overflow-hidden shrink-0">
                   <Image
                     src="/hero/review2.png"
                     alt="User"
@@ -88,7 +90,7 @@ export default function Hero() {
                     className="object-cover"
                   />
                 </div>
-                <div className="relative w-11 h-11 rounded-full border-2 border-white overflow-hidden shrink-0">
+                <div className="relative w-[46px] h-[46px] rounded-full border-2 border-white overflow-hidden shrink-0">
                   <Image
                     src="/hero/review3.png"
                     alt="User"
@@ -98,25 +100,24 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Ratings & Google Text */}
-              <div className="flex flex-col text-[14px] leading-[1.4]">
-                <div className="flex items-center gap-1.5 font-semibold text-white">
+              <div className="flex flex-col text-left mt-1">
+                <div className="flex items-center gap-1.5 font-bold text-white text-[18px]">
                   <span>Ratings</span>
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  <Star className="w-[18px] h-[18px] text-[#ffb400] fill-[#ffb400]" />
                   <span>4.9</span>
                 </div>
-                <span className="text-gray-300 font-medium text-[13px] sm:text-[14px]">
+                <span className="text-gray-200 font-medium text-[15px] mt-0.5">
                   Trusted reviews from Google!
                 </span>
               </div>
             </motion.div>
 
             {/* Main Text Content */}
-            <div className="w-full max-w-[620px] flex flex-col gap-4">
+            <div className="w-full max-w-[380px] sm:max-w-[620px] flex flex-col gap-3 sm:gap-4">
               {/* Title */}
               <motion.h1
                 variants={itemVariants}
-                className="text-[44px] sm:text-[58px] lg:text-[72px] font-bold leading-[1.1] tracking-[-2px] sm:tracking-[-4px] text-white"
+                className="text-[40px] sm:text-[58px] lg:text-[72px] font-bold leading-[1.08] tracking-[-1px] sm:tracking-[-3px] text-white"
               >
                 Sydney’s Carpet Cleaning Experts
               </motion.h1>
@@ -124,51 +125,55 @@ export default function Hero() {
               {/* Subtitle */}
               <motion.h2
                 variants={itemVariants}
-                className="text-[28px] sm:text-[34px] lg:text-[40px] font-bold leading-[1.25] tracking-[-1px] text-[#e5eaec]"
+                className="text-[24px] sm:text-[34px] lg:text-[40px] font-semibold leading-[1.25] tracking-tight text-[#e5eaec] mt-1"
               >
-                Residential & Commercial <br className="hidden sm:inline" /> Carpet Cleaning
+                Residential & Commercial <br /> Carpet Cleaning
               </motion.h2>
 
               {/* Description */}
               <motion.p
                 variants={itemVariants}
-                className="text-[16px] sm:text-[18px] font-normal leading-[1.5] text-[#e5eaec]"
+                className="text-[16px] sm:text-[18px] font-normal leading-[1.4] text-[#e5eaec] mt-1"
               >
                 Revitalising carpets & upholstery to their former glory.
               </motion.p>
 
-              {/* Buttons */}
+              {/* Buttons Stacking - Custom width per button to match image */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-wrap items-center gap-4 mt-2"
+              className="flex flex-col items-start gap-3 mt-4 w-full sm:flex-row"
               >
+                {/* Call Us Button */}
                 <a
                   href="tel:0434161161"
-                  className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] overflow-hidden min-w-[230px] transition-all duration-300 shadow-lg"
+                  className="inline-flex items-center bg-[#0b4354] hover:bg-[#072f3b] text-white rounded-[20px] p-[7px] pr-6 transition-colors duration-200 shadow-md w-fit"
                 >
-                  <div className="bg-white rounded-[8px] h-[53px] flex items-center justify-center absolute left-[4px] z-0 transition-all duration-700 ease-in-out w-[52px] group-hover:w-[calc(100%-8px)]" />
-                  <Phone className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[18px] z-10" />
-                  <span className="relative z-10 ml-[64px] font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
+                  <div className="bg-white rounded-[14px] w-[58px] h-[58px] flex items-center justify-center shrink-0">
+                    <Phone className="w-[26px] h-[26px] text-[#ffb400] fill-[#ffb400]" />
+                  </div>
+                  <span className="font-bold text-[19px] ml-4 whitespace-nowrap">
                     Call us: 0434 161 161
                   </span>
                 </a>
 
+                {/* Free Quote Button */}
                 <Link
                   href="/contact"
-                  className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] overflow-hidden min-w-[206px] transition-all duration-300 shadow-lg"
+                  className="inline-flex items-center bg-[#0b4354] hover:bg-[#072f3b] text-white rounded-[20px] p-[7px] pr-6 transition-colors duration-200 shadow-md w-fit"
                 >
-                  <div className="bg-white rounded-[8px] h-[53px] flex items-center justify-center absolute left-[4px] z-0 transition-all duration-700 ease-in-out w-[52px] group-hover:w-[calc(100%-8px)]" />
-                  <Star className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[18px] z-10" />
-                  <span className="relative z-10 ml-[64px] font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
+                  <div className="bg-white rounded-[14px] w-[58px] h-[58px] flex items-center justify-center shrink-0">
+                    <Star className="w-[26px] h-[26px] text-[#ffb400] fill-[#ffb400]" />
+                  </div>
+                  <span className="font-bold text-[19px] ml-4 whitespace-nowrap">
                     Get a free quote
                   </span>
                 </Link>
               </motion.div>
 
-              {/* 2 Bedroom Special Banner */}
+              {/* Special Offer Banner (350px x 133px on Mobile) */}
               <motion.div
                 variants={itemVariants}
-                className="relative w-[380px] sm:w-[450px] lg:w-[471px] h-[140px] sm:h-[170px] lg:h-[180px] mt-2"
+                className="relative w-[350px] max-w-full h-[133px] lg:w-[471px] lg:h-[180px] mt-2"
               >
                 <Image
                   src="/hero/2bedroomSpecial.avif"
@@ -180,81 +185,44 @@ export default function Hero() {
             </div>
           </div>
         </motion.div>
+
+        <div className="absolute inset-x-0 bottom-[-1px] z-20 h-[97px] pointer-events-none" aria-hidden="true">
+          <svg className="block h-full w-full" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="hero-scallop-fill" width="96" height="97" patternUnits="userSpaceOnUse">
+                <path d="M0 0C0 26 20 48 48 48S96 26 96 0V97H0Z" fill="#fff" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#hero-scallop-fill)" />
+          </svg>
+        </div>
       </section>
 
-      {/* Bottom Scalloped Cloud Wave Transition */}
-      <div className="relative w-full z-20 -mt-[38px] sm:-mt-[44px] md:-mt-[52px] pointer-events-none overflow-hidden">
-        <svg
-          className="w-full h-[40px] sm:h-[46px] md:h-[54px] block"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern
-              id="hero-scallop-wave"
-              width="48"
-              height="48"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 0 24 C 0 8, 10 0, 24 0 C 38 0, 48 8, 48 24 L 48 48 L 0 48 Z"
-                fill="#ffffff"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="48" fill="url(#hero-scallop-wave)" />
-        </svg>
-      </div>
-
-      {/* Bottom Features Strip Section */}
-      <section className="w-full bg-white pt-2 pb-10 sm:pb-14 relative z-30">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="max-w-[1200px] mx-auto px-6 flex items-center justify-between gap-6 md:gap-12"
-        >
-          {/* Item 1: Same day cleaning icon */}
-          <div className="flex items-center justify-center flex-1">
-            <div className="relative w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] shrink-0">
-              <Image
-                src="/hero/sameDaysvg.svg"
-                alt="Same day cleaning"
-                fill
-                className="object-contain"
-              />
+      <section className="relative z-30 bg-white px-5 pb-10 pt-5 sm:px-12 sm:pb-14 sm:pt-7">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-5 sm:grid-cols-3 sm:gap-8">
+          <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
+            <div className="relative h-[57px] w-[57px] shrink-0">
+              <Image src="/hero/sameDaysvg.svg" alt="" fill className="object-contain" />
             </div>
+            <span className="font-semibold text-[16px] leading-tight text-[#5b5955] sm:text-[20px] sm:leading-[31.2px]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}>Same day cleaning</span>
           </div>
 
-          {/* Item 2: Safe Chemicals for Kids & Pets */}
-          <div className="flex items-center justify-center gap-3 sm:gap-4 flex-1">
-            <div className="relative w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] shrink-0">
-              <Image
-                src="/hero/safeCleaning.svg"
-                alt="Safe Chemicals for Kids & Pets"
-                fill
-                className="object-contain"
-              />
+          <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
+            <div className="relative h-[57px] w-[57px] shrink-0">
+              <Image src="/hero/safeCleaning.svg" alt="" fill className="object-contain" />
             </div>
-            <div className="flex flex-col text-[rgba(91,89,85,1)] font-semibold text-[15px] sm:text-[17px] md:text-[20px] leading-[1.25] text-left">
-              <span>Safe Chemicals</span>
-              <span>for Kids & Pets</span>
-            </div>
+            <span className="font-semibold text-[16px] leading-tight text-[#5b5955] sm:text-[20px] sm:leading-[31.2px]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}>
+              Safe Chemicals<br />for Kids &amp; Pets
+            </span>
           </div>
 
-          {/* Item 3: 24/7 availability calendar icon */}
-          <div className="flex items-center justify-center flex-1">
-            <div className="relative w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[64px] md:h-[64px] shrink-0">
-              <Image
-                src="/hero/24hours.svg"
-                alt="24/7 availability"
-                fill
-                className="object-contain"
-              />
+          <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
+            <div className="relative h-[57px] w-[57px] shrink-0">
+              <Image src="/hero/24hours.svg" alt="" fill className="object-contain" />
             </div>
+            <span className="font-semibold text-[16px] leading-tight text-[#5b5955] sm:text-[20px] sm:leading-[31.2px]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}>24/7 availability</span>
           </div>
-        </motion.div>
+        </div>
       </section>
     </div>
   );
