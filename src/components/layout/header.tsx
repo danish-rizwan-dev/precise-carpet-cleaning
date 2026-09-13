@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, ChevronDown, Menu, X } from "lucide-react";
+import { Phone, Mail, ChevronDown } from "lucide-react";
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -61,10 +61,10 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50">
+    <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50 overflow-hidden">
       {/* Top Blue Bar - Hidden on Mobile */}
       <div className="hidden lg:block w-full bg-[#0b4255] text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
-        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-[124px]">
+        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-[124px] overflow-hidden">
           {/* Left Side: Contact Details */}
           <div className="flex items-center gap-6">
             <a
@@ -222,29 +222,48 @@ export default function Header() {
           </a>
         </div>
 
-        {/* Mobile Hamburger / Close Button (Shifted right) */}
+        {/* Animated Hamburger to Cross Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden p-1 -mr-1 transition-colors duration-300 focus:outline-none z-50"
+          className="lg:hidden p-2 -mr-1 transition-colors duration-300 focus:outline-none z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5"
           aria-label="Toggle Navigation"
         >
-          {isMobileMenuOpen ? (
-            <X size={32} className={isScrolled ? "text-[#0b4255]" : "text-white"} />
-          ) : (
-            <Menu size={32} className={isScrolled ? "text-[#0b4255]" : "text-white"} />
-          )}
+          {/* Top Line */}
+          <span
+            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out origin-center ${
+              isScrolled ? "bg-[#0b4255]" : "bg-white"
+            } ${isMobileMenuOpen ? "rotate-45 translate-y-[8px]" : ""}`}
+          />
+          {/* Middle Line */}
+          <span
+            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out ${
+              isScrolled ? "bg-[#0b4255]" : "bg-white"
+            } ${isMobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"}`}
+          />
+          {/* Bottom Line */}
+          <span
+            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out origin-center ${
+              isScrolled ? "bg-[#0b4255]" : "bg-white"
+            } ${isMobileMenuOpen ? "-rotate-45 -translate-y-[8px]" : ""}`}
+          />
         </button>
 
         {/* Mobile Dropdown Card */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-x-4 top-[76px] z-40">
-            <div className="bg-white text-[#111111] rounded-[24px] p-6 shadow-2xl flex flex-col gap-4 max-h-[calc(100vh-100px)] overflow-y-auto">
+          <div className="lg:hidden fixed left-1/2 -translate-x-1/2 top-[76px] z-40">
+            <div
+              className="box-sizing-border-box flex flex-col flex-nowrap items-start content-start justify-center p-[20px] gap-[10px] w-[320px] h-[379.625px] bg-white text-black rounded-[10px] shadow-2xl overflow-y-auto font-sans text-[12px] antialiased"
+              style={{
+                transformOrigin: "160px 189.812px",
+                unicodeBidi: "isolate",
+              }}
+            >
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-semibold text-[20px] tracking-tight hover:text-[#0b4255] transition-colors py-1"
+                  className="font-medium tracking-tight hover:text-[#0b4255] transition-colors py-1 w-full text-left"
                 >
                   {link.name}
                 </Link>
