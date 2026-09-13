@@ -2,7 +2,7 @@ import "./globals.css"
 
 import type { Metadata, Viewport } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
-
+import Footer from "@/components/layout/footer"
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
@@ -72,7 +72,7 @@ export default function RootLayout({
     <html lang="en" className={plusJakarta.variable}>
       <body className={`${plusJakarta.className} antialiased`}>
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   )

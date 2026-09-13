@@ -11,8 +11,16 @@ export default function Header() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+
   // Track scroll progress for mobile header transformation
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     const handleScroll = () => {
       // Transition completes over 300px (roughly half of the mobile hero section)
       const currentScroll = window.scrollY;
@@ -21,7 +29,10 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
 
   const openDropdown = useCallback(() => {
@@ -55,13 +66,13 @@ export default function Header() {
   const dropdownLinksRight = navLinks.slice(6);
 
   // Dynamic values calculated from scroll progress (Mobile only)
-  const isScrolled = scrollProgress > 0.5;
-  const mobileBgStyle = {
-    backgroundColor: `rgba(255, 255, 252, ${scrollProgress})`,
-  };
+  const isScrolled = isMobile && scrollProgress > 0.5;
+  const mobileBgStyle = isMobile
+    ? { backgroundColor: `rgba(255, 255, 252, ${scrollProgress})` }
+    : {};
 
   return (
-    <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50 overflow-hidden">
+    <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50 overflow-visible">
       {/* Top Blue Bar - Hidden on Mobile */}
       <div className="hidden lg:block w-full bg-[#0b4255] text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
         <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-[124px] overflow-hidden">
@@ -69,14 +80,14 @@ export default function Header() {
           <div className="flex items-center gap-6">
             <a
               href="tel:0434161161"
-              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
+              className="flex items-center gap-2 hover:text-[#ff0000] transition-colors"
             >
               <Phone size={14} className="stroke-[2.5]" />
               <span>Call us: 0434 161 161</span>
             </a>
             <a
               href="mailto:precisecarpetcleaningservices@gmail.com"
-              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
+              className="flex items-center gap-2 hover:text-[#ff0000] transition-colors"
             >
               <Mail size={14} className="stroke-[2.5]" />
               <span>precisecarpetcleaningservices@gmail.com</span>
@@ -89,7 +100,7 @@ export default function Header() {
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#ffb400] transition-colors"
+              className="text-white hover:text-[#ff0000] transition-colors"
               aria-label="Facebook"
             >
               <svg
@@ -106,7 +117,7 @@ export default function Header() {
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#ffb400] transition-colors"
+              className="text-white hover:text-[#ff0000] transition-colors"
               aria-label="Instagram"
             >
               <svg
