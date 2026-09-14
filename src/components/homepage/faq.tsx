@@ -63,7 +63,7 @@ const PhoneIcon = () => (
   </svg>
 );
 
-export default function ServicesPage() {
+export default function FaqPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
@@ -133,55 +133,6 @@ export default function ServicesPage() {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* 2. CALL TO ACTION SECTION */}
-      <section className="w-full relative mt-4 md:mt-8">
-        {/* Main CTA Content */}
-        <div className="w-full bg-[#0B4255] py-20 md:py-[135px] px-6 sm:px-8 relative overflow-hidden flex flex-col items-center justify-center">
-          {/* Left Floating Image */}
-          <img
-            src="/FAQS/vacumecleaner.png"
-            alt="Vacuum Cleaner"
-            className="hidden lg:block absolute left-[8%] top-[25%] w-[240px] object-contain animate-float"
-          />
-
-          {/* Right Floating Image (Delayed Animation) */}
-          <img
-            src="/FAQS/sofa.png"
-            alt="Sofa and Vacuum"
-            className="hidden lg:block absolute right-[8%] bottom-[15%] w-[260px] object-contain animate-float-delayed"
-          />
-
-          <div className="max-w-[700px] mx-auto text-center relative z-10 flex flex-col items-center gap-4 md:gap-[20px]">
-            <h2 className="text-[32px] sm:text-[50px] md:text-[60px] font-bold text-white tracking-[-1px] md:tracking-[-1.5px] leading-[1.1] md:leading-[1.16]">
-              Let’s Get Your Carpets
-              <br />
-              Fresh Again
-            </h2>
-            <p className="text-[16px] md:text-[18px] font-normal text-white/90 leading-[1.5] md:leading-[1.6] max-w-[560px]">
-              Leave the cleaning to our professionals and enjoy a cleaner,
-              fresher home without the hassle.
-            </p>
-            <a
-              href="tel:0434161161"
-              className="group relative flex items-center   text-white rounded-[12px] h-[61px] transition-all duration-300 overflow-hidden w-fit mt-6 md:mt-4"
-            >
-              {/* Expandable White Background Box */}
-              <div className="bg-white rounded-[8px] absolute left-[4px] inset-y-[4px] z-0 transition-all duration-700 ease-in-out w-[49px] group-hover:w-[calc(100%-8px)]" />
-
-              {/* Icon Container */}
-              <div className="absolute left-[17px] z-10 top-1/2 -translate-y-1/2 text-[#0B4255]">
-                <PhoneIcon />
-              </div>
-
-              {/* Button Text */}
-              <span className="relative z-10 ml-[64px] pr-6 font-bold text-[16px] md:text-[19px] whitespace-nowrap transition-colors duration-700 group-hover:text-[#0B4255]">
-                Book Your Cleaning Today
-              </span>
-            </a>{" "}
           </div>
         </div>
       </section>

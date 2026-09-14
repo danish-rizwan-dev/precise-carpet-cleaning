@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Header from "../layout/header";
+import HomePageHeader from "../layout/homepageHeader";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -46,7 +46,7 @@ export default function Hero() {
       className="relative w-full overflow-hidden bg-black font-['Plus_Jakarta_Sans',sans-serif]"
     >
       <div className="absolute inset-x-0 top-0 z-50">
-        <Header />
+        <HomePageHeader />
       </div>
       <motion.div
         aria-hidden="true"

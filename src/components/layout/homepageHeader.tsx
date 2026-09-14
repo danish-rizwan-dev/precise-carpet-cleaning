@@ -1,14 +1,39 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, ChevronDown } from "lucide-react";
 
-export default function Header() {
+export default function HomePageHeader() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Track scroll progress for mobile header transformation
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    const handleScroll = () => {
+      // Transition completes over 300px (roughly half of the mobile hero section)
+      const currentScroll = window.scrollY;
+      const progress = Math.min(currentScroll / 300, 1);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   const openDropdown = useCallback(() => {
     if (closeTimerRef.current) {
@@ -40,11 +65,14 @@ export default function Header() {
   const dropdownLinksLeft = navLinks.slice(0, 6);
   const dropdownLinksRight = navLinks.slice(6);
 
-  const logoFilter =
-    "brightness(0) saturate(100%) invert(18%) sepia(48%) saturate(1540%) hue-rotate(159deg) brightness(94%) contrast(96%)";
+  // Dynamic values calculated from scroll progress (Mobile only)
+  const isScrolled = isMobile && scrollProgress > 0.5;
+  const mobileBgStyle = isMobile
+    ? { backgroundColor: `rgba(255, 255, 252, ${scrollProgress})` }
+    : {};
 
   return (
-    <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50">
+    <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50 overflow-visible">
       {/* Top Blue Bar - Hidden on Mobile */}
       <div className="hidden lg:block w-full bg-[#0b4255] text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
         <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-[124px] overflow-hidden">
@@ -106,23 +134,30 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main Navigation Bar - White background, dark text */}
-      <div className="w-full bg-white h-[70px] sm:h-[76px] lg:h-[105px] flex items-center justify-between px-4 sm:px-6 lg:px-[124px] max-w-[1920px] mx-auto ">
+      {/* Main Navigation Bar (Fixed & Dynamic Background on Mobile) */}
+      <div
+        style={mobileBgStyle}
+        className="fixed lg:relative top-0 left-0 right-0 w-full h-[70px] sm:h-[76px] lg:h-[105px] flex items-center justify-between px-4 sm:px-6 lg:px-[124px] max-w-[1920px] mx-auto transition-colors duration-200 z-50 backdrop-blur-[2px] lg:backdrop-blur-none"
+      >
         {/* Logo Left */}
         <Link href="/" className="relative w-[145px] sm:w-[175px] h-[48px] sm:h-[56px]">
           <Image
             src="/logo.svg"
             alt="Precise Carpet Cleaning Services"
             fill
-            style={{ filter: logoFilter }}
-            className="object-contain object-left"
+            style={{
+              filter: isScrolled
+                ? "brightness(0) saturate(100%) invert(18%) sepia(48%) saturate(1540%) hue-rotate(159deg) brightness(94%) contrast(96%)"
+                : "none",
+            }}
+            className="object-contain object-left transition-all duration-300"
             priority
           />
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
-          <nav className="flex items-center gap-8 text-[#171206] font-semibold text-[16px]">
+          <nav className="flex items-center gap-8 text-white font-semibold text-[16px]">
             <div
               className="relative group cursor-pointer"
               onMouseEnter={openDropdown}
@@ -136,7 +171,7 @@ export default function Header() {
                 <ChevronDown
                   size={16}
                   className={`transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
-                    isDropdownOpen ? "rotate-180 text-[#ff0000]" : "rotate-0 text-[#171206]"
+                    isDropdownOpen ? "rotate-180 text-[#ff0000]" : "rotate-0 text-white"
                   }`}
                 />
               </button>
@@ -198,26 +233,29 @@ export default function Header() {
           </a>
         </div>
 
-        {/* Hamburger Button - Always dark on non-homepage */}
+        {/* Animated Hamburger to Cross Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden p-2 -mr-1 focus:outline-none z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5"
+          className="lg:hidden p-2 -mr-1 transition-colors duration-300 focus:outline-none z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5"
           aria-label="Toggle Navigation"
         >
+          {/* Top Line */}
           <span
-            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out origin-center bg-[#0b4255] ${
-              isMobileMenuOpen ? "rotate-45 translate-y-[8px]" : ""
-            }`}
+            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out origin-center ${
+              isScrolled ? "bg-[#0b4255]" : "bg-white"
+            } ${isMobileMenuOpen ? "rotate-45 translate-y-[8px]" : ""}`}
           />
+          {/* Middle Line */}
           <span
-            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out bg-[#0b4255] ${
-              isMobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
-            }`}
+            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out ${
+              isScrolled ? "bg-[#0b4255]" : "bg-white"
+            } ${isMobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"}`}
           />
+          {/* Bottom Line */}
           <span
-            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out origin-center bg-[#0b4255] ${
-              isMobileMenuOpen ? "-rotate-45 -translate-y-[8px]" : ""
-            }`}
+            className={`w-7 h-[2.5px] rounded-full transition-all duration-300 ease-in-out origin-center ${
+              isScrolled ? "bg-[#0b4255]" : "bg-white"
+            } ${isMobileMenuOpen ? "-rotate-45 -translate-y-[8px]" : ""}`}
           />
         </button>
 

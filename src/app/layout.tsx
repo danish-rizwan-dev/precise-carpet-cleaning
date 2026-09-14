@@ -1,18 +1,19 @@
-import "./globals.css"
+import "./globals.css";
 
-import type { Metadata, Viewport } from "next"
-import { Plus_Jakarta_Sans } from "next/font/google"
-import Footer from "@/components/layout/footer"
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import Footer from "@/components/layout/footer";
+import ConditionalHeader from "@/components/layout/conditionalHeader";
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-plus-jakarta",
-})
+});
 
-const SITE_URL = "https://precisecarpetcleaningservice.framer.website"
-const SITE_NAME = "Precise Carpet Cleaning Services"
+const SITE_URL = "https://precisecarpetcleaningservice.framer.website";
+const SITE_NAME = "Precise Carpet Cleaning Services";
 const DESCRIPTION =
-  "Professional carpet, rug and upholstery cleaning for homes and businesses. 4.9★ rated, same day cleaning, safe chemicals for kids & pets."
+  "Professional carpet, rug and upholstery cleaning for homes and businesses. 4.9★ rated, same day cleaning, safe chemicals for kids & pets.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -57,23 +58,24 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: ["/hero/herobackgroundimage.png"],
   },
-}
+};
 
 export const viewport: Viewport = {
   themeColor: "#0e4b5a",
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" className={plusJakarta.variable}>
       <body className={`${plusJakarta.className} antialiased`}>
+        <ConditionalHeader />
         {children}
         <Footer />
       </body>
     </html>
-  )
+  );
 }
