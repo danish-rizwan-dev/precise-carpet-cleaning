@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Star } from "lucide-react";
+import ScrollMoveImage from "../ui/scrollMoveImage";
 
 const SERVICES = [
   {
@@ -70,14 +73,16 @@ export default function ServicesSection() {
               className="w-full max-w-[408px] flex flex-col items-start text-left"
             >
               {/* Image Container */}
-              <div className="w-full h-[315px] relative rounded-[28px] overflow-hidden mb-6 bg-gray-100 shadow-sm">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <ScrollMoveImage className="w-full">
+                <div className="w-full h-[315px] relative rounded-[28px] overflow-hidden mb-6 bg-gray-100 shadow-sm">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </ScrollMoveImage>
 
               {/* Text Container */}
               <div className="flex flex-col items-start px-1">

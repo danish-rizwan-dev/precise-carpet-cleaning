@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import ScrollMoveImage from "../ui/scrollMoveImage";
 
 const OFFERS = [
   {
@@ -65,7 +68,7 @@ export default function CleaningOffers() {
           {OFFERS.map((offer) => (
             <div
               key={offer.id}
-              className="w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+              className="group w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
             >
               {/* Asset Image */}
               <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
@@ -81,10 +84,10 @@ export default function CleaningOffers() {
 
               {/* Content Container */}
               <div className="flex flex-col items-center justify-start max-w-[330px]">
-                <h3 className="text-xl sm:text-[22px] md:text-[24px] font-bold text-[#171206] leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4">
+                <h3 className="text-xl sm:text-[22px] md:text-[24px] font-bold text-[#171206] group-hover:text-white leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4 transition-colors duration-300">
                   {offer.title}
                 </h3>
-                <p className="text-sm sm:text-[14px] font-medium text-[#171206]/80 leading-[1.45] sm:leading-[21.84px]">
+                <p className="text-sm sm:text-[14px] font-medium text-[#171206]/80 group-hover:text-white/80 leading-[1.45] sm:leading-[21.84px] transition-colors duration-300">
                   {offer.description}
                 </p>
               </div>
@@ -98,17 +101,19 @@ export default function CleaningOffers() {
         <div className="max-w-[1272px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Image Tilted Left (Counter-Clockwise) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-start relative">
-            <div
-              className="relative w-full max-w-[427px] h-[300px] sm:h-[353px] rounded-[32px] overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
-              style={{ transform: "rotate(-8deg)" }}
-            >
-              <Image
-                src="/cleaningoffers/carpetcleaning.png"
-                alt="Expert team carpet cleaning"
-                fill
-                className="object-cover"
-              />
-            </div>
+            <ScrollMoveImage className="w-full">
+              <div
+                className="relative w-full max-w-[427px] h-[300px] sm:h-[353px] rounded-[32px] overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
+                style={{ transform: "rotate(-8deg)" }}
+              >
+                <Image
+                  src="/cleaningoffers/carpetcleaning.png"
+                  alt="Expert team carpet cleaning"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </ScrollMoveImage>
           </div>
 
           {/* Right Column: Arrow, Text Content & Bottom Image */}

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
+import ScrollMoveImage from '../ui/scrollMoveImage';
 
 const TESTIMONIALS = [
   {
@@ -231,14 +232,16 @@ export default function Testimonials() {
           </div>
           </div>
 
-          <div className="w-full lg:w-[500px] h-[280px] sm:h-[350px] md:h-[420px] relative bg-gray-100 shrink-0 rounded-[18px] overflow-hidden">
-            <Image
-              src="/testimonials/vacumecleaner.png"
-              alt="Cleaner working professionally with equipment"
-              fill
-              className="object-cover"
-            />
-          </div>
+          <ScrollMoveImage className="w-full lg:w-[500px] shrink-0">
+            <div className="w-full h-[280px] sm:h-[350px] md:h-[420px] relative bg-gray-100 rounded-[18px] overflow-hidden">
+              <Image
+                src="/testimonials/vacumecleaner.png"
+                alt="Cleaner working professionally with equipment"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </ScrollMoveImage>
 
         </div>
       </div>

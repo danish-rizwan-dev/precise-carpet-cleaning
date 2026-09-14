@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import ScrollMoveImage from '../ui/scrollMoveImage';
+import CountUp from '../ui/countUp';
 
 const STEPS = [
   {
@@ -127,20 +129,22 @@ export default function HowItWorks() {
           </div>
 
           <div className="w-full relative flex flex-col rounded-b-[18px] overflow-hidden">
-            <div className="relative w-full h-[400px] sm:h-[500px] md:h-[650px] bg-gray-100">
-              {STEPS.map((step, idx) => (
-                <Image
-                  key={step.id}
-                  src={step.image}
-                  alt={step.title}
-                  fill
-                  priority={idx === 0}
-                  className={`object-cover transition-opacity duration-700 ease-in-out ${
-                    activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                  }`}
-                />
-              ))}
-            </div>
+            <ScrollMoveImage className="w-full" y={20}>
+              <div className="relative w-full h-[400px] sm:h-[500px] md:h-[650px] bg-gray-100">
+                {STEPS.map((step, idx) => (
+                  <Image
+                    key={step.id}
+                    src={step.image}
+                    alt={step.title}
+                    fill
+                    priority={idx === 0}
+                    className={`object-cover transition-opacity duration-700 ease-in-out ${
+                      activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                    }`}
+                  />
+                ))}
+              </div>
+            </ScrollMoveImage>
 
             <div className="w-full bg-[#0B4255] md:absolute md:bottom-0 md:left-0 z-20 min-h-[169px] rounded-b-[18px] md:rounded-[18px] flex items-center justify-center py-8 px-6 md:px-12">
               <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4">
@@ -152,7 +156,7 @@ export default function HowItWorks() {
                     }`}
                   >
                     <span className="font-bold text-[32px] sm:text-[40px] leading-[50px] tracking-[-1px] mb-1">
-                      {stat.value}
+                      <CountUp target={stat.value} />
                     </span>
                     <span className="font-medium text-[16px] sm:text-[20px] leading-[31.2px] text-white/90 text-center md:text-left">
                       {stat.label}
@@ -168,19 +172,21 @@ export default function HowItWorks() {
         <div className="w-full max-w-[1176px] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-8 mt-24 md:mt-32">
           
           {/* Left Side: Accordion Image */}
-          <div className="w-full lg:w-[611px] h-[400px] sm:h-[550px] relative shrink-0 bg-gray-100 rounded-[18px] overflow-hidden order-2 lg:order-1">
-            {ACCORDION_DATA.map((item, idx) => (
-              <Image
-                key={idx}
-                src={item.image}
-                alt={item.title}
-                fill
-                className={`object-cover transition-opacity duration-700 ease-in-out ${
-                  activeAccordion === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              />
-            ))}
-          </div>
+          <ScrollMoveImage className="w-full lg:w-[611px] shrink-0 order-2 lg:order-1">
+            <div className="w-full h-[400px] sm:h-[550px] relative bg-gray-100 rounded-[18px] overflow-hidden">
+              {ACCORDION_DATA.map((item, idx) => (
+                <Image
+                  key={idx}
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className={`object-cover transition-opacity duration-700 ease-in-out ${
+                    activeAccordion === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  }`}
+                />
+              ))}
+            </div>
+          </ScrollMoveImage>
 
           {/* Right Side: Text & Accordion */}
           <div className="w-full lg:w-[520px] flex flex-col lg:mt-[40px] order-1 lg:order-2">

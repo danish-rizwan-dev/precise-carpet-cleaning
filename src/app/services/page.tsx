@@ -1,6 +1,10 @@
+"use client";
+
 import FaqPage from "@/components/homepage/faq";
 import Image from "next/image";
 import { FaQ } from "react-icons/fa6";
+import ScrollMoveImage from "@/components/ui/scrollMoveImage";
+import OurStorySection from "../pricing/page";
 
 const ClockIcon = () => (
   <svg
@@ -112,6 +116,7 @@ const OFFERS = [
 export default function ServicesPage() {
   return (
     <main>
+      <OurStorySection />
       {/* Upper Offers Section */}
       <section className="w-full bg-[#f2f7f9] py-12 px-4 sm:px-8 md:py-24 md:px-12 flex flex-col items-center justify-center">
         {/* Header Container */}
@@ -129,7 +134,7 @@ export default function ServicesPage() {
           {OFFERS.map((offer) => (
             <div
               key={offer.id}
-              className="w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+              className="group w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
             >
               {/* Asset Image */}
               <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
@@ -145,10 +150,10 @@ export default function ServicesPage() {
 
               {/* Content Container */}
               <div className="flex flex-col items-center justify-start max-w-[330px]">
-                <h3 className="text-xl sm:text-[22px] md:text-[24px] font-bold text-[#171206] leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4">
+                <h3 className="text-xl sm:text-[22px] md:text-[24px] font-bold text-[#171206] group-hover:text-white leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4 transition-colors duration-300">
                   {offer.title}
                 </h3>
-                <p className="text-sm sm:text-[14px] font-medium text-[#171206]/80 leading-[1.45] sm:leading-[21.84px]">
+                <p className="text-sm sm:text-[14px] font-medium text-[#171206]/80 group-hover:text-white/80 leading-[1.45] sm:leading-[21.84px] transition-colors duration-300">
                   {offer.description}
                 </p>
               </div>
@@ -226,14 +231,16 @@ export default function ServicesPage() {
         {/* Main Content Area */}
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-[80px] w-full max-w-[1100px]">
           {/* Left Side: Unmasked Main Image */}
-          <div className="w-full max-w-[560px] lg:w-[560px] h-[380px] sm:h-[480px] lg:h-[540px] relative shrink-0 overflow-hidden rounded-[24px]">
-            <Image
-              src="/ourServices/recoveryourtime.png"
-              alt="Recover Your Time"
-              fill
-              className="object-contain rounded-[300px]"
-            />
-          </div>
+          <ScrollMoveImage className="w-full max-w-[560px] lg:w-[560px] shrink-0">
+            <div className="w-full h-[380px] sm:h-[480px] lg:h-[540px] relative overflow-hidden rounded-[24px]">
+              <Image
+                src="/ourServices/recoveryourtime.png"
+                alt="Recover Your Time"
+                fill
+                className="object-contain rounded-[300px]"
+              />
+            </div>
+          </ScrollMoveImage>
 
           {/* Right Side: Text & Features */}
           <div className="w-full max-w-[540px] flex flex-col items-start">
