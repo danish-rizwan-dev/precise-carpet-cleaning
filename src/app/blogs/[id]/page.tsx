@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { use } from "react";
 import { articlesData } from "@/data/articles";
+import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
 const ArrowLeftIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg
@@ -60,14 +61,14 @@ export default function BlogPostPage({
         {/* Article Content Sections */}
         <div className="flex flex-col gap-10 w-full mb-12 text-left">
           {article.sections.map((sec, idx) => (
-            <div key={idx} className="flex flex-col gap-3">
+            <ScrollReveal key={idx} delay={idx * 0.08}><div className="flex flex-col gap-3">
               <h2 className="text-[20px] sm:text-[24px] font-bold text-[#171206] tracking-[-0.5px]">
                 {sec.title}
               </h2>
               <p className="text-[15px] sm:text-[16px] text-[#5B5955] leading-[26px]">
                 {sec.content}
               </p>
-            </div>
+            </div></ScrollReveal>
           ))}
         </div>
 
@@ -88,9 +89,9 @@ export default function BlogPostPage({
 
       {/* Read More Article Section */}
       <div className="w-full max-w-[1272px] mx-auto pt-10 border-t border-gray-100">
-        <h2 className="text-[36px] sm:text-[48px] font-bold text-[#171206] tracking-[-1.5px] mb-10 text-left">
+        <WordReveal className="text-[36px] sm:text-[48px] font-bold text-[#171206] tracking-[-1.5px] mb-10 text-left">
           Read More Article
-        </h2>
+        </WordReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px] w-full">
           {otherArticles.map((relArticle) => (

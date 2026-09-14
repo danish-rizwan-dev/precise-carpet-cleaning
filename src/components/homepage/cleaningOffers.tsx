@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ScrollMoveImage from "../ui/scrollMoveImage";
+import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
 
 const OFFERS = [
   {
@@ -62,44 +63,52 @@ export default function CleaningOffers() {
       <section className="w-full bg-[#f2f7f9] py-12 px-4 sm:px-8 md:py-24 md:px-12 flex flex-col items-center justify-center">
         {/* Header Container */}
         <div className="max-w-[1272px] w-full text-center mb-8 sm:mb-12 md:mb-[72px]">
-          <h2 className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
+          <WordReveal className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
             Exclusive Cleaning Offers
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
-            Save more while keeping your home fresh, clean &amp; protected.
-          </p>
+          </WordReveal>
+          <ScrollReveal delay={0.18}>
+            <p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
+              Save more while keeping your home fresh, clean &amp; protected.
+            </p>
+          </ScrollReveal>
         </div>
 
         {/* Offers Grid */}
         <div className="w-full max-w-[1272px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
           {OFFERS.map((offer) => (
-            <Link
+            <ScrollReveal
               key={offer.id}
-              href={`/services/${offer.slug}`}
-              className="group w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+              className="w-full max-w-[410px]"
+              delay={(offer.id - 1) * 0.07}
             >
-              {/* Asset Image */}
-              <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
-                <Image
-                  src={offer.image}
-                  alt={offer.title}
-                  width={180}
-                  height={122}
-                  className="object-contain"
-                  priority={offer.id <= 3}
-                />
-              </div>
+              <Link
+                href={`/services/${offer.slug}`}
+                className="group w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+              >
+                {/* Asset Image */}
+                <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
+                  <Image
+                    src={offer.image}
+                    alt={offer.title}
+                    width={180}
+                    height={122}
+                    style={{ width: "auto", height: "auto" }}
+                    className="object-contain"
+                    priority={offer.id <= 3}
+                  />
+                </div>
 
-              {/* Content Container */}
-              <div className="flex flex-col items-center justify-start max-w-[330px]">
-                <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-bold text-[#171206] group-hover:text-white leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4 transition-colors duration-300">
-                  {offer.title}
-                </h3>
-                <p className="text-sm sm:text-[14px] font-medium text-[#171206]/80 group-hover:text-white/80 leading-[1.45] sm:leading-[21.84px] transition-colors duration-300">
-                  {offer.description}
-                </p>
-              </div>
-            </Link>
+                {/* Content Container */}
+                <div className="flex flex-col items-center justify-start max-w-[330px]">
+                  <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-bold text-[#171206] group-hover:text-white leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4 transition-colors duration-300">
+                    {offer.title}
+                  </h3>
+                  <p className="text-sm sm:text-[14px] font-medium text-[#171206]/80 group-hover:text-white/80 leading-[1.45] sm:leading-[21.84px] transition-colors duration-300">
+                    {offer.description}
+                  </p>
+                </div>
+              </Link>
+            </ScrollReveal>
           ))}
         </div>
       </section>
@@ -118,6 +127,7 @@ export default function CleaningOffers() {
                   src="/cleaningoffers/carpetcleaning.png"
                   alt="Expert team carpet cleaning"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 427px"
                   className="object-cover"
                 />
               </div>
@@ -141,7 +151,10 @@ export default function CleaningOffers() {
             </div>
 
             {/* Description Paragraph */}
-            <div className="max-w-[612px] mb-10 text-center lg:text-left lg:ml-25 z-20">
+            <ScrollReveal
+              direction="left"
+              className="max-w-[612px] mb-10 text-center lg:text-left lg:ml-25 z-20"
+            >
               <p className="text-lg sm:text-xl lg:text-[24px] font-bold text-[#171206] leading-[1.45] tracking-tight">
                 With our expert team and top-of-the-line equipment, we deliver
                 exceptional results that exceed expectations. Whether
@@ -149,21 +162,23 @@ export default function CleaningOffers() {
                 a business owner aiming to impress clients, we have the
                 solutions to meet your needs.
               </p>
-            </div>
-
-            {/* Right Column: Image Tilted Right (Clockwise, milder tilt than left image) */}
+            </ScrollReveal>
+            {/* bottom image tilted right (clockwise)  shift if more right */}
             <div className="w-full flex justify-center lg:justify-end">
-              <div
-                className="relative w-full max-w-[540px] h-[320px] sm:h-[427px] rounded-[40px] overflow-hidden shadow-xl transition-transform duration-300 hover:scale-105"
-                style={{ transform: "rotate(3deg)" }}
-              >
-                <Image
-                  src="/cleaningoffers/carpetcleaning2.png"
-                  alt="Upholstery cleaning solution"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <ScrollMoveImage className="w-full max-w-[560px]">
+                {/* Right Column: Image Tilted Right (Clockwise, milder tilt than left image) */}
+                <div
+                  className="relative w-full max-w-[540px] h-[320px] sm:h-[427px] rounded-[40px] overflow-hidden shadow-xl transition-transform duration-300 hover:scale-105"
+                  style={{ transform: "rotate(3deg)" }}
+                >
+                  <Image
+                    src="/cleaningoffers/carpetcleaning2.png"
+                    alt="Upholstery cleaning solution"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </ScrollMoveImage>
             </div>
           </div>
         </div>

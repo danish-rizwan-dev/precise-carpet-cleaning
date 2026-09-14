@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
 const PhoneIcon = () => (
   <svg
@@ -83,17 +84,17 @@ export default function GetInTouchSection() {
         {/* Left Side Content & Info */}
         <div className="w-full lg:max-w-[500px] flex flex-col justify-between lg:min-h-[585px] gap-8 lg:gap-0">
           <div>
-            <h2 className="inline-block text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-4px] leading-[1.15] lg:leading-[82.8px] mb-4">
+            <WordReveal className="inline-block text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-4px] leading-[1.15] lg:leading-[82.8px] mb-4">
               Get in Touch
-            </h2>
-            <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] max-w-[420px]">
+            </WordReveal>
+            <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] max-w-[420px]">
               Have questions or need to book a cleaning? Contact us anytime, and
-              we’ll respond quickly to you.
-            </p>
+              we'll respond quickly to you.
+            </p></ScrollReveal>
           </div>
 
           {/* Left Bottom Details Box */}
-          <div className="flex flex-col items-start gap-[18px] justify-center w-full lg:w-[500px]">
+          <ScrollReveal delay={0.25}><div className="flex flex-col items-start gap-[18px] justify-center w-full lg:w-[500px]">
             <div className="flex items-center gap-3">
               <PhoneIcon />
               <span className="text-[16px] font-medium text-[#171206]">
@@ -117,11 +118,11 @@ export default function GetInTouchSection() {
                 hello@Neatly.com
               </a>
             </div>
-          </div>
+          </div></ScrollReveal>
         </div>
 
         {/* Right Side Form Card */}
-        <div className="w-full lg:w-[562px] lg:min-h-[585px] bg-white rounded-[22px] p-7 sm:p-[28px] shadow-[0px_20px_50px_rgba(0,0,0,0.05)] border border-gray-100 flex flex-col justify-start gap-[24px]">
+        <ScrollReveal delay={0.3} direction="right"><div className="w-full lg:w-[562px] lg:min-h-[585px] bg-white rounded-[22px] p-7 sm:p-[28px] shadow-[0px_20px_50px_rgba(0,0,0,0.05)] border border-gray-100 flex flex-col justify-start gap-[24px]">
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-[20px] w-full"
@@ -234,7 +235,7 @@ export default function GetInTouchSection() {
               Send Message
             </button>
           </form>
-        </div>
+        </div></ScrollReveal>
       </div>
     </section>
   );

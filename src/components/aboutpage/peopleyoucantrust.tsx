@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
 
 const TEAM_MEMBERS = [
   {
@@ -48,20 +49,14 @@ export default function PeopleYouCanTrustSection() {
     <section className="w-full max-w-[1272px] mx-auto py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Header Container */}
       <div className="text-center max-w-[680px] mx-auto mb-12 sm:mb-16">
-        <h2 className="text-[40px] sm:text-[50px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] lg:leading-[69.6px] mb-4">
-          People You Can Trust
-        </h2>
-        <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">
-          Our dedicated team consists of highly trained professionals who take
-          immense pride in their work and strive to deliver exceptional
-          results.
-        </p>
+        <WordReveal className="text-[40px] sm:text-[50px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] lg:leading-[69.6px] mb-4">People You Can Trust</WordReveal>
+        <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">Our dedicated team consists of highly trained professionals who take immense pride in their work and strive to deliver exceptional results.</p></ScrollReveal>
       </div>
 
       {/* Grid Container */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 justify-items-center">
         {TEAM_MEMBERS.map((member, idx) => (
-          <div key={idx} className="flex flex-col w-full max-w-[300px]">
+          <ScrollReveal key={idx} className="flex flex-col w-full max-w-[300px]" delay={idx * 0.06}>
             {/* Image Card Container - Clean Rounded Borders (No Clouds) */}
             <div className="w-[300px] h-[315px] relative rounded-[24px] overflow-hidden bg-[#e0e0e0] mb-4 group shrink-0">
               <Image
@@ -80,7 +75,7 @@ export default function PeopleYouCanTrustSection() {
             <p className="text-[18px] font-medium text-[#5B5955] leading-[28.08px]">
               {member.role}
             </p>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </section>

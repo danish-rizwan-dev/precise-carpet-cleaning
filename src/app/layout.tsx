@@ -70,8 +70,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={plusJakarta.variable}>
-      <body className={`${plusJakarta.className} antialiased`}>
+    <html lang="en" className={`${plusJakarta.variable} overflow-x-hidden`} style={{ overflowX: "hidden" }}>
+      <body className={`${plusJakarta.className} antialiased `}>
         <ConditionalHeader />
         {children}
         <Footer />

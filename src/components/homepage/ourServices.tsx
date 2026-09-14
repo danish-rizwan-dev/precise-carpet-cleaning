@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, Star } from "lucide-react";
 import ScrollMoveImage from "../ui/scrollMoveImage";
+import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
 
 const SERVICES = [
   {
@@ -56,21 +57,16 @@ export default function ServicesSection() {
       <div className="max-w-[1272px] w-full flex flex-col items-center">
         {/* Section Header */}
         <div className="max-w-[715px] w-full text-center mb-12 md:mb-16">
-          <h2 className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">
-            Our services
-          </h2>
-          <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] max-w-[650px] mx-auto">
-            Our services cater to both residential and commercial clients,
-            ensuring that homes and businesses alike enjoy a clean environment.
-          </p>
+          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">Our services</WordReveal>
+          <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] max-w-[650px] mx-auto">Our services cater to both residential and commercial clients, ensuring that homes and businesses alike enjoy a clean environment.</p></ScrollReveal>
         </div>
 
         {/* Services 3-Column Grid */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8 justify-items-center mb-16">
           {SERVICES.map((service) => (
-            <div
+            <ScrollReveal
               key={service.id}
-              className="w-full max-w-[408px] flex flex-col items-start text-left"
+              className="w-full max-w-[408px] flex flex-col items-start text-left" delay={(service.id - 1) * 0.07}
             >
               {/* Image Container */}
               <ScrollMoveImage className="w-full">
@@ -93,7 +89,7 @@ export default function ServicesSection() {
                   {service.description}
                 </p>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 

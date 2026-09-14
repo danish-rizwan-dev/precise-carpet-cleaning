@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
+import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
 
 const TESTIMONIALS = [
   {
@@ -74,7 +75,7 @@ export default function Testimonials() {
     const track = trackRef.current;
     if (!track) return;
 
-    let speed = 0.5;
+    const speed = 0.5;
     let paused = false;
 
     const animate = () => {
@@ -149,12 +150,8 @@ export default function Testimonials() {
     <section className="w-full bg-[#f2f7f9] pt-16 md:pt-24 font-['Plus_Jakarta_Sans',sans-serif]">
 
       <div className="max-w-[900px] mx-auto text-center px-4 mb-12 md:mb-16">
-        <h2 className="text-[32px] sm:text-[36px] md:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">
-          Trusted by Happy Customers
-        </h2>
-        <p className="text-[14px] sm:text-[16px] md:text-[18px] font-medium text-[#5B5955] leading-[24px] md:leading-[28.08px]">
-          Real experiences from customers who love coming home to cleaner,<br className="hidden sm:inline" />fresher carpets.
-        </p>
+        <WordReveal className="text-[32px] sm:text-[36px] md:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">Trusted by Happy Customers</WordReveal>
+        <ScrollReveal delay={0.2}><p className="text-[14px] sm:text-[16px] md:text-[18px] font-medium text-[#5B5955] leading-[24px] md:leading-[28.08px]">Real experiences from customers who love coming home to cleaner,<br className="hidden sm:inline" />fresher carpets.</p></ScrollReveal>
       </div>
 
       <div className="w-full pb-32 pt-[60px] overflow-hidden flex flex-col justify-center">
@@ -212,10 +209,8 @@ export default function Testimonials() {
       <div className="w-full bg-white pt-24 pb-24 flex justify-center">
         <div className="max-w-[1176px] w-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 px-4 sm:px-8">
           
-          <div className="w-full lg:w-[520px] flex flex-col items-start text-left">
-          <h2 className="text-[36px] sm:text-[44px] md:text-[52px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-3">
-            Reliable & On Time
-          </h2>
+          <ScrollReveal direction="left" className="w-full lg:w-[520px] flex flex-col items-start text-left">
+          <WordReveal className="text-[36px] sm:text-[44px] md:text-[52px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-3">Reliable & On Time</WordReveal>
             <p className="text-[14px] sm:text-[16px] font-medium text-[#5B5955] leading-[24px] mb-6">
               Our cleaners always show up right on time, so your day stays keep on everything running smoothly.
             </p>
@@ -230,7 +225,7 @@ export default function Testimonials() {
               </div>
             ))}
           </div>
-          </div>
+          </ScrollReveal>
 
           <ScrollMoveImage className="w-full lg:w-[500px] shrink-0">
             <div className="w-full h-[280px] sm:h-[350px] md:h-[420px] relative bg-gray-100 rounded-[18px] overflow-hidden">

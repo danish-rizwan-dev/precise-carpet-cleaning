@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { use } from "react";
 import { servicesData } from "@/data/services";
+import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
 const ArrowLeftIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg
@@ -113,12 +114,12 @@ export default function ServiceDetailsPage({
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="w-full text-[24px] xs:text-[32px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-bold text-[#171206] tracking-normal text-center mb-4 leading-tight sm:leading-normal"
           >
-            FREE Enzyme pet odour treatment
+            {service.title}
           </motion.h1>
 
-          <p className="text-[15px] sm:text-[18px] text-[#5B5955] leading-[24px] sm:leading-[26px] mb-6 max-w-[800px] mx-auto">
+          <ScrollReveal delay={0.15}><p className="text-[15px] sm:text-[18px] text-[#5B5955] leading-[24px] sm:leading-[26px] mb-6 max-w-[800px] mx-auto">
             {service.subtitle}
-          </p>
+          </p></ScrollReveal>
 
           {/* Top Call Button */}
           <div className="flex justify-center">
@@ -139,7 +140,7 @@ export default function ServiceDetailsPage({
         <div className="relative w-full h-[260px] sm:h-[480px] lg:h-[540px] mb-12 sm:mb-16 overflow-hidden rounded-[24px] bg-gray-100">
           <Image
             src={service.image}
-            alt="FREE Enzyme pet odour treatment"
+            alt={service.title}
             fill
             priority
             className="object-cover"
@@ -151,7 +152,7 @@ export default function ServiceDetailsPage({
           {/* Article Section */}
           <div className="lg:col-span-7 flex flex-col gap-10 text-left">
             {service.sections.map((section, idx) => (
-              <div key={idx} className="flex flex-col gap-3">
+              <ScrollReveal key={idx} delay={idx * 0.08}><div className="flex flex-col gap-3">
                 {section.title && (
                   <h2 className="text-[22px] sm:text-[28px] font-bold text-[#171206] tracking-[-0.5px]">
                     {section.title}
@@ -183,7 +184,7 @@ export default function ServiceDetailsPage({
                     ))}
                   </div>
                 )}
-              </div>
+              </div></ScrollReveal>
             ))}
 
             <div className="w-full flex justify-start pt-4">
@@ -201,7 +202,7 @@ export default function ServiceDetailsPage({
           </div>
 
           {/* Sticky Yellow Sidebar */}
-          <div className="lg:col-span-5 sticky top-8 self-start">
+          <ScrollReveal delay={0.2} direction="right"><div className="lg:col-span-5 sticky top-8 self-start">
             <div className="w-full bg-[#FFC500] p-6 sm:p-10 text-center flex flex-col items-center justify-center gap-6 shadow-md rounded-[24px]">
               <h3 className="text-[28px] sm:text-[38px] font-bold text-[#171206] tracking-[-1px]">
                 Make A Call
@@ -223,18 +224,19 @@ export default function ServiceDetailsPage({
               </a>
             </div>
           </div>
+          </ScrollReveal>
         </div>
 
         {/* Testimonials Carousel Section */}
         <div className="w-full pt-12 border-t border-gray-100 flex flex-col items-center overflow-hidden">
           <div className="text-center max-w-[650px] mb-12">
-            <h2 className="text-[32px] sm:text-[48px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.1] mb-3">
+            <WordReveal className="text-[32px] sm:text-[48px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.1] mb-3">
               Professional Experience
-            </h2>
-            <p className="text-[15px] sm:text-[16px] text-[#5B5955] leading-[24px]">
+            </WordReveal>
+            <ScrollReveal delay={0.15}><p className="text-[15px] sm:text-[16px] text-[#5B5955] leading-[24px]">
               After the cleaning, the house didn&apos;t just look clean—it felt
               clean. The air felt fresher, and everything was more comfortable.
-            </p>
+            </p></ScrollReveal>
           </div>
 
           <div className="w-full relative overflow-hidden py-4">

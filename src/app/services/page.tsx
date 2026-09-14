@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaQ } from "react-icons/fa6";
 import ScrollMoveImage from "@/components/ui/scrollMoveImage";
+import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
 const ClockIcon = () => (
   <svg
@@ -63,6 +64,7 @@ const ReviewsImage = () => (
       alt="Reviews Rating"
       width={120}
       height={24}
+      style={{ width: "auto", height: "auto" }}
       className="object-contain"
     />
   </div>
@@ -126,12 +128,12 @@ export default function ServicesPage() {
       <section className="w-full bg-[#f2f7f9] py-12 px-4 sm:px-8 md:py-24 md:px-12 flex flex-col items-center justify-center">
         {/* Header Container */}
         <div className="max-w-[1272px] w-full text-center mb-8 sm:mb-12 md:mb-[72px]">
-          <h2 className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
+          <WordReveal className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
             Exclusive Cleaning Offers
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
+          </WordReveal>
+          <ScrollReveal delay={0.15}><p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
             Save more while keeping your home fresh, clean &amp; protected.
-          </p>
+          </p></ScrollReveal>
         </div>
 
         {/* Offers Grid */}
@@ -149,6 +151,7 @@ export default function ServicesPage() {
                   alt={offer.title}
                   width={180}
                   height={122}
+                  style={{ width: "auto", height: "auto" }}
                   className="object-contain"
                   priority={offer.id <= 3}
                 />
@@ -171,9 +174,9 @@ export default function ServicesPage() {
       {/* Recover Your Time Section */}
       <section className="w-full bg-white flex flex-col items-center pt-8 pb-[80px] px-4 sm:px-[30px] font-['Plus_Jakarta_Sans',sans-serif]">
         {/* Top Banner Text */}
-        <h3 className="text-[20px] md:text-[24px] font-bold text-[#171206] tracking-[-1px] leading-[37.44px] text-center mb-8">
+        <ScrollReveal delay={0.1}><h3 className="text-[20px] md:text-[24px] font-bold text-[#171206] tracking-[-1px] leading-[37.44px] text-center mb-8">
           We&apos;re a top-notch 5-star contractor!
-        </h3>
+        </h3></ScrollReveal>
 
         {/* Logos Section */}
         <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 mb-2 w-full max-w-[1000px]">
@@ -185,6 +188,7 @@ export default function ServicesPage() {
                 alt="ZenZap"
                 width={120}
                 height={40}
+                style={{ width: "auto", height: "auto" }}
                 className="object-contain h-full w-auto"
               />
             </div>
@@ -199,6 +203,7 @@ export default function ServicesPage() {
                 alt="Swift"
                 width={120}
                 height={40}
+                style={{ width: "auto", height: "auto" }}
                 className="object-contain h-full w-auto"
               />
             </div>
@@ -213,6 +218,7 @@ export default function ServicesPage() {
                 alt="Netdot"
                 width={120}
                 height={40}
+                style={{ width: "auto", height: "auto" }}
                 className="object-contain h-full w-auto"
               />
             </div>
@@ -227,6 +233,7 @@ export default function ServicesPage() {
                 alt="Pulse"
                 width={120}
                 height={40}
+                style={{ width: "auto", height: "auto" }}
                 className="object-contain h-full w-auto"
               />
             </div>
@@ -243,21 +250,22 @@ export default function ServicesPage() {
                 src="/ourServices/recoveryourtime.png"
                 alt="Recover Your Time"
                 fill
+                sizes="(max-width: 768px) 100vw, 560px"
                 className="object-contain rounded-[300px]"
               />
             </div>
           </ScrollMoveImage>
 
           {/* Right Side: Text & Features */}
-          <div className="w-full max-w-[540px] flex flex-col items-start">
-            <h2 className="text-[40px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4 text-left">
+          <ScrollReveal direction="right" className="w-full max-w-[540px] flex flex-col items-start">
+            <WordReveal className="text-[40px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4 text-left">
               Recover Your Time
-            </h2>
+            </WordReveal>
 
-            <p className="text-[16px] lg:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-[40px] text-left">
+            <ScrollReveal delay={0.15}><p className="text-[16px] lg:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-[40px] text-left">
               We handle all your cleaning, letting you focus on work, family, or
               rest. No more weekends scrubbing.
-            </p>
+            </p></ScrollReveal>
 
             <div className="flex flex-col gap-[30px] w-full">
               {/* Feature 1 */}
@@ -293,7 +301,7 @@ export default function ServicesPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
       <FaqPage/>

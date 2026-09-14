@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Phone, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import HomePageHeader from "../layout/homepageHeader";
+import { WordReveal } from "../ui/scrollReveal";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -109,12 +110,10 @@ export default function Hero() {
             {/* Main Text Content */}
             <div className="w-full max-w-[380px] sm:max-w-[620px] flex flex-col gap-3 sm:gap-4">
               {/* Title */}
-              <motion.h1
-                variants={itemVariants}
+              <WordReveal
+                as="h1"
                 className="text-[40px] sm:text-[48px] md:text-[58px] lg:text-[72px] font-bold leading-[1.08] tracking-[-1px] sm:tracking-[-2px] lg:tracking-[-3px] text-white"
-              >
-                Sydney&apos;s Carpet Cleaning Experts
-              </motion.h1>
+              >Sydney’s Carpet Cleaning Experts</WordReveal>
 
               {/* Subtitle */}
               <motion.h2

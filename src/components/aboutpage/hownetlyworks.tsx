@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import CountUp from '../ui/countUp';
+import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
 
 const STEPS = [
   {
@@ -69,12 +70,8 @@ export default function HowNetlyWorks() {
       <div className="max-w-[1272px] w-full flex flex-col items-center">
         {/* --- HEADER --- */}
         <div className="max-w-[680px] w-full text-center mb-12 sm:mb-16">
-          <h2 className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">
-            How Netly Works
-          </h2>
-          <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">
-            Please select the service you want, choose a date, and let us know how long you need it for in minutes, if you could.
-          </p>
+          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">How Netly Works</WordReveal>
+          <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">Please select the service you want, choose a date, and let us know how long you need it for in minutes, if you could.</p></ScrollReveal>
         </div>
 
         {/* --- CAROUSEL STEP CONTENT --- */}

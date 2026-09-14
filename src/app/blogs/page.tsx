@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { articlesData } from "@/data/articles";
+import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
 const articles = Object.values(articlesData).map(({ id, date, title, image }) => ({
   id,
@@ -17,13 +18,13 @@ export default function LatestArticlesSection() {
       <div className="max-w-[1272px] mx-auto flex flex-col items-center">
         {/* Header Section */}
         <div className="text-center max-w-[750px] mb-16">
-          <h2 className="text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-2px] leading-[1.1] mb-5">
+          <WordReveal className="text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-2px] leading-[1.1] mb-5">
             Latest Articles
-          </h2>
-          <p className="text-[16px] sm:text-[18px] lg:text-[20px] font-medium text-[#5B5955] leading-[30px]">
+          </WordReveal>
+          <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] lg:text-[20px] font-medium text-[#5B5955] leading-[30px]">
             From daily upkeep to deep cleaning tips, our articles help you make
             informed decisions about maintaining a healthier home.
-          </p>
+          </p></ScrollReveal>
         </div>
 
         {/* Articles Grid */}

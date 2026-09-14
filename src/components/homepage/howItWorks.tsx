@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import CountUp from '../ui/countUp';
+import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
 
 const STEPS = [
   {
@@ -86,12 +87,8 @@ export default function HowItWorks() {
         
         {/* --- PART 1: HOW IT WORKS CAROUSEL --- */}
         <div className="max-w-[597px] w-full text-center mb-12 sm:mb-16">
-          <h2 className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">
-            How Precise Carpet Cleaning Works
-          </h2>
-          <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">
-            Book your carpet cleaning in a few simple steps and let our trained professionals take care of the rest.
-          </p>
+          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">How Precise Carpet Cleaning Works</WordReveal>
+          <ScrollReveal delay={0.2}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">Book your carpet cleaning in a few simple steps and let our trained professionals take care of the rest.</p></ScrollReveal>
         </div>
 
         <div className="w-full max-w-[1176px] flex flex-col relative">
@@ -99,10 +96,10 @@ export default function HowItWorks() {
             {STEPS.map((step, idx) => {
               const isActive = activeTab === idx;
               return (
-                <div
+                <ScrollReveal
                   key={step.id}
                   onClick={() => handleTabClick(idx)}
-                  className="flex flex-col items-start cursor-pointer group"
+                  className="flex flex-col items-start cursor-pointer group" delay={idx * 0.1}
                 >
                   <h3 className={`text-[20px] font-semibold leading-[31.2px] transition-colors duration-300 mb-2 ${
                     isActive ? 'text-[#171206]' : 'text-[#a1a1aa] group-hover:text-[#5B5955]'
@@ -123,7 +120,7 @@ export default function HowItWorks() {
                       />
                     )}
                   </div>
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>
@@ -189,13 +186,9 @@ export default function HowItWorks() {
           </ScrollMoveImage>
 
           {/* Right Side: Text & Accordion */}
-          <div className="w-full lg:w-[520px] flex flex-col lg:mt-[40px] order-1 lg:order-2">
-            <h2 className="text-[40px] md:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">
-              Save Your Time
-            </h2>
-            <p className="text-[16px] md:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-8">
-              We clean so you don’t have to. Get your valuable time back for work, family, or much-needed rest.
-            </p>
+          <ScrollReveal direction="right" className="w-full lg:w-[520px] flex flex-col lg:mt-[40px] order-1 lg:order-2">
+            <WordReveal className="text-[40px] md:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">Save Your Time</WordReveal>
+            <p className="text-[16px] md:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-8">We clean so you don’t have to. Get your valuable time back for work, family, or much-needed rest.</p>
 
             <div className="flex flex-col w-full">
               {ACCORDION_DATA.map((item, idx) => {
@@ -229,7 +222,7 @@ export default function HowItWorks() {
               {/* Bottom border for the last item */}
               <div className="border-t border-gray-200" />
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
       </div>
