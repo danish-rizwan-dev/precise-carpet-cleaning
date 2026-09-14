@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import ScrollMoveImage from "../ui/scrollMoveImage";
 
 const OFFERS = [
   {
     id: 1,
+    slug: "lounge-steam-cleaning-10-off",
     image: "/cleaningoffers/steamclean.png",
     title: "10% off any lounge steam cleaning",
     description:
@@ -13,6 +15,7 @@ const OFFERS = [
   },
   {
     id: 2,
+    slug: "free-enzyme-pet-odour-treatment",
     image: "/cleaningoffers/freeenzymepet.png",
     title: "FREE Enzyme pet odour treatment",
     description:
@@ -20,6 +23,7 @@ const OFFERS = [
   },
   {
     id: 3,
+    slug: "free-stain-removal-carpet-cleaning",
     image: "/cleaningoffers/freestain.png",
     title: "FREE stain removal treatment with every carpet cleaning.",
     description:
@@ -27,12 +31,14 @@ const OFFERS = [
   },
   {
     id: 4,
+    slug: "book-carpet-rug-upholstery-free-scotchgard",
     image: "/cleaningoffers/bookcarpetrug.png",
     title: "Book Carpet, Rug & Upholstery – Get FREE Scotchgard!",
     description: "Deep clean your home and keep it looking fresh for longer.",
   },
   {
     id: 5,
+    slug: "pet-children-friendly-chemicals",
     image: "/cleaningoffers/petfrirendly.png",
     title: "Pet & Children Friendly Chemicals",
     description:
@@ -40,6 +46,7 @@ const OFFERS = [
   },
   {
     id: 6,
+    slug: "leather-cleaning-complimentary-protection",
     image: "/cleaningoffers/leatherclean.png",
     title:
       "With every leather cleaning service, you'll receive a complimentary leather protection treatment.",
@@ -66,8 +73,9 @@ export default function CleaningOffers() {
         {/* Offers Grid */}
         <div className="w-full max-w-[1272px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
           {OFFERS.map((offer) => (
-            <div
+            <Link
               key={offer.id}
+              href={`/services/${offer.slug}`}
               className="group w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
             >
               {/* Asset Image */}
@@ -84,14 +92,14 @@ export default function CleaningOffers() {
 
               {/* Content Container */}
               <div className="flex flex-col items-center justify-start max-w-[330px]">
-                <h3 className="text-xl sm:text-[22px] md:text-[24px] font-bold text-[#171206] group-hover:text-white leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4 transition-colors duration-300">
+                <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-bold text-[#171206] group-hover:text-white leading-[1.3] sm:leading-[37.44px] tracking-[-0.5px] mb-3 sm:mb-4 transition-colors duration-300">
                   {offer.title}
                 </h3>
                 <p className="text-sm sm:text-[14px] font-medium text-[#171206]/80 group-hover:text-white/80 leading-[1.45] sm:leading-[21.84px] transition-colors duration-300">
                   {offer.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

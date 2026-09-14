@@ -57,7 +57,7 @@ export default function OurStorySection() {
         <ScrollMoveImage className="w-full">
           <div className="w-full h-[400px] sm:h-[480px] lg:h-[530px] relative rounded-[32px] overflow-hidden group">
             <Image
-              src="/pricing/ourStoryimg1.png"
+              src="/about/ourStoryimg1.png"
               alt="Cleaner holding bucket"
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -71,7 +71,7 @@ export default function OurStorySection() {
           <ScrollMoveImage className="w-full shrink-0">
             <div className="w-full h-[280px] sm:h-[340px] lg:h-[375px] relative rounded-[32px] overflow-hidden group">
               <Image
-                src="/pricing/ourStoryimg2.png"
+                src="/about/ourStoryimg2.png"
                 alt="Cleaner wiping banister"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -108,7 +108,7 @@ export default function OurStorySection() {
           {/* Left Side Image */}
           <div className="w-full lg:w-[641px] h-[380px] sm:h-[500px] lg:h-[550px] relative rounded-[32px] overflow-hidden shrink-0 group">
             <Image
-              src="/pricing/consisitentResult.png"
+              src="/about/consisitentResult.png"
               alt="Consistent Results At Every Visit"
               width={641}
               height={550}

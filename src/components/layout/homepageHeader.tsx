@@ -53,7 +53,6 @@ export default function HomePageHeader() {
     { name: "Homepage", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
-    { name: "Service Details", href: "/services/details" },
     { name: "Blogs", href: "/blogs" },
     { name: "Blog Details", href: "/blogs/details" },
     { name: "Contact", href: "/contact" },
@@ -213,7 +212,7 @@ export default function HomePageHeader() {
             <Link href="/services" className="hover:text-[#ff0000] transition-colors">
               Services
             </Link>
-            <Link href="/pricing" className="hover:text-[#ff0000] transition-colors">
+            <Link href="/about" className="hover:text-[#ff0000] transition-colors">
               Pricing
             </Link>
             <Link href="/contact" className="hover:text-[#ff0000] transition-colors">
