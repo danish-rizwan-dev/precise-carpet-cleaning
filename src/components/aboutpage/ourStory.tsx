@@ -4,7 +4,7 @@ import ScrollMoveImage from "@/components/ui/scrollMoveImage";
 import CountUp from "@/components/ui/countUp";
 
 const STATS = [
-  { value: "4.7", label: "Average Rating" },
+  { value: "4.9", label: "Average Rating" },
   { value: "1.2k+", label: "Homes Cleaned" },
   { value: "300+", label: "Regular Clients" },
   { value: "100%", label: "Background-Checked Staff" },

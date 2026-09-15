@@ -24,21 +24,13 @@ const OFFERS = [
   },
   {
     id: 3,
-    slug: "free-stain-removal-carpet-cleaning",
-    image: "/cleaningoffers/freestain.png",
-    title: "FREE stain removal treatment with every carpet cleaning.",
-    description:
-      "Give your carpets a deeper clean while tackling those stubborn stains.",
-  },
-  {
-    id: 4,
     slug: "book-carpet-rug-upholstery-free-scotchgard",
     image: "/cleaningoffers/bookcarpetrug.png",
     title: "Book Carpet, Rug & Upholstery – Get FREE Scotchgard!",
     description: "Deep clean your home and keep it looking fresh for longer.",
   },
   {
-    id: 5,
+    id: 4,
     slug: "pet-children-friendly-chemicals",
     image: "/cleaningoffers/petfrirendly.png",
     title: "Pet & Children Friendly Chemicals",
@@ -46,7 +38,7 @@ const OFFERS = [
       "Gentle yet effective cleaning solutions that are carefully chosen to be safer for children, pets and your home.",
   },
   {
-    id: 6,
+    id: 5,
     slug: "leather-cleaning-complimentary-protection",
     image: "/cleaningoffers/leatherclean.png",
     title:
@@ -74,16 +66,16 @@ export default function CleaningOffers() {
         </div>
 
         {/* Offers Grid */}
-        <div className="w-full max-w-[1272px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
+        <div className="w-full max-w-[1272px] flex flex-wrap justify-center gap-6 sm:gap-8">
           {OFFERS.map((offer) => (
             <ScrollReveal
               key={offer.id}
-              className="w-full max-w-[410px]"
+              className="w-[400px]"
               delay={(offer.id - 1) * 0.07}
             >
               <Link
                 href={`/services/${offer.slug}`}
-                className="group w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+                className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
               >
                 {/* Asset Image */}
                 <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
@@ -94,7 +86,7 @@ export default function CleaningOffers() {
                     height={122}
                     style={{ width: "auto", height: "auto" }}
                     className="object-contain"
-                    priority={offer.id <= 3}
+                    priority={offer.id <= 2}
                   />
                 </div>
 

@@ -170,60 +170,7 @@ export const servicesData: Record<string, ServiceDetail> = {
       },
     ],
   },
-  "free-stain-removal-carpet-cleaning": {
-    id: "free-stain-removal-carpet-cleaning",
-    title: "FREE stain removal treatment with every carpet cleaning.",
-    subtitle: "Give your carpets a deeper clean while tackling those stubborn stains.",
-    image: "/blogs/image3.png",
-    sections: [
-      {
-        title: "Why Is Kitchen Cleaning Important?",
-        content:
-          "The kitchen is one of the most frequently used areas in any home, making it prone to grease, food spills, and bacteria buildup. At Neatly, our kitchen cleaning service ensures a hygienic and organized cooking space for you and your family.",
-        subSections: [
-          {
-            title: "A Deeper Clean for Your Kitchen",
-            content:
-              "Regular kitchen cleaning not only improves hygiene but also helps maintain the condition of appliances, cabinets, and countertops. Our team uses safe, eco-friendly cleaning products and professional techniques to remove grease, stains, and unpleasant odors.",
-          },
-        ],
-      },
-      {
-        title: "Why Choose Our Kitchen Cleaning Service?",
-        content: "",
-        list: [
-          "Professional and experienced cleaners",
-          "Safe, eco-friendly cleaning products",
-          "Attention to detail in every corner",
-          "Reliable and on-time service",
-        ],
-      },
-      {
-        title: "What Does Our Service Include?",
-        content:
-          "Our kitchen cleaning service focuses on the areas that need the most attention to keep your kitchen fresh and spotless.",
-        subSections: [
-          {
-            title: "Surface Cleaning",
-            content: "We clean and sanitize countertops, sinks, and kitchen surfaces to remove dirt, grease, and bacteria.",
-          },
-          {
-            title: "Appliance Exterior Cleaning",
-            content: "Our team wipes and cleans the exterior of appliances such as ovens, refrigerators, and microwaves.",
-          },
-          {
-            title: "Cabinet and Floor Cleaning",
-            content: "We remove dust, grease, and stains from cabinets and thoroughly clean kitchen floors.",
-          },
-        ],
-      },
-      {
-        title: "Enjoy a Fresh and Hygienic Kitchen",
-        content:
-          "Let Neatly handle the hard work so you can enjoy a clean, fresh, and comfortable kitchen every day. Contact us today to schedule your professional kitchen cleaning service.",
-      },
-    ],
-  },
+
   "book-carpet-rug-upholstery-free-scotchgard": {
     id: "book-carpet-rug-upholstery-free-scotchgard",
     title: "Book Carpet, Rug & Upholstery – Get FREE Scotchgard!",

@@ -3,7 +3,6 @@
 import FaqPage from "@/components/homepage/faq";
 import Image from "next/image";
 import Link from "next/link";
-import { FaQ } from "react-icons/fa6";
 import ScrollMoveImage from "@/components/ui/scrollMoveImage";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
@@ -89,14 +88,6 @@ const OFFERS = [
   },
   {
     id: 3,
-    slug: "free-stain-removal-carpet-cleaning",
-    image: "/cleaningoffers/freestain.png",
-    title: "FREE stain removal treatment with every carpet cleaning.",
-    description:
-      "Give your carpets a deeper clean while tackling those stubborn stains.",
-  },
-  {
-    id: 4,
     slug: "book-carpet-rug-upholstery-free-scotchgard",
     image: "/cleaningoffers/bookcarpetrug.png",
     title: "Book Carpet, Rug & Upholstery – Get FREE Scotchgard!",
@@ -131,18 +122,20 @@ export default function ServicesPage() {
           <WordReveal className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
             Exclusive Cleaning Offers
           </WordReveal>
-          <ScrollReveal delay={0.15}><p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
-            Save more while keeping your home fresh, clean &amp; protected.
-          </p></ScrollReveal>
+          <ScrollReveal delay={0.15}>
+            <p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
+              Save more while keeping your home fresh, clean &amp; protected.
+            </p>
+          </ScrollReveal>
         </div>
 
         {/* Offers Grid */}
-        <div className="w-full max-w-[1272px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
+        <div className="w-full max-w-[1272px] flex flex-wrap justify-center gap-6 sm:gap-8">
           {OFFERS.map((offer) => (
             <Link
               key={offer.id}
               href={`/services/${offer.slug}`}
-              className="group w-full max-w-[410px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+              className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
             >
               {/* Asset Image */}
               <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
@@ -174,9 +167,11 @@ export default function ServicesPage() {
       {/* Recover Your Time Section */}
       <section className="w-full bg-white flex flex-col items-center pt-8 pb-[80px] px-4 sm:px-[30px] font-['Plus_Jakarta_Sans',sans-serif]">
         {/* Top Banner Text */}
-        <ScrollReveal delay={0.1}><h3 className="text-[20px] md:text-[24px] font-bold text-[#171206] tracking-[-1px] leading-[37.44px] text-center mb-8">
-          We&apos;re a top-notch 5-star contractor!
-        </h3></ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <h3 className="text-[20px] md:text-[24px] font-bold text-[#171206] tracking-[-1px] leading-[37.44px] text-center mb-8">
+            We&apos;re a top-notch 5-star contractor!
+          </h3>
+        </ScrollReveal>
 
         {/* Logos Section */}
         <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 mb-2 w-full max-w-[1000px]">
@@ -257,15 +252,20 @@ export default function ServicesPage() {
           </ScrollMoveImage>
 
           {/* Right Side: Text & Features */}
-          <ScrollReveal direction="right" className="w-full max-w-[540px] flex flex-col items-start">
+          <ScrollReveal
+            direction="right"
+            className="w-full max-w-[540px] flex flex-col items-start"
+          >
             <WordReveal className="text-[40px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4 text-left">
               Recover Your Time
             </WordReveal>
 
-            <ScrollReveal delay={0.15}><p className="text-[16px] lg:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-[40px] text-left">
-              We handle all your cleaning, letting you focus on work, family, or
-              rest. No more weekends scrubbing.
-            </p></ScrollReveal>
+            <ScrollReveal delay={0.15}>
+              <p className="text-[16px] lg:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-[40px] text-left">
+                We handle all your cleaning, letting you focus on work, family, or
+                rest. No more weekends scrubbing.
+              </p>
+            </ScrollReveal>
 
             <div className="flex flex-col gap-[30px] w-full">
               {/* Feature 1 */}
@@ -294,7 +294,7 @@ export default function ServicesPage() {
                     Satisfaction Guaranteed
                   </h4>
                   <p className="text-[#5B5955] text-[15px] lg:text-[16px] leading-[24.96px]">
-                    If something isn&apos;t quite right, we&apos;ll fix it..
+                    If something isn&apos;t quite right, we&apos;ll fix it.
                     Your satisfaction is part of our commitment to quality
                     service.
                   </p>
@@ -304,7 +304,7 @@ export default function ServicesPage() {
           </ScrollReveal>
         </div>
       </section>
-      <FaqPage/>
+      <FaqPage />
     </main>
   );
 }
