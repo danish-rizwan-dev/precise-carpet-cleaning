@@ -166,12 +166,12 @@ export default function Footer() {
               © 2026 Precise Carpet Cleaning Services.
             </p>
             <a
-              href="https://triolzs.com"
+              href="https://www.inbits.com.au"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#2196F3] text-[14px] sm:text-[15px] font-medium hover:underline text-left"
             >
-              Powered by Triolzs.com
+              Powered by www.inbits.com.au
             </a>
           </div>
         </div>
