@@ -1,19 +1,23 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, ChevronDown } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 
 export default function HomePageHeader() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [isMobile, setIsMobile] = useState(false);
 
-  // Track scroll progress for mobile header transformation
+  const navLinks = [
+    { name: "Services", href: "/services" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  // Dynamic values calculated from scroll progress (Mobile only)
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -22,7 +26,6 @@ export default function HomePageHeader() {
     window.addEventListener("resize", checkMobile);
 
     const handleScroll = () => {
-      // Transition completes over 300px (roughly half of the mobile hero section)
       const currentScroll = window.scrollY;
       const progress = Math.min(currentScroll / 300, 1);
       setScrollProgress(progress);
@@ -35,36 +38,6 @@ export default function HomePageHeader() {
     };
   }, []);
 
-  const openDropdown = useCallback(() => {
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
-    setIsDropdownOpen(true);
-  }, []);
-
-  const closeDropdown = useCallback(() => {
-    closeTimerRef.current = setTimeout(() => {
-      setIsDropdownOpen(false);
-    }, 300);
-  }, []);
-
-  const navLinks = [
-    { name: "Homepage", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Blogs", href: "/blogs" },
-    { name: "Blog Details", href: "/blogs/details" },
-    { name: "Contact", href: "/contact" },
-    { name: "Appointment", href: "/appointment" },
-    { name: "Privacy Policy", href: "/privacy-policy" },
-    { name: "404", href: "/404" },
-  ];
-
-  const dropdownLinksLeft = navLinks.slice(0, 6);
-  const dropdownLinksRight = navLinks.slice(6);
-
-  // Dynamic values calculated from scroll progress (Mobile only)
   const isScrolled = isMobile && scrollProgress > 0.5;
   const mobileBgStyle = isMobile
     ? { backgroundColor: `rgba(255, 255, 252, ${scrollProgress})` }
@@ -157,67 +130,15 @@ export default function HomePageHeader() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
           <nav className="flex items-center gap-8 text-white font-semibold text-[16px]">
-            <div
-              className="relative group cursor-pointer"
-              onMouseEnter={openDropdown}
-              onMouseLeave={closeDropdown}
-              aria-expanded={isDropdownOpen}
-            >
-              <button className="flex items-center gap-1.5 hover:text-[#ff0000] transition-colors py-2 focus:outline-none">
-                <span className={isDropdownOpen ? "text-[#ff0000]" : ""}>
-                  All Pages
-                </span>
-                <ChevronDown
-                  size={16}
-                  className={`transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
-                    isDropdownOpen ? "rotate-180 text-[#ff0000]" : "rotate-0 text-white"
-                  }`}
-                />
-              </button>
-
-              {isDropdownOpen && (
-                <div
-                  className="absolute left-0 top-full pt-2"
-                  onMouseEnter={openDropdown}
-                  onMouseLeave={closeDropdown}
-                >
-                  <div className="bg-white text-black rounded-[16px] p-6 shadow-2xl min-w-[360px] grid grid-cols-2 gap-x-8 gap-y-4">
-                    <div className="flex flex-col gap-3">
-                      {dropdownLinksLeft.map((link) => (
-                        <Link
-                          key={link.name}
-                          href={link.href}
-                          className="font-medium text-[15px] hover:text-[#ff0000] transition-colors"
-                        >
-                          {link.name}
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="flex flex-col gap-3">
-                      {dropdownLinksRight.map((link) => (
-                        <Link
-                          key={link.name}
-                          href={link.href}
-                          className="font-medium text-[15px] hover:text-[#ff0000] transition-colors"
-                        >
-                          {link.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <Link href="/services" className="hover:text-[#ff0000] transition-colors">
-              Services
-            </Link>
-            <Link href="/about" className="hover:text-[#ff0000] transition-colors">
-              Pricing
-            </Link>
-            <Link href="/contact" className="hover:text-[#ff0000] transition-colors">
-              Contact
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="hover:text-[#ff0000] transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
           </nav>
 
           <a
@@ -262,7 +183,7 @@ export default function HomePageHeader() {
         {isMobileMenuOpen && (
           <div className="lg:hidden fixed left-1/2 -translate-x-1/2 top-[76px] z-40">
             <div
-              className="box-sizing-border-box flex flex-col flex-nowrap items-start content-start justify-center p-[20px] gap-[10px] w-[320px] h-[379.625px] bg-white text-black rounded-[10px] shadow-2xl overflow-y-auto font-sans text-[12px] antialiased"
+              className="box-sizing-border-box flex flex-col flex-nowrap items-start content-start justify-center p-[20px] gap-[10px] w-[320px] bg-white text-black rounded-[10px] shadow-2xl overflow-y-auto font-sans text-[12px] antialiased"
               style={{
                 transformOrigin: "160px 189.812px",
                 unicodeBidi: "isolate",

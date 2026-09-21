@@ -2,72 +2,7 @@
 
 import FaqPage from "@/components/homepage/faq";
 import Image from "next/image";
-import Link from "next/link";
-import ScrollMoveImage from "@/components/ui/scrollMoveImage";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
-
-const ClockIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-      stroke="white"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M12 6V12L16 14"
-      stroke="white"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const BadgeIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z"
-      stroke="white"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88"
-      stroke="white"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const ReviewsImage = () => (
-  <div className="mt-1 flex justify-center">
-    <Image
-      src="/ourServices/reviews.png"
-      alt="Reviews Rating"
-      width={120}
-      height={24}
-      style={{ width: "auto", height: "auto" }}
-      className="object-contain"
-    />
-  </div>
-);
 
 const OFFERS = [
   {
@@ -116,15 +51,15 @@ export default function ServicesPage() {
   return (
     <main>
       {/* Upper Offers Section */}
-      <section className="w-full bg-[#f2f7f9] py-12 px-4 sm:px-8 md:py-24 md:px-12 flex flex-col items-center justify-center">
+      <section className="w-full bg-white pt-4 pb-12 px-4 sm:px-8 md:pt-8 md:pb-24 md:px-12 flex flex-col items-center justify-center">
         {/* Header Container */}
         <div className="max-w-[1272px] w-full text-center mb-8 sm:mb-12 md:mb-[72px]">
           <WordReveal className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
-            Exclusive Cleaning Offers
+           Our Services
           </WordReveal>
           <ScrollReveal delay={0.15}>
             <p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
-              Save more while keeping your home fresh, clean &amp; protected.
+             Our professional cleaning services are designed to keep your home consistently clean, comfortable, and stress-free.
             </p>
           </ScrollReveal>
         </div>
@@ -132,10 +67,9 @@ export default function ServicesPage() {
         {/* Offers Grid */}
         <div className="w-full max-w-[1272px] flex flex-wrap justify-center gap-6 sm:gap-8">
           {OFFERS.map((offer) => (
-            <Link
+            <div
               key={offer.id}
-              href={`/services/${offer.slug}`}
-              className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+              className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-[#f5f5f5] hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
             >
               {/* Asset Image */}
               <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
@@ -159,151 +93,180 @@ export default function ServicesPage() {
                   {offer.description}
                 </p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>
 
       {/* Recover Your Time Section */}
-      <section className="w-full bg-white flex flex-col items-center pt-8 pb-[80px] px-4 sm:px-[30px] font-['Plus_Jakarta_Sans',sans-serif]">
-        {/* Top Banner Text */}
-        <ScrollReveal delay={0.1}>
-          <h3 className="text-[20px] md:text-[24px] font-bold text-[#171206] tracking-[-1px] leading-[37.44px] text-center mb-8">
-            We&apos;re a top-notch 5-star contractor!
-          </h3>
-        </ScrollReveal>
-
-        {/* Logos Section */}
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 mb-2 w-full max-w-[1000px]">
-          {/* Brand 1: ZenZap */}
-          <div className="flex flex-col items-center">
-            <div className="h-10 relative flex items-center justify-center">
-              <Image
-                src="/ourServices/zenzap.png"
-                alt="ZenZap"
-                width={120}
-                height={40}
-                style={{ width: "auto", height: "auto" }}
-                className="object-contain h-full w-auto"
-              />
+      <section className="bg-white pt-0 pb-12 md:pt-2 md:pb-20">
+        <div className="mx-auto max-w-[1200px] px-5 sm:px-8 md:px-14">
+          {/* Top Features Strip */}
+          <div className="mb-16 grid grid-cols-1 items-center gap-6 sm:grid-cols-3 sm:gap-8">
+            <div className="flex items-center justify-center gap-3">
+              <div className="relative h-[48px] w-[48px] shrink-0">
+                <Image
+                  src="/hero/sameDaysvg.svg"
+                  alt="Same day cleaning"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span
+                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                Same day cleaning
+              </span>
             </div>
-            <ReviewsImage />
+
+            <div className="flex items-center justify-center gap-3">
+              <div className="relative h-[48px] w-[48px] shrink-0">
+                <Image
+                  src="/hero/safeCleaning.svg"
+                  alt="Safe Chemicals"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span
+                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                Safe Chemicals
+                <br />
+                for Kids &amp; Pets
+              </span>
+            </div>
+
+            <div className="flex items-center justify-center gap-3">
+              <div className="relative h-[48px] w-[48px] shrink-0">
+                <Image
+                  src="/hero/24hours.svg"
+                  alt="24/7 availability"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span
+                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                24/7 availability
+              </span>
+            </div>
           </div>
 
-          {/* Brand 2: Swift */}
-          <div className="flex flex-col items-center">
-            <div className="h-10 relative flex items-center justify-center">
-              <Image
-                src="/ourServices/swift.png"
-                alt="Swift"
-                width={120}
-                height={40}
-                style={{ width: "auto", height: "auto" }}
-                className="object-contain h-full w-auto"
-              />
-            </div>
-            <ReviewsImage />
-          </div>
-
-          {/* Brand 3: Netdot */}
-          <div className="flex flex-col items-center">
-            <div className="h-10 relative flex items-center justify-center">
-              <Image
-                src="/ourServices/netdot.png"
-                alt="Netdot"
-                width={120}
-                height={40}
-                style={{ width: "auto", height: "auto" }}
-                className="object-contain h-full w-auto"
-              />
-            </div>
-            <ReviewsImage />
-          </div>
-
-          {/* Brand 4: Pulse */}
-          <div className="flex flex-col items-center">
-            <div className="h-10 relative flex items-center justify-center">
-              <Image
-                src="/ourServices/pulse.png"
-                alt="Pulse"
-                width={120}
-                height={40}
-                style={{ width: "auto", height: "auto" }}
-                className="object-contain h-full w-auto"
-              />
-            </div>
-            <ReviewsImage />
-          </div>
-        </div>
-
-        {/* Main Content Area */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-[80px] w-full max-w-[1100px]">
-          {/* Left Side: Unmasked Main Image */}
-          <ScrollMoveImage className="w-full max-w-[560px] lg:w-[560px] shrink-0">
-            <div className="w-full h-[380px] sm:h-[480px] lg:h-[540px] relative overflow-hidden rounded-[24px]">
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            {/* Left Column - Image */}
+            <div className="relative mx-auto h-[411px] w-full max-w-[651px] overflow-hidden rounded-[40px]">
               <Image
                 src="/ourServices/recoveryourtime.png"
-                alt="Recover Your Time"
+                alt="Professional carpet cleaner at work"
                 fill
-                sizes="(max-width: 768px) 100vw, 560px"
-                className="object-contain rounded-[300px]"
+                className="object-cover"
+                priority
               />
             </div>
-          </ScrollMoveImage>
 
-          {/* Right Side: Text & Features */}
-          <ScrollReveal
-            direction="right"
-            className="w-full max-w-[540px] flex flex-col items-start"
-          >
-            <WordReveal className="text-[40px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4 text-left">
-              Recover Your Time
-            </WordReveal>
+            {/* Right Column - Text & Features */}
+            <div className="flex flex-col">
+              <h2
+                className="text-[40px] font-bold leading-[1.15] tracking-[-1.5px] text-[#171206] sm:text-[50px] md:text-[60px] md:leading-[69.6px]"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                Leave the Carpet
+                <br />
+                Cleaning to Us
+              </h2>
 
-            <ScrollReveal delay={0.15}>
-              <p className="text-[16px] lg:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-[40px] text-left">
-                We handle all your cleaning, letting you focus on work, family, or
-                rest. No more weekends scrubbing.
+              <p
+                className="mt-6 text-[18px] font-medium leading-[28.08px] text-[#5b5955]"
+                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              >
+                Let our professional team handle the hard work, so you can spend
+                your time on what matters most. Enjoy cleaner carpets without
+                the hassle.
               </p>
-            </ScrollReveal>
 
-            <div className="flex flex-col gap-[30px] w-full">
-              {/* Feature 1 */}
-              <div className="flex flex-row items-start gap-[18px]">
-                <div className="shrink-0 w-[50px] h-[50px] bg-[#FEBF03] rounded-[14px] flex items-center justify-center mt-1">
-                  <ClockIcon />
+              {/* Sub-features list */}
+              <div className="mt-8 flex flex-col gap-6">
+                {/* Feature 1 */}
+                <div className="flex items-start gap-4">
+                  <div className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-xl bg-[#0f3d4c] text-white">
+                    {/* Clock / Time Icon */}
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3
+                      className="text-[18px] font-bold text-[#171206]"
+                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                    >
+                      Save Time Every Week
+                    </h3>
+                    <p
+                      className="mt-1 text-[15px] font-medium leading-[22px] text-[#5b5955]"
+                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                    >
+                      Professional cleaning takes the hard work off your hands,
+                      giving you more time for family, work, or simply relaxing.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <h4 className="text-[#171206] text-[18px] lg:text-[20px] font-bold leading-tight mb-2">
-                    Save Time Every Week
-                  </h4>
-                  <p className="text-[#5B5955] text-[15px] lg:text-[16px] leading-[24.96px]">
-                    Cleaning saves you countless hours on tedious chores, giving
-                    you more time for work, family, or rest.
-                  </p>
-                </div>
-              </div>
 
-              {/* Feature 2 */}
-              <div className="flex flex-row items-start gap-[18px]">
-                <div className="shrink-0 w-[50px] h-[50px] bg-[#FEBF03] rounded-[14px] flex items-center justify-center mt-1">
-                  <BadgeIcon />
-                </div>
-                <div className="flex flex-col">
-                  <h4 className="text-[#171206] text-[18px] lg:text-[20px] font-bold leading-tight mb-2">
-                    Satisfaction Guaranteed
-                  </h4>
-                  <p className="text-[#5B5955] text-[15px] lg:text-[16px] leading-[24.96px]">
-                    If something isn&apos;t quite right, we&apos;ll fix it.
-                    Your satisfaction is part of our commitment to quality
-                    service.
-                  </p>
+                {/* Feature 2 */}
+                <div className="flex items-start gap-4">
+                  <div className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-xl bg-[#0f3d4c] text-white">
+                    {/* Satisfaction / Badge Icon */}
+                    <svg
+                      className="h-6 w-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3
+                      className="text-[18px] font-bold text-[#171206]"
+                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                    >
+                      Satisfaction Guaranteed
+                    </h3>
+                    <p
+                      className="mt-1 text-[15px] font-medium leading-[22px] text-[#5b5955]"
+                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                    >
+                      We tackle built-up dirt, stains and odours to leave your
+                      carpets looking fresh, feeling clean and ready to enjoy.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
         </div>
       </section>
+
       <FaqPage />
     </main>
   );

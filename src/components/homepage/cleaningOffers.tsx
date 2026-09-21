@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import ScrollMoveImage from "../ui/scrollMoveImage";
 import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
 
@@ -73,8 +72,7 @@ export default function CleaningOffers() {
               className="w-[400px]"
               delay={(offer.id - 1) * 0.07}
             >
-              <Link
-                href={`/services/${offer.slug}`}
+              <div
                 className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
               >
                 {/* Asset Image */}
@@ -99,7 +97,7 @@ export default function CleaningOffers() {
                     {offer.description}
                   </p>
                 </div>
-              </Link>
+              </div>
             </ScrollReveal>
           ))}
         </div>
