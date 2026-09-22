@@ -102,9 +102,9 @@ export default function ServicesPage() {
       <section className="bg-white pt-0 pb-12 md:pt-2 md:pb-20">
         <div className="mx-auto max-w-[1200px] px-5 sm:px-8 md:px-14">
           {/* Top Features Strip */}
-          <div className="mb-16 grid grid-cols-1 items-center gap-6 sm:grid-cols-3 sm:gap-8">
-            <div className="flex items-center justify-center gap-3">
-              <div className="relative h-[48px] w-[48px] shrink-0">
+          <div className="mb-16 grid grid-cols-1 sm:grid-cols-3 items-center gap-5 sm:gap-8">
+            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
+              <div className="relative h-[57px] w-[57px] shrink-0">
                 <Image
                   src="/hero/sameDaysvg.svg"
                   alt="Same day cleaning"
@@ -113,15 +113,15 @@ export default function ServicesPage() {
                 />
               </div>
               <span
-                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
+                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 Same day cleaning
               </span>
             </div>
 
-            <div className="flex items-center justify-center gap-3">
-              <div className="relative h-[48px] w-[48px] shrink-0">
+            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
+              <div className="relative h-[57px] w-[57px] shrink-0">
                 <Image
                   src="/hero/safeCleaning.svg"
                   alt="Safe Chemicals"
@@ -130,7 +130,7 @@ export default function ServicesPage() {
                 />
               </div>
               <span
-                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
+                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 Safe Chemicals
@@ -139,8 +139,8 @@ export default function ServicesPage() {
               </span>
             </div>
 
-            <div className="flex items-center justify-center gap-3">
-              <div className="relative h-[48px] w-[48px] shrink-0">
+            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
+              <div className="relative h-[57px] w-[57px] shrink-0">
                 <Image
                   src="/hero/24hours.svg"
                   alt="24/7 availability"
@@ -149,7 +149,7 @@ export default function ServicesPage() {
                 />
               </div>
               <span
-                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
+                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 24/7 availability
