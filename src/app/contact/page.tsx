@@ -71,7 +71,8 @@ export default function GetInTouchSection() {
     lastName: "",
     email: "",
     phone: "",
-    topic: "Support",
+    serviceType: "Home", // "Home" or "Business"
+    topic: "",
     comments: "",
   });
 
@@ -212,6 +213,42 @@ export default function GetInTouchSection() {
                 </div>
               </div>
 
+              {/* Home / Business Selection */}
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-[14px] font-semibold text-[#171206]">
+                  Is this for your home or business?
+                </label>
+                <div className="flex items-center gap-6 mt-1">
+                  <label className="flex items-center gap-2 cursor-pointer text-[15px] text-[#171206]">
+                    <input
+                      type="radio"
+                      name="serviceType"
+                      value="Home"
+                      checked={formData.serviceType === "Home"}
+                      onChange={(e) =>
+                        setFormData({ ...formData, serviceType: e.target.value })
+                      }
+                      className="w-4 h-4 accent-[#FEBF03] cursor-pointer"
+                    />
+                    Home
+                  </label>
+
+                  <label className="flex items-center gap-2 cursor-pointer text-[15px] text-[#171206]">
+                    <input
+                      type="radio"
+                      name="serviceType"
+                      value="Business"
+                      checked={formData.serviceType === "Business"}
+                      onChange={(e) =>
+                        setFormData({ ...formData, serviceType: e.target.value })
+                      }
+                      className="w-4 h-4 accent-[#FEBF03] cursor-pointer"
+                    />
+                    Business
+                  </label>
+                </div>
+              </div>
+
               {/* Dropdown Field */}
               <div className="flex flex-col gap-2 w-full">
                 <label className="text-[14px] font-semibold text-[#171206]">
@@ -226,23 +263,21 @@ export default function GetInTouchSection() {
                     required
                     className="w-full h-[48px] px-4 pr-10 rounded-[12px] border border-gray-200 bg-[#FAFAFA] text-[15px] text-[#171206] focus:outline-none focus:border-[#FEBF03] transition-colors appearance-none cursor-pointer"
                   >
-                    <option value="Residential">Residential</option>
-                    <option value="Commercial">Commercial</option>
-                    <option value="Support">Support</option>
-                    <option value="Regular Home Cleaning">
-                      Regular Home Cleaning
+                    <option value="" disabled>
+                      Please select
                     </option>
-                    <option value="Floor Cleaning & Care">
-                      Floor Cleaning & Care
+                    <option value="Carpet cleaning">Carpet cleaning</option>
+                    <option value="Couch + sofa cleaning">
+                      Couch + sofa cleaning
                     </option>
-                    <option value="Bathroom Sanitisation">
-                      Bathroom Sanitisation
+                    <option value="Leather cleaning + protection">
+                      Leather cleaning + protection
                     </option>
-                    <option value="Window Cleaning">Window Cleaning</option>
-                    <option value="Deep Cleaning Service">
-                      Deep Cleaning Service
+                    <option value="Rug cleaning">Rug cleaning</option>
+                    <option value="Mattress cleaning">Mattress cleaning</option>
+                    <option value="Automotive upholstery">
+                      Automotive upholstery
                     </option>
-                    <option value="Kitchen Cleaning">Kitchen Cleaning</option>
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
                     <ChevronDownIcon />
