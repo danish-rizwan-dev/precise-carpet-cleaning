@@ -54,21 +54,21 @@ export default function Header() {
 
   return (
     <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50">
-      {/* Top Bar - Hidden on Mobile */}
-      <div className="hidden lg:block w-full bg-black text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
-        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-[124px] overflow-hidden">
+      {/* Top Bar - Phone on mobile/tablet, full details on lg */}
+      <div className="block w-full bg-black text-white text-[13px] sm:text-[14px] font-semibold leading-[21.84px] py-[8px] sm:py-[10px]">
+        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-4 sm:px-6 lg:px-[124px] overflow-hidden">
           {/* Left Side: Contact Details */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 lg:gap-6">
             <a
               href="tel:0434161161"
-              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
+              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors whitespace-nowrap"
             >
               <Phone size={14} className="stroke-[2.5]" />
               <span>Call us: 0434 161 161</span>
             </a>
             <a
               href="mailto:Enquiries@precisecarpetcleaning.com.au"
-              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
+              className="hidden lg:flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Mail size={14} className="stroke-[2.5]" />
               <span>Enquiries@precisecarpetcleaning.com.au</span>
@@ -76,7 +76,14 @@ export default function Header() {
           </div>
 
           {/* Right Side: Social Icons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <a
+              href="mailto:Enquiries@precisecarpetcleaning.com.au"
+              className="text-white hover:text-[#ffb400] transition-colors"
+              aria-label="Email"
+            >
+              <Mail size={14} className="stroke-[2.5]" />
+            </a>
             <a
               href="https://www.facebook.com/precisecarpetcleaningservices"
               target="_blank"
@@ -180,7 +187,7 @@ export default function Header() {
                 transition={{ duration: 0.25 }}
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-hidden
-                className="lg:hidden fixed top-[70px] sm:top-[76px] left-0 right-0 bottom-0 z-40 bg-black/40 backdrop-blur-[3px]"
+                className="lg:hidden fixed top-[110px] sm:top-[116px] left-0 right-0 bottom-0 z-40 bg-black/40 backdrop-blur-[3px]"
               />
 
               {/* Menu card */}
@@ -190,7 +197,7 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -14, scale: 0.96 }}
                 transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                className="lg:hidden fixed top-[76px] sm:top-[82px] left-4 right-4 sm:left-6 sm:right-6 z-50 mx-auto w-auto max-w-[380px]"
+                className="lg:hidden fixed top-[116px] sm:top-[122px] left-4 right-4 sm:left-6 sm:right-6 z-50 mx-auto w-auto max-w-[380px]"
               >
                 <div className="overflow-hidden rounded-[20px] border border-black/[0.06] bg-white/95 p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-xl">
                   <nav className="flex flex-col gap-0.5">
@@ -215,46 +222,6 @@ export default function Header() {
                       );
                     })}
                   </nav>
-
-                  {/* Contact & Socials */}
-                  <div className="mt-2 flex flex-col gap-2.5 border-t border-black/5 px-1 pt-3">
-                    <a
-                      href="tel:0434161161"
-                      className="flex items-center gap-2.5 text-[14px] font-semibold text-[#171206] transition-colors hover:text-[#ffb400]"
-                    >
-                      <Phone size={16} className="shrink-0 text-[#0b4255] stroke-[2.5]" />
-                      0434 161 161
-                    </a>
-                    <a
-                      href="mailto:Enquiries@precisecarpetcleaning.com.au"
-                      className="flex items-center gap-2.5 text-[13px] font-medium text-[#171206] transition-colors hover:text-[#ffb400]"
-                    >
-                      <Mail size={16} className="shrink-0 text-[#0b4255] stroke-[2.5]" />
-                      <span className="break-all">
-                        Enquiries@precisecarpetcleaning.com.au
-                      </span>
-                    </a>
-                    <div className="flex items-center gap-2.5 pt-0.5">
-                      <a
-                        href="https://www.facebook.com/precisecarpetcleaningservices"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Facebook"
-                        className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0b4255] text-white transition-all duration-300 hover:bg-[#ffb400] hover:text-[#171206]"
-                      >
-                        <FacebookIcon size={15} />
-                      </a>
-                      <a
-                        href="https://www.instagram.com/precisecarpetcleaningservices"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram"
-                        className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0b4255] text-white transition-all duration-300 hover:bg-[#ffb400] hover:text-[#171206]"
-                      >
-                        <InstagramIcon size={15} />
-                      </a>
-                    </div>
-                  </div>
 
                   <Link
                     href="/contact"

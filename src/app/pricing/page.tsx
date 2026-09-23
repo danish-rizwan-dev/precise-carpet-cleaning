@@ -3,20 +3,12 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, Home, Building2 } from "lucide-react";
+import { Home, Trash2, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { WordReveal } from "@/components/ui/scrollReveal";
 import ScrollReveal from "@/components/ui/scrollReveal";
 
-type PricingCard = {
-  id: number;
-  title: string;
-  price: string;
-  subtitle?: string;
-  unit?: string;
-};
-
-const PRICING_CARDS: PricingCard[] = [
+const PRICING_CARDS = [
   {
     id: 1,
     title: "2 Bedroom",
@@ -34,34 +26,11 @@ const PRICING_CARDS: PricingCard[] = [
   },
 ];
 
-const COMMERCIAL_PRICING_CARDS: PricingCard[] = [
-  {
-    id: 1,
-    title: "Small Space",
-    subtitle: "50sqm to 100sqm",
-    price: "$2.50",
-    unit: "per sqm",
-  },
-  {
-    id: 2,
-    title: "Medium Space",
-    subtitle: "100sqm to 400sqm",
-    price: "$1.50",
-    unit: "per sqm",
-  },
-  {
-    id: 3,
-    title: "Large Space",
-    subtitle: "500sqm",
-    price: "$0.75",
-    unit: "per sqm",
-  },
-];
-
 export default function PricingPage() {
-  const [activeTab, setActiveTab] = useState<"residential" | "commercial">("residential");
-  const pricingCards = activeTab === "commercial" ? COMMERCIAL_PRICING_CARDS : PRICING_CARDS;
   const heroRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState<"residential" | "commercial">(
+    "residential",
+  );
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -96,8 +65,10 @@ export default function PricingPage() {
       {/* Hero Section */}
       <div
         ref={heroRef}
-        className="relative min-h-[440px] w-full overflow-hidden bg-black font-['Plus_Jakarta_Sans',sans-serif] sm:min-h-[520px] lg:min-h-[600px]"
+        className="relative min-h-[550px] w-full overflow-hidden bg-[#0b4255] font-['Plus_Jakarta_Sans',sans-serif] sm:min-h-[600px] lg:min-h-[700px]"
       >
+        <div className="absolute inset-x-0 top-0 z-50">
+        </div>
         {/* Edge-to-edge Hero Background */}
         <motion.div
           aria-hidden="true"
@@ -105,30 +76,29 @@ export default function PricingPage() {
           className="absolute inset-0 z-0 origin-center will-change-transform"
         >
           <Image
-            src="/pricing/heroimg.webp"
+            src="/pricing/heroimg.png"
             alt="Hero Background"
             fill
-            sizes="100vw"
             priority
-            className="object-cover object-[55%_60%] sm:object-center"
+            className="object-cover object-center"
           />
-          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(11,66,85,0.95) 0%, rgba(11,66,85,0.5) 30%, transparent 50%)" }} />
-          <div className="absolute bottom-0 left-0 right-0 h-[100px] sm:h-[150px] pointer-events-none bg-gradient-to-t from-white to-transparent" />
+          {/* Brand-teal blue-green overlay fade from left */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#0b4255]/95 via-[#0b4255]/65 to-transparent" />
         </motion.div>
 
         {/* Hero Content */}
-        <section className="relative z-10 flex min-h-[440px] w-full flex-col justify-center text-white sm:min-h-[520px] lg:min-h-[600px]">
+        <section className="relative z-10 flex min-h-[550px] w-full flex-col justify-center text-white sm:min-h-[600px] lg:min-h-[700px]">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-14 pb-6 sm:pb-8 pt-[120px] sm:pt-[160px] md:pt-[200px]"
+            className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-14 pb-20 pt-[160px] sm:pt-[200px] md:pt-[240px]"
           >
-            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 max-w-[650px]">
+            <div className="flex flex-col gap-5 sm:gap-6 max-w-[650px]">
               <motion.div variants={itemVariants}>
                 <WordReveal
                   as="h1"
-                  className="text-[36px] sm:text-[48px] md:text-[58px] lg:text-[72px] font-bold leading-[1.08] tracking-[-1px] sm:tracking-[-2px] lg:tracking-[-3px] text-white"
+                  className="text-[40px] sm:text-[48px] md:text-[58px] lg:text-[72px] font-bold leading-[1.08] tracking-[-1px] sm:tracking-[-2px] lg:tracking-[-3px] text-white"
                 >
                   Our Pricing
                 </WordReveal>
@@ -136,39 +106,45 @@ export default function PricingPage() {
 
               <motion.p
                 variants={itemVariants}
-                className="text-[16px] sm:text-[18px] md:text-[20px] font-medium leading-[1.4] text-[#e5eaec]"
+                className="text-[18px] font-medium leading-[1.5] text-[#e5eaec] max-w-[496px]"
               >
-                High-quality carpet cleaning at fair and transparent prices. Choose the option that suits your home or business.
+                High-quality carpet cleaning at fair and transparent prices.
+                Choose the option that suits your home or business.
               </motion.p>
 
               {/* Residential / Commercial Toggle Bar */}
-              <motion.div variants={itemVariants} className="mt-2 sm:mt-4">
+              <motion.div variants={itemVariants} className="mt-2">
                 <div
-                  className="inline-flex items-center gap-1.5 sm:gap-3 lg:gap-5 bg-[#0b4255] p-[5px] sm:p-[8px] lg:p-[10px] rounded-[14px] sm:rounded-[18px] lg:rounded-[20px] border border-white/10"
+                  className="inline-flex items-center gap-2 sm:gap-4 bg-[#0b4255] p-[8px] rounded-[18px] border border-white/10"
+                  style={{ borderRadius: "17.65px" }}
                 >
+                  {/* Residential Option */}
                   <button
                     type="button"
                     onClick={() => setActiveTab("residential")}
-                    className={`flex items-center gap-2 sm:gap-3 lg:gap-3 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 lg:py-4 rounded-[10px] sm:rounded-[14px] lg:rounded-[16px] font-semibold text-[14px] sm:text-[16px] lg:text-[20px] transition-all duration-300 ${
+                    className={`flex items-center gap-2.5 px-6 py-3 rounded-[14px] font-semibold text-[16px] transition-all duration-300 ${
                       activeTab === "residential"
                         ? "bg-white text-[#0b4255] shadow-md"
                         : "bg-transparent text-white hover:text-white/80"
                     }`}
+                    style={{ borderRadius: "14.71px" }}
                   >
-                    <Home className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#ffb400]" />
+                    <Home className="w-5 h-5 text-[#ffb400]" />
                     <span>Residential</span>
                   </button>
 
+                  {/* Commercial Option */}
                   <button
                     type="button"
                     onClick={() => setActiveTab("commercial")}
-                    className={`flex items-center gap-2 sm:gap-3 lg:gap-3 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 lg:py-4 rounded-[10px] sm:rounded-[14px] lg:rounded-[16px] font-semibold text-[14px] sm:text-[16px] lg:text-[20px] transition-all duration-300 ${
+                    className={`flex items-center gap-2.5 px-6 py-3 rounded-[14px] font-semibold text-[16px] transition-all duration-300 ${
                       activeTab === "commercial"
                         ? "bg-white text-[#0b4255] shadow-md"
                         : "bg-transparent text-white hover:text-white/80"
                     }`}
+                    style={{ borderRadius: "14.71px" }}
                   >
-                    <Building2 className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#ffb400]" />
+                    <Trash2 className="w-5 h-5 text-[#ffb400]" />
                     <span>Commercial</span>
                   </button>
                 </div>
@@ -179,78 +155,71 @@ export default function PricingPage() {
       </div>
 
       {/* Pricing Section */}
-      <section className="w-full bg-white py-10 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-10 lg:px-14">
+      <section className="w-full bg-white py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-14">
         <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-center">
-
-          {/* Pricing Cards Grid */}
-          <div
-            key={activeTab}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-6 sm:gap-8 w-full mb-12 sm:mb-16 md:mb-20"
-          >
-            {pricingCards.map((card, idx) => (
-              <ScrollReveal key={card.id} delay={idx * 0.1} className="w-full max-w-[360px]">
+          {/* 3 Pricing Cards Grid */}
+          <div className="grid grid-cols-1 justify-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3 w-full mb-16 sm:mb-20">
+            {PRICING_CARDS.map((card, idx) => (
+              <ScrollReveal
+                key={card.id}
+                delay={idx * 0.1}
+                className="w-full max-w-[360px]"
+              >
                 <div
-                  className="flex flex-col items-center justify-between border-[2px] sm:border-[3px] border-[#0b4255]/50 bg-white p-6 sm:p-8 rounded-[32px] sm:rounded-[44px] transition-all duration-300 hover:shadow-xl hover:border-[#0b4255]"
-                  style={{ width: "100%", maxWidth: "360px", minHeight: "280px" }}
+                  className="flex flex-col items-center justify-between border border-[#0b4255]/30 bg-white p-8 rounded-[44px] transition-all duration-300 hover:shadow-xl hover:border-[#0b4255]"
+                  style={{
+                    width: "100%",
+                    maxWidth: "360px",
+                    minHeight: "331px",
+                  }}
                 >
                   {/* Title */}
-                  <div className="flex flex-col items-center gap-1">
-                    <h3
-                      className="text-center font-bold text-[#0b4255] tracking-[-0.5px] text-[20px] sm:text-[22px] md:text-[24px]"
+                  <h3
+                    className="text-center font-bold text-[#0b4255] tracking-[-0.5px] mt-2"
+                    style={{
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                      fontSize: "24px",
+                      lineHeight: "37.44px",
+                    }}
+                  >
+                    {card.title}
+                  </h3>
+
+                  {/* Price Section */}
+                  <div className="my-2 flex items-baseline justify-center gap-2 text-center">
+                    <span
+                      className="text-[#0b4255] text-[18px] font-semibold"
                       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                     >
-                      {card.title}
-                    </h3>
-                    {card.subtitle && (
-                      <span
-                        className="text-center font-semibold text-[#0b4255]/60 text-[14px] sm:text-[15px]"
-                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                      >
-                        {card.subtitle}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Price */}
-                  <div className="my-2 sm:my-4 flex flex-col items-center">
-                    <div className="flex items-start justify-center gap-1">
-                      <span
-                        className="text-[#0b4255] text-[18px] sm:text-[20px] md:text-[22px] font-extrabold mt-1 sm:mt-2"
-                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                      >
-                        From
-                      </span>
-                      <div
-                        className="font-bold text-[#0b4255] tracking-[-1.58px]"
-                        style={{
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          fontSize: "clamp(56px, 10vw, 76px)",
-                          lineHeight: "1",
-                        }}
-                      >
-                        {card.price}
-                      </div>
+                      From
+                    </span>
+                    <div
+                      className="font-bold text-[#0b4255] tracking-[-1.58px]"
+                      style={{
+                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontSize: "76px",
+                        lineHeight: "1",
+                      }}
+                    >
+                      {card.price}
                     </div>
-                    {card.unit && (
-                      <span
-                        className="font-semibold text-[#0b4255]/70 text-[15px] sm:text-[16px]"
-                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                      >
-                        {card.unit}
-                      </span>
-                    )}
                   </div>
 
-                  {/* Button */}
+                  {/* Button (170px x 53px) */}
                   <Link
                     href="/contact"
-                    className="group relative flex h-[50px] sm:h-[56px] md:h-[61px] w-[160px] sm:w-[180px] md:w-[200px] items-center overflow-hidden rounded-[10px] sm:rounded-[12px] bg-[#0b4255] text-white transition-all duration-300"
+                    className="group relative flex h-[53px] w-[170px] items-center rounded-[12px] bg-[#0b4255] text-white transition-all duration-300 overflow-hidden shadow-sm"
                   >
-                    <div className="absolute left-[4px] inset-y-[4px] z-0 w-[42px] sm:w-[48px] md:w-[53px] rounded-[8px] bg-white transition-all duration-500 ease-in-out group-hover:w-[calc(100%-8px)]" />
-                    <div className="relative z-10 my-[4px] ml-[4px] flex h-[42px] sm:h-[48px] md:h-[53px] w-[42px] sm:w-[48px] md:w-[53px] shrink-0 items-center justify-center rounded-[8px] bg-white">
-                      <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-[#ffb400] text-[#ffb400]" />
+                    {/* Hover Expansion Background */}
+                    <div className="absolute inset-y-[4px] left-[4px] z-0 w-[45px] rounded-[8px] bg-white transition-all duration-500 ease-in-out group-hover:w-[calc(100%-8px)]" />
+
+                    {/* Fixed White Star Icon Container */}
+                    <div className="relative z-10 my-[4px] ml-[4px] flex h-[45px] w-[45px] shrink-0 items-center justify-center rounded-[8px] bg-white">
+                      <Star className="h-5 w-5 fill-[#ffb400] text-[#ffb400]" />
                     </div>
-                    <span className="relative z-10 ml-2 sm:ml-3 pr-2 sm:pr-3 text-[13px] sm:text-[14px] md:text-[15px] font-semibold whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
+
+                    {/* Button Text */}
+                    <span className="relative z-10 pr-3 pl-2 text-[15px] font-semibold text-white transition-colors duration-300 group-hover:text-[#0b4255] whitespace-nowrap">
                       Enquire Now
                     </span>
                   </Link>
@@ -260,9 +229,9 @@ export default function PricingPage() {
           </div>
 
           {/* Features Strip */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-5 sm:gap-8 w-full">
-            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-              <div className="relative h-[57px] w-[57px] shrink-0">
+          <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-3 sm:gap-8 w-full">
+            <div className="flex items-center justify-center gap-3">
+              <div className="relative h-[48px] w-[48px] shrink-0">
                 <Image
                   src="/hero/sameDaysvg.svg"
                   alt="Same day cleaning"
@@ -271,15 +240,15 @@ export default function PricingPage() {
                 />
               </div>
               <span
-                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
+                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 Same day cleaning
               </span>
             </div>
 
-            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-              <div className="relative h-[57px] w-[57px] shrink-0">
+            <div className="flex items-center justify-center gap-3">
+              <div className="relative h-[48px] w-[48px] shrink-0">
                 <Image
                   src="/hero/safeCleaning.svg"
                   alt="Safe Chemicals"
@@ -288,7 +257,7 @@ export default function PricingPage() {
                 />
               </div>
               <span
-                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
+                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 Safe Chemicals
@@ -297,8 +266,8 @@ export default function PricingPage() {
               </span>
             </div>
 
-            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-              <div className="relative h-[57px] w-[57px] shrink-0">
+            <div className="flex items-center justify-center gap-3">
+              <div className="relative h-[48px] w-[48px] shrink-0">
                 <Image
                   src="/hero/24hours.svg"
                   alt="24/7 availability"
@@ -307,7 +276,7 @@ export default function PricingPage() {
                 />
               </div>
               <span
-                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
+                className="text-[16px] font-medium leading-[24px] text-[#5b5955]"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
                 24/7 availability
@@ -318,28 +287,16 @@ export default function PricingPage() {
           {/* CTA Banner */}
           <Link
             href="/contact"
-            className="mt-10 sm:mt-12 md:mt-16 relative w-full aspect-[371/557] sm:aspect-auto sm:h-[200px] md:h-[260px] rounded-[20px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden flex items-center justify-center group cursor-pointer mx-auto"
+            className="mt-12 sm:mt-16 relative w-full h-[200px] sm:h-[260px] rounded-[32px] overflow-hidden flex items-center group cursor-pointer"
           >
-            {/* Mobile Image */}
             <Image
-              src="/pricing/barMobileView.webp"
+              src="/pricing/bar.png"
               alt="Ready for Cleaner Carpets"
               fill
-              sizes="(max-width: 1200px) 100vw, 1200px"
-              className="object-contain object-center sm:hidden"
-              priority
-            />
-            {/* Desktop Image */}
-            <Image
-              src="/pricing/bar.webp"
-              alt="Ready for Cleaner Carpets"
-              fill
-              sizes="(max-width: 1200px) 100vw, 1200px"
-              className="object-contain object-center hidden sm:block"
+              className="object-cover object-center"
               priority
             />
           </Link>
-
         </div>
       </section>
     </main>
