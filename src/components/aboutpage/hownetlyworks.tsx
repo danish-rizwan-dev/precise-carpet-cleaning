@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
-import CountUp from '../ui/countUp';
 import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
 
 const STEPS = [
@@ -23,15 +22,8 @@ const STEPS = [
     id: 2,
     title: '3. Enjoy Fresh Carpets',
     description: 'Sit back and enjoy a cleaner, fresher environment that looks and feels great.',
-    image: '/howitworks/crouselthreeimggirl.png',
+    image: '/howitworks/crouselthreeimggirl.webp',
   },
-];
-
-const STATS = [
-  { value: '4.9', label: 'Average Rating' },
-  { value: '1.2k+', label: 'Happy Clients' },
-  { value: '300+', label: 'Regular Clients' },
-  { value: '100%', label: 'Background-Checked Staff' },
 ];
 
 export default function HowNetlyWorks() {
@@ -125,6 +117,7 @@ export default function HowNetlyWorks() {
                     src={step.image}
                     alt={step.title}
                     fill
+                    sizes="(max-width: 1176px) 100vw, 1176px"
                     priority={idx === 0}
                     className={`object-cover transition-opacity duration-700 ease-in-out ${
                       activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
@@ -133,8 +126,6 @@ export default function HowNetlyWorks() {
                 ))}
               </div>
             </ScrollMoveImage>
-
-          
           </div>
         </div>
       </div>

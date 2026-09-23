@@ -114,7 +114,7 @@ export default function CleaningOffers() {
                 style={{ transform: "rotate(-8deg)" }}
               >
                 <Image
-                  src="/cleaningoffers/carpetcleaning.png"
+                  src="/cleaningoffers/carpetcleaning.webp"
                   alt="Expert team carpet cleaning"
                   fill
                   sizes="(max-width: 1024px) 100vw, 427px"
@@ -162,9 +162,10 @@ export default function CleaningOffers() {
                   style={{ transform: "rotate(3deg)" }}
                 >
                   <Image
-                    src="/cleaningoffers/carpetcleaning2.png"
+                    src="/cleaningoffers/carpetcleaning2.webp"
                     alt="Upholstery cleaning solution"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 540px"
                     className="object-cover"
                   />
                 </div>

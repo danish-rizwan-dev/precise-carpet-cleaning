@@ -53,6 +53,7 @@ export default function BlogPostPage({
             src={article.image}
             alt={article.title}
             fill
+            sizes="(max-width: 800px) 100vw, 800px"
             priority
             className="object-cover"
           />
@@ -108,6 +109,7 @@ export default function BlogPostPage({
                   src={relArticle.image}
                   alt={relArticle.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>

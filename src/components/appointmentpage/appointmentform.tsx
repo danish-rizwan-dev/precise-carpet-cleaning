@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { sendToWhatsApp } from "@/lib/whatsapp";
 
 const CalendarIcon = () => (
   <svg
@@ -48,6 +49,20 @@ export default function BookCleaningSection() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const message = [
+      "📅 *NEW APPOINTMENT* 📅",
+      "_Precise Carpet Cleaning_",
+      "━━━━━━━━━━━━━━━━",
+      `👤 *Name:* ${formData.firstName} ${formData.lastName}`,
+      `📱 *Phone:* ${formData.phone}`,
+      `📍 *Address:* ${formData.address}`,
+      "━━━━━━━━━━━━━━━━",
+      `🗓️ *Date:* ${formData.date || "-"}`,
+      `⏰ *Time:* ${formData.time || "-"}`,
+    ].join("\n");
+
+    sendToWhatsApp(message);
   };
 
   return (

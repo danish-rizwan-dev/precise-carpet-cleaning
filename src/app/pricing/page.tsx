@@ -5,11 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star, Home, Building2 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import HomePageHeader from "@/components/layout/homepageHeader";
 import { WordReveal } from "@/components/ui/scrollReveal";
 import ScrollReveal from "@/components/ui/scrollReveal";
 
-const PRICING_CARDS = [
+type PricingCard = {
+  id: number;
+  title: string;
+  price: string;
+  subtitle?: string;
+  unit?: string;
+};
+
+const PRICING_CARDS: PricingCard[] = [
   {
     id: 1,
     title: "2 Bedroom",
@@ -27,8 +34,33 @@ const PRICING_CARDS = [
   },
 ];
 
+const COMMERCIAL_PRICING_CARDS: PricingCard[] = [
+  {
+    id: 1,
+    title: "Small Space",
+    subtitle: "50sqm to 100sqm",
+    price: "$2.50",
+    unit: "per sqm",
+  },
+  {
+    id: 2,
+    title: "Medium Space",
+    subtitle: "100sqm to 400sqm",
+    price: "$1.50",
+    unit: "per sqm",
+  },
+  {
+    id: 3,
+    title: "Large Space",
+    subtitle: "500sqm",
+    price: "$0.75",
+    unit: "per sqm",
+  },
+];
+
 export default function PricingPage() {
   const [activeTab, setActiveTab] = useState<"residential" | "commercial">("residential");
+  const pricingCards = activeTab === "commercial" ? COMMERCIAL_PRICING_CARDS : PRICING_CARDS;
   const heroRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -64,12 +96,8 @@ export default function PricingPage() {
       {/* Hero Section */}
       <div
         ref={heroRef}
-        className="relative min-h-[500px] w-full overflow-hidden bg-black font-['Plus_Jakarta_Sans',sans-serif] sm:min-h-[600px] lg:min-h-[700px]"
+        className="relative min-h-[440px] w-full overflow-hidden bg-black font-['Plus_Jakarta_Sans',sans-serif] sm:min-h-[520px] lg:min-h-[600px]"
       >
-        <div className="absolute inset-x-0 top-0 z-50">
-          <HomePageHeader />
-        </div>
-
         {/* Edge-to-edge Hero Background */}
         <motion.div
           aria-hidden="true"
@@ -77,9 +105,10 @@ export default function PricingPage() {
           className="absolute inset-0 z-0 origin-center will-change-transform"
         >
           <Image
-            src="/pricing/heroimg.png"
+            src="/pricing/heroimg.webp"
             alt="Hero Background"
             fill
+            sizes="100vw"
             priority
             className="object-cover object-[55%_60%] sm:object-center"
           />
@@ -88,12 +117,12 @@ export default function PricingPage() {
         </motion.div>
 
         {/* Hero Content */}
-        <section className="relative z-10 flex min-h-[500px] w-full flex-col justify-center text-white sm:min-h-[600px] lg:min-h-[700px]">
+        <section className="relative z-10 flex min-h-[440px] w-full flex-col justify-center text-white sm:min-h-[520px] lg:min-h-[600px]">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-14 pb-16 sm:pb-20 pt-[120px] sm:pt-[160px] md:pt-[200px]"
+            className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-14 pb-6 sm:pb-8 pt-[120px] sm:pt-[160px] md:pt-[200px]"
           >
             <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 max-w-[650px]">
               <motion.div variants={itemVariants}>
@@ -154,39 +183,62 @@ export default function PricingPage() {
         <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-center">
 
           {/* Pricing Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-6 sm:gap-8 w-full mb-12 sm:mb-16 md:mb-20">
-            {PRICING_CARDS.map((card, idx) => (
+          <div
+            key={activeTab}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-6 sm:gap-8 w-full mb-12 sm:mb-16 md:mb-20"
+          >
+            {pricingCards.map((card, idx) => (
               <ScrollReveal key={card.id} delay={idx * 0.1} className="w-full max-w-[360px]">
                 <div
                   className="flex flex-col items-center justify-between border-[2px] sm:border-[3px] border-[#0b4255]/50 bg-white p-6 sm:p-8 rounded-[32px] sm:rounded-[44px] transition-all duration-300 hover:shadow-xl hover:border-[#0b4255]"
                   style={{ width: "100%", maxWidth: "360px", minHeight: "280px" }}
                 >
                   {/* Title */}
-                  <h3
-                    className="text-center font-bold text-[#0b4255] tracking-[-0.5px] text-[20px] sm:text-[22px] md:text-[24px]"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                  >
-                    {card.title}
-                  </h3>
-
-                  {/* Price */}
-                  <div className="my-2 sm:my-4 flex items-start justify-center gap-1">
-                    <span
-                      className="text-[#0b4255] text-[18px] sm:text-[20px] md:text-[22px] font-extrabold mt-1 sm:mt-2"
+                  <div className="flex flex-col items-center gap-1">
+                    <h3
+                      className="text-center font-bold text-[#0b4255] tracking-[-0.5px] text-[20px] sm:text-[22px] md:text-[24px]"
                       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                     >
-                      From
-                    </span>
-                    <div
-                      className="font-bold text-[#0b4255] tracking-[-1.58px]"
-                      style={{
-                        fontFamily: "'Plus Jakarta Sans', sans-serif",
-                        fontSize: "clamp(56px, 10vw, 76px)",
-                        lineHeight: "1",
-                      }}
-                    >
-                      {card.price}
+                      {card.title}
+                    </h3>
+                    {card.subtitle && (
+                      <span
+                        className="text-center font-semibold text-[#0b4255]/60 text-[14px] sm:text-[15px]"
+                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                      >
+                        {card.subtitle}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Price */}
+                  <div className="my-2 sm:my-4 flex flex-col items-center">
+                    <div className="flex items-start justify-center gap-1">
+                      <span
+                        className="text-[#0b4255] text-[18px] sm:text-[20px] md:text-[22px] font-extrabold mt-1 sm:mt-2"
+                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                      >
+                        From
+                      </span>
+                      <div
+                        className="font-bold text-[#0b4255] tracking-[-1.58px]"
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans', sans-serif",
+                          fontSize: "clamp(56px, 10vw, 76px)",
+                          lineHeight: "1",
+                        }}
+                      >
+                        {card.price}
+                      </div>
                     </div>
+                    {card.unit && (
+                      <span
+                        className="font-semibold text-[#0b4255]/70 text-[15px] sm:text-[16px]"
+                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                      >
+                        {card.unit}
+                      </span>
+                    )}
                   </div>
 
                   {/* Button */}
@@ -270,17 +322,19 @@ export default function PricingPage() {
           >
             {/* Mobile Image */}
             <Image
-              src="/pricing/barMobileView.png"
+              src="/pricing/barMobileView.webp"
               alt="Ready for Cleaner Carpets"
               fill
+              sizes="(max-width: 1200px) 100vw, 1200px"
               className="object-contain object-center sm:hidden"
               priority
             />
             {/* Desktop Image */}
             <Image
-              src="/pricing/bar.png"
+              src="/pricing/bar.webp"
               alt="Ready for Cleaner Carpets"
               fill
+              sizes="(max-width: 1200px) 100vw, 1200px"
               className="object-contain object-center hidden sm:block"
               priority
             />

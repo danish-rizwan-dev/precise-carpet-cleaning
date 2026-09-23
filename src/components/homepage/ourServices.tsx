@@ -12,42 +12,42 @@ const SERVICES = [
     title: "Carpet Cleaning",
     description:
       "Say goodbye to stubborn stains and dirt with our professional carpet cleaning service.",
-    image: "/ourServices/carpetcleaning.png",
+    image: "/ourServices/carpetcleaning.webp",
   },
   {
     id: 2,
     title: "Sofa & Couch Cleaning",
     description:
       "Restore the beauty and comfort of your sofas and couches with our specialised cleaning techniques.",
-    image: "/ourServices/sofaandcouch.png",
+    image: "/ourServices/sofaandcouch.webp",
   },
   {
     id: 3,
     title: "Leather Furniture Cleaning",
     description:
       "Preserve the luxurious look and feel of your leather furniture with our expert cleaning and conditioning.",
-    image: "/ourServices/leathercleaning.png",
+    image: "/ourServices/leathercleaning.webp",
   },
   {
     id: 4,
     title: "Rug Cleaning",
     description:
       "From delicate area rugs to sturdy floor coverings, we'll leave your rugs looking vibrant and fresh.",
-    image: "/ourServices/rugcleaing.png",
+    image: "/ourServices/rugcleaing.webp",
   },
   {
     id: 5,
     title: "Mattress Cleaning",
     description:
       "Ensure a clean and hygienic sleeping environment with our thorough mattress cleaning service.",
-    image: "/ourServices/mattrecesclean.png",
+    image: "/ourServices/mattrecesclean.webp",
   },
   {
     id: 6,
     title: "Tile & Grout Cleaning",
     description:
       "Deep clean your tiles and grout, removing built-up dirt, stains and grime to restore a fresh, brighter finish.",
-    image: "/ourServices/tilegroutcleaning.png",
+    image: "/ourServices/tilegroutcleaning.webp",
   },
 ];
 
@@ -75,6 +75,7 @@ export default function ServicesSection() {
                     src={service.image}
                     alt={service.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 370px"
                     className="object-cover"
                   />
                 </div>

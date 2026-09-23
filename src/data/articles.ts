@@ -16,7 +16,7 @@ export const articlesData: Record<string, Article> = {
     id: "deep-cleaning-vs-regular-cleaning",
     date: "Jul 6, 2026",
     title: "The Key Difference Between Regular and Professional Deep Cleaning Services",
-    image: "/blogs/image1.png",
+    image: "/blogs/image1.webp",
     sections: [
       {
         title: "What distinguishes professional deep cleaning from regular cleaning?",
@@ -54,7 +54,7 @@ export const articlesData: Record<string, Article> = {
     id: "how-often-to-clean-your-home",
     date: "Sep 12, 2026",
     title: "How Often Should You Really Clean Your Home Thoroughly and Effectively?",
-    image: "/blogs/image2.png",
+    image: "/blogs/image2.webp",
     sections: [
       {
         title: "Why is consistent home cleaning important?",
@@ -92,7 +92,7 @@ export const articlesData: Record<string, Article> = {
     id: "choosing-right-cleaning-service",
     date: "Nov 17, 2026",
     title: "Top Tips for Choosing the Right Cleaning Service for Your Needs",
-    image: "/blogs/image3.png",
+    image: "/blogs/image3.webp",
     sections: [
       {
         title: "Understand your cleaning requirements",
@@ -140,7 +140,7 @@ export const articlesData: Record<string, Article> = {
     id: "eco-friendly-cleaning-products",
     date: "Apr 25, 2026",
     title: "Understanding the Benefits of Eco-Friendly Cleaning Products",
-    image: "/blogs/image4.png",
+    image: "/blogs/image4.webp",
     sections: [
       {
         title: "What are eco-friendly cleaning products?",
@@ -183,7 +183,7 @@ export const articlesData: Record<string, Article> = {
     id: "preparing-home-for-professional-cleaning",
     date: "Jan 16, 2026",
     title: "Preparing Your Home for a Professional Cleaning: A Checklist",
-    image: "/blogs/image5.png",
+    image: "/blogs/image5.webp",
     sections: [
       {
         title: "Why preparation matters before a professional cleaning",
@@ -231,7 +231,7 @@ export const articlesData: Record<string, Article> = {
     id: "cost-of-deep-cleaning",
     date: "Apr 19, 2026",
     title: "The Cost of Deep Cleaning: What to Expect and How to Budget",
-    image: "/blogs/image6.png",
+    image: "/blogs/image6.webp",
     sections: [
       {
         title: "What influences the cost of deep cleaning?",

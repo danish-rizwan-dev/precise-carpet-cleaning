@@ -5,42 +5,42 @@ const TEAM_MEMBERS = [
   {
     name: "Michael Carter",
     role: "Lead Cleaning Specialist",
-    image: "/about/trust/Michael.png",
+    image: "/about/trust/Michael.webp",
   },
   {
     name: "Daniel Brooks",
     role: "Senior Cleaning Technician",
-    image: "/about/trust/daniel.png",
+    image: "/about/trust/daniel.webp",
   },
   {
     name: "James Wilson",
     role: "Residential Cleaning Expert",
-    image: "/about/trust/James.png",
+    image: "/about/trust/James.webp",
   },
   {
     name: "Andrew Collins",
     role: "Quality Control Supervisor",
-    image: "/about/trust/Andrew.png",
+    image: "/about/trust/Andrew.webp",
   },
   {
     name: "Robert Hayes",
     role: "Operations & Field Manager",
-    image: "/about/trust/Robert.png",
+    image: "/about/trust/Robert.webp",
   },
   {
     name: "Matthew Turner",
     role: "Deep Cleaning Specialist",
-    image: "/about/trust/Matthew.png",
+    image: "/about/trust/Matthew.webp",
   },
   {
     name: "Jason Miller",
     role: "Floor & Surface Care Technician",
-    image: "/about/trust/Jason.png",
+    image: "/about/trust/Jason.webp",
   },
   {
     name: "David Thompson",
     role: "Move-In / Move-Out Cleaning Lead",
-    image: "/about/trust/David.png",
+    image: "/about/trust/David.webp",
   },
 ];
 

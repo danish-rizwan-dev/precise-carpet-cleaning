@@ -23,7 +23,7 @@ const STEPS = [
     id: 2,
     title: '3. Enjoy Fresh Carpets',
     description: 'Sit back and enjoy cleaner, fresher carpets that look better and feel great underfoot.',
-    image: '/howitworks/crouselthreeimggirl.png',
+    image: '/howitworks/crouselthreeimggirl.webp',
   },
 ];
 
@@ -38,17 +38,17 @@ const ACCORDION_DATA = [
   {
     title: 'Save Time Every Week',
     description: 'Hiring a professional to clean your space effectively frees up your valuable time for work, family, or relaxation.',
-    image: '/howitworks/sofagirl.png',
+    image: '/howitworks/sofagirl.webp',
   },
   {
     title: 'Feel Safe Letting Us In',
     description: 'Our trusted and professional cleaners treat your home with care, ensuring a safe and reliable cleaning experience every time.',
-    image: '/howitworks/handshakeimggirls.png',
+    image: '/howitworks/handshakeimggirls.webp',
   },
   {
     title: 'Simple, Stress-Free Booking',
     description: 'Booking with us is quick and easy. Choose your service, pick a time that works for you, and we\'ll take care of the rest.',
-    image: '/howitworks/mobileprecise.png',
+    image: '/howitworks/mobileprecise.webp',
   },
 ];
 
@@ -134,6 +134,7 @@ export default function HowItWorks() {
                     src={step.image}
                     alt={step.title}
                     fill
+                    sizes="(max-width: 1176px) 100vw, 1176px"
                     priority={idx === 0}
                     className={`object-cover transition-opacity duration-700 ease-in-out ${
                       activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
@@ -177,6 +178,7 @@ export default function HowItWorks() {
                   src={item.image}
                   alt={item.title}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 611px"
                   className={`object-cover transition-opacity duration-700 ease-in-out ${
                     activeAccordion === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
                   }`}

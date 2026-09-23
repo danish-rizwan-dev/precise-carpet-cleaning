@@ -142,6 +142,7 @@ export default function ServiceDetailsPage({
             src={service.image}
             alt={service.title}
             fill
+            sizes="(max-width: 1200px) 100vw, 1200px"
             priority
             className="object-cover"
           />
@@ -267,6 +268,7 @@ export default function ServiceDetailsPage({
                         src={item.avatar}
                         alt={item.name}
                         fill
+                        sizes="44px"
                         className="object-cover"
                       />
                     </div>

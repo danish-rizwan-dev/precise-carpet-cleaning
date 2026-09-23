@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const PhoneIcon = () => (
   <svg
     width="22"
@@ -27,17 +29,21 @@ export default function Footer() {
         {/* Main CTA Content */}
         <div className="w-full bg-[#0B4255] py-20 md:py-[135px] px-6 sm:px-8 relative overflow-hidden flex flex-col items-center justify-center">
           {/* Left Floating Image */}
-          <img
+          <Image
             src="/FAQS/vacumecleaner.png"
             alt="Vacuum Cleaner"
-            className="hidden lg:block absolute left-[8%] top-[25%] w-[240px] object-contain animate-float"
+            width={240}
+            height={240}
+            className="hidden lg:block absolute left-[8%] top-[25%] w-[240px] h-auto object-contain animate-float"
           />
 
           {/* Right Floating Image (Delayed Animation) */}
-          <img
-            src="/FAQS/sofa.png"
+          <Image
+            src="/FAQS/sofa.webp"
             alt="Sofa and Vacuum"
-            className="hidden lg:block absolute right-[8%] bottom-[15%] w-[260px] object-contain animate-float-delayed"
+            width={260}
+            height={200}
+            className="hidden lg:block absolute right-[8%] bottom-[15%] w-[260px] h-auto object-contain animate-float-delayed"
           />
 
           <div className="max-w-[700px] mx-auto text-center relative z-10 flex flex-col items-center gap-4 md:gap-[20px]">
@@ -66,7 +72,7 @@ export default function Footer() {
               <span className="relative z-10 ml-[64px] pr-6 font-bold text-[16px] md:text-[19px] whitespace-nowrap transition-colors duration-700 group-hover:text-[#0B4255]">
                 Book Your Cleaning Today
               </span>
-            </a>{" "}
+            </a>
           </div>
         </div>
       </section>
@@ -84,9 +90,11 @@ export default function Footer() {
                   making your space shine every day.
                 </p>
 
-                <img
+                <Image
                   src="/logo.svg"
                   alt="Precise Carpet Cleaning Services"
+                  width={234}
+                  height={76}
                   className="w-[200px] sm:w-[233.56px] h-[65px] sm:h-[76px] object-contain -ml-1 lg:ml-[6.22px]"
                   style={{
                     filter:

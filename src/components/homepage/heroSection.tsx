@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import HomePageHeader from "../layout/homepageHeader";
+
 import { WordReveal } from "../ui/scrollReveal";
 
 export default function Hero() {
@@ -46,32 +46,30 @@ export default function Hero() {
       ref={heroRef}
       className="relative w-full overflow-hidden bg-black font-['Plus_Jakarta_Sans',sans-serif]"
     >
-      <div className="absolute inset-x-0 top-0 z-50">
-        <HomePageHeader />
-      </div>
       <motion.div
         aria-hidden="true"
         style={{ y: backgroundY, scale: backgroundScale }}
         className="absolute -inset-[10%] z-0 origin-center will-change-transform"
       >
         <Image
-          src="/hero/herobackgroundimage.png"
+          src="/hero/herobackgroundimage.webp"
           alt=""
           fill
           priority
+          sizes="100vw"
           className="object-cover object-[55%_center] sm:object-center"
         />
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/95 via-black/75 to-black/30 sm:from-black/85 sm:via-black/50 sm:to-transparent" />
       </motion.div>
 
       {/* Upper Hero Section */}
-      <section className="relative z-10 flex min-h-[700px] w-full flex-col justify-between overflow-hidden text-white sm:min-h-[760px] lg:min-h-[1000px]">
+      <section className="relative z-10 flex min-h-[540px] w-full flex-col justify-between overflow-hidden text-white sm:min-h-[580px] lg:min-h-[780px]">
         {/* Main Hero Content */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-10 w-full mx-auto pt-[160px] sm:pt-[220px] md:pt-[250px] px-5 sm:px-8 md:px-14 lg:px-[124px] pb-28 sm:pb-32 max-w-[1920px]"
+          className="relative z-10 w-full mx-auto pt-[50px] sm:pt-[80px] md:pt-[95px] px-5 sm:px-8 md:px-14 lg:px-[124px] pb-28 sm:pb-32 max-w-[1920px]"
         >
           <div className="w-full max-w-[1272px] flex flex-col gap-5 sm:gap-6">
             {/* Reviews Top Bar */}
@@ -86,9 +84,10 @@ export default function Hero() {
                     className="relative w-[46px] h-[46px] rounded-full border-2 border-white overflow-hidden shrink-0"
                   >
                     <Image
-                      src={`/hero/review${i}.png`}
+                      src={`/hero/review${i}.webp`}
                       alt="User"
                       fill
+                      sizes="46px"
                       className="object-cover"
                     />
                   </div>
@@ -171,6 +170,7 @@ export default function Hero() {
                   src="/hero/2bedroomSpecial.avif"
                   alt="2 Bedroom Special from $79"
                   fill
+                  sizes="(max-width: 640px) 300px, (max-width: 768px) 350px, (max-width: 1024px) 400px, 471px"
                   className="object-contain object-left"
                 />
               </motion.div>

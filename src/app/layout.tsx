@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Footer from "@/components/layout/footer";
-import ConditionalHeader from "@/components/layout/conditionalHeader";
+import Header from "@/components/layout/header";
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
@@ -72,7 +72,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakarta.variable} overflow-x-hidden`} style={{ overflowX: "hidden" }}>
       <body className={`${plusJakarta.className} antialiased `}>
-        <ConditionalHeader />
+        <Header />
         {children}
         <Footer />
       </body>

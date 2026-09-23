@@ -18,14 +18,14 @@ const TESTIMONIALS = [
     name: 'James Wilson',
     role: 'Homeowner',
     text: 'From booking to completion, everything was easy and hassle-free. The carpets smell fresh, feel cleaner, and the whole room looks better.',
-    image: '/testimonials/james.png',
+    image: '/testimonials/james.webp',
   },
   {
     id: 3,
     name: 'Sarah',
     role: 'Software Engineer',
     text: 'The carpets look completely refreshed! The team was professional, on time, and did an amazing job removing some really stubborn stains.',
-    image: '/testimonials/Sarah.png',
+    image: '/testimonials/Sarah.webp',
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const TESTIMONIALS = [
     name: 'Emily Rogers',
     role: 'Interior Designer',
     text: 'I was genuinely impressed with the attention to detail. The carpets feel fresh, clean, and look noticeably brighter. Highly recommend their service.',
-    image: '/testimonials/emily.png',
+    image: '/testimonials/emily.webp',
   },
 ];
 
@@ -188,6 +188,7 @@ export default function Testimonials() {
                     src={testimonial.image}
                     alt={testimonial.name}
                     fill
+                    sizes="48px"
                     className="object-cover"
                   />
                 </div>
@@ -230,9 +231,10 @@ export default function Testimonials() {
           <ScrollMoveImage className="w-full lg:w-[500px] shrink-0">
             <div className="w-full h-[280px] sm:h-[350px] md:h-[420px] relative bg-gray-100 rounded-[18px] overflow-hidden">
               <Image
-                src="/testimonials/vacumecleaner.png"
+                src="/testimonials/vacumecleaner.webp"
                 alt="Cleaner working professionally with equipment"
                 fill
+                sizes="(max-width: 1024px) 100vw, 500px"
                 className="object-cover"
               />
             </div>

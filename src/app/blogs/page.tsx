@@ -43,6 +43,7 @@ export default function LatestArticlesSection() {
                   src={article.image}
                   alt={article.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>

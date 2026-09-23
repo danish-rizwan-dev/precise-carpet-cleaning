@@ -12,7 +12,7 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/about#our-story" },
+    { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
@@ -23,13 +23,6 @@ export default function Header() {
     if (base === "/") return pathname === "/";
     return pathname === base || pathname.startsWith(base + "/");
   };
-
-  const linkClasses = (href: string) =>
-    `relative transition-colors hover:text-[#ffb400] after:content-[''] after:absolute after:left-0 after:bottom-[-6px] after:h-[2px] after:w-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-300 after:ease-out ${
-      isActive(href)
-        ? "text-[#ffb400] after:scale-x-100"
-        : "after:scale-x-0 hover:after:scale-x-100"
-    }`;
 
   const logoFilter =
     "brightness(0) saturate(100%) invert(18%) sepia(48%) saturate(1540%) hue-rotate(159deg) brightness(94%) contrast(96%)";
@@ -49,18 +42,18 @@ export default function Header() {
               <span>Call us: 0434 161 161</span>
             </a>
             <a
-              href="mailto:precisecarpetcleaningservices@gmail.com"
+              href="mailto:Enquiries@precisecarpetcleaning.com.au"
               className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Mail size={14} className="stroke-[2.5]" />
-              <span>precisecarpetcleaningservices@gmail.com</span>
+              <span>Enquiries@precisecarpetcleaning.com.au</span>
             </a>
           </div>
 
           {/* Right Side: Social Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/precisecarpetcleaningservices"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#ffb400] transition-colors"
@@ -77,7 +70,7 @@ export default function Header() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/precisecarpetcleaningservices"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#ffb400] transition-colors"
@@ -105,6 +98,7 @@ export default function Header() {
             src="/logo.svg"
             alt="Precise Carpet Cleaning Services"
             fill
+            sizes="(max-width: 640px) 175px, 145px"
             style={{ filter: logoFilter }}
             className="object-contain object-left"
             priority
@@ -118,7 +112,11 @@ export default function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={linkClasses(link.href)}
+                className={`relative px-1 pb-1.5 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isActive(link.href)
+                    ? "text-[#ffb400] after:scale-x-100"
+                    : "hover:text-[#ffb400] after:scale-x-0 hover:after:scale-x-100"
+                }`}
               >
                 {link.name}
               </Link>
@@ -127,11 +125,11 @@ export default function Header() {
 
           <Link
             href="/contact"
-            className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[206px] transition-all duration-300"
+            className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[176px] pr-3 transition-all duration-300"
           >
             <div className="bg-white rounded-[8px] h-[53px] flex items-center justify-center absolute left-[4px] z-0 transition-all duration-700 ease-in-out w-[52px] group-hover:w-[calc(100%-8px)]" />
             <Star className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[18px] z-10" />
-            <span className="relative z-10 ml-[64px] pr-4 font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
+            <span className="relative z-10 ml-[64px] pr-4 font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#ffb400]">
               Get a quote
             </span>
           </Link>
@@ -175,7 +173,7 @@ export default function Header() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`font-medium tracking-tight transition-colors py-1 w-full text-left relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-300 after:ease-out ${
+                  className={`font-medium tracking-tight py-2 w-full text-left relative transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isActive(link.href)
                       ? "text-[#ffb400] after:scale-x-100"
                       : "hover:text-[#ffb400] after:scale-x-0 hover:after:scale-x-100"

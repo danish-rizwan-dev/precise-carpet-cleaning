@@ -11,7 +11,10 @@ interface CountUpProps {
 export default function CountUp({ target, duration = 2000 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const [display, setDisplay] = useState("0");
+  const [display, setDisplay] = useState(() => {
+    const numericPart = target.replace(/[^0-9.]/g, "");
+    return Number.isNaN(parseFloat(numericPart)) ? target : "0";
+  });
 
   useEffect(() => {
     if (!isInView) return;
@@ -20,10 +23,7 @@ export default function CountUp({ target, duration = 2000 }: CountUpProps) {
     const suffix = target.replace(/[0-9.]/g, "");
     const targetNum = parseFloat(numericPart);
 
-    if (isNaN(targetNum)) {
-      setDisplay(target);
-      return;
-    }
+    if (isNaN(targetNum)) return;
 
     const isDecimal = numericPart.includes(".");
     const startTime = performance.now();

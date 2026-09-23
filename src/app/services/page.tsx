@@ -162,9 +162,10 @@ export default function ServicesPage() {
             {/* Left Column - Image */}
             <div className="relative mx-auto h-[411px] w-full max-w-[651px] overflow-hidden rounded-[40px]">
               <Image
-                src="/ourServices/recoveryourtime.png"
+                src="/ourServices/recoveryourtime.webp"
                 alt="Professional carpet cleaner at work"
                 fill
+                sizes="(max-width: 1024px) 100vw, 512px"
                 className="object-cover"
                 priority
               />

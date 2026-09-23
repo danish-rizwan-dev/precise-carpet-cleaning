@@ -16,7 +16,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     id: "pet-children-friendly-chemicals",
     title: "Pet & Children Friendly Chemicals",
     subtitle: "Gentle yet effective cleaning solutions that are carefully chosen to be safer for children, pets and your home.",
-    image: "/blogs/image5.png",
+    image: "/blogs/image5.webp",
     sections: [
       {
         title: "Why is window cleaning essential?",
@@ -68,7 +68,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     id: "lounge-steam-cleaning-10-off",
     title: "10% off any lounge steam cleaning",
     subtitle: "Give your lounge a fresh, deep clean while enjoying great savings.",
-    image: "/blogs/image2.png",
+    image: "/blogs/image2.webp",
     sections: [
       {
         title: "Why is regular cleaning essential?",
@@ -120,7 +120,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     id: "free-enzyme-pet-odour-treatment",
     title: "FREE Enzyme pet odour treatment",
     subtitle: "Say goodbye to lingering pet smells with our deep enzyme treatment.",
-    image: "/blogs/image1.png",
+    image: "/blogs/image1.webp",
     sections: [
       {
         title: "Why Is Floor Cleaning Important?",
@@ -175,7 +175,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     id: "book-carpet-rug-upholstery-free-scotchgard",
     title: "Book Carpet, Rug & Upholstery – Get FREE Scotchgard!",
     subtitle: "Deep clean your home and keep it looking fresh for longer.",
-    image: "/blogs/image4.png",
+    image: "/blogs/image4.webp",
     sections: [
       {
         title: "Why Is Bathroom sanitization Important?",
@@ -229,7 +229,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     id: "leather-cleaning-complimentary-protection",
     title: "With every leather cleaning service, you'll receive a complimentary leather protection treatment.",
     subtitle: "Keep your leather looking fresh, conditioned and protected for longer.",
-    image: "/blogs/image2.png",
+    image: "/blogs/image2.webp",
     sections: [
       {
         title: "Why is deep cleaning essential?",
