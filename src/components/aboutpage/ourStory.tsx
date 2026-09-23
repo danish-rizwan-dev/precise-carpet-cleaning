@@ -39,7 +39,7 @@ const FEATURES = [
 export default function OurStorySection() {
   return (
     <>
-      <section className="w-full max-w-[1272px] mx-auto py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif] bg-white text-[#171206]">
+      <section id="our-story" className="w-full max-w-[1272px] mx-auto py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif] bg-white text-[#171206]">
       {/* Header Container */}
       <div className="text-center max-w-[620px] mx-auto mb-12 sm:mb-16">
         <h2 className="text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-4px] leading-[1.15] mb-3">

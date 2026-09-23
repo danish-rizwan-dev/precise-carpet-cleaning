@@ -107,13 +107,13 @@ export default function Footer() {
                   </h4>
                   <a
                     href="#"
-                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ff0000] transition-colors"
+                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Home
                   </a>
                   <a
                     href="#"
-                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ff0000] transition-colors"
+                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     About Us
                   </a>
@@ -126,13 +126,13 @@ export default function Footer() {
                   </h4>
                   <a
                     href="#"
-                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ff0000] transition-colors"
+                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Services
                   </a>
                   <a
                     href="#"
-                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ff0000] transition-colors"
+                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Contact
                   </a>
@@ -145,13 +145,13 @@ export default function Footer() {
                   </h4>
                   <a
                     href="#"
-                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ff0000] transition-colors"
+                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Privacy Policy
                   </a>
                   <a
                     href="#"
-                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ff0000] transition-colors"
+                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Terms and Conditions
                   </a>

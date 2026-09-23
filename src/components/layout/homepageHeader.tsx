@@ -3,19 +3,43 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Phone, Mail, Star } from "lucide-react";
 
 export default function HomePageHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
+    ...(pathname === "/" ? [] : [{ name: "Home", href: "/" }]),
+    { name: "About Us", href: "/about#our-story" },
     { name: "Services", href: "/services" },
     { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
   ];
+
+  const isActive = (href: string) => {
+    const base = href.split("#")[0];
+    if (base === "/") return pathname === "/";
+    return pathname === base || pathname.startsWith(base + "/");
+  };
+
+  const linkClasses = (href: string) =>
+    `relative transition-colors hover:text-[#ffb400] after:content-[''] after:absolute after:left-0 after:bottom-[-6px] after:h-[2px] after:w-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-300 after:ease-out ${
+      isActive(href)
+        ? "text-[#ffb400] after:scale-x-100"
+        : "after:scale-x-0 hover:after:scale-x-100"
+    }`;
+
+  const mobileLinkClasses = (href: string) =>
+    `font-medium tracking-tight transition-colors py-1 w-full text-left relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-300 after:ease-out ${
+      isActive(href)
+        ? "text-[#ffb400] after:scale-x-100"
+        : "hover:text-[#ffb400] after:scale-x-0 hover:after:scale-x-100"
+    }`;
 
   // Dynamic values calculated from scroll progress (Mobile only)
   useEffect(() => {
@@ -45,21 +69,21 @@ export default function HomePageHeader() {
 
   return (
     <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50 overflow-visible">
-      {/* Top Blue Bar - Hidden on Mobile */}
-      <div className="hidden lg:block w-full bg-[#0b4255] text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
+      {/* Top Bar - Hidden on Mobile */}
+      <div className="hidden lg:block w-full bg-black text-white text-[14px] font-semibold leading-[21.84px] py-[10px]">
         <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-[124px] overflow-hidden">
           {/* Left Side: Contact Details */}
           <div className="flex items-center gap-6">
             <a
               href="tel:0434161161"
-              className="flex items-center gap-2 hover:text-[#ff0000] transition-colors"
+              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Phone size={14} className="stroke-[2.5]" />
               <span>Call us: 0434 161 161</span>
             </a>
             <a
               href="mailto:precisecarpetcleaningservices@gmail.com"
-              className="flex items-center gap-2 hover:text-[#ff0000] transition-colors"
+              className="flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Mail size={14} className="stroke-[2.5]" />
               <span>precisecarpetcleaningservices@gmail.com</span>
@@ -72,7 +96,7 @@ export default function HomePageHeader() {
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#ff0000] transition-colors"
+              className="text-white hover:text-[#ffb400] transition-colors"
               aria-label="Facebook"
             >
               <svg
@@ -89,7 +113,7 @@ export default function HomePageHeader() {
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#ff0000] transition-colors"
+              className="text-white hover:text-[#ffb400] transition-colors"
               aria-label="Instagram"
             >
               <svg
@@ -134,23 +158,23 @@ export default function HomePageHeader() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="hover:text-[#ff0000] transition-colors"
+                className={linkClasses(link.href)}
               >
                 {link.name}
               </Link>
             ))}
           </nav>
 
-          <a
-            href="tel:0434161161"
-            className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[230px] transition-all duration-300"
+          <Link
+            href="/contact"
+            className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[206px] transition-all duration-300"
           >
             <div className="bg-white rounded-[8px] h-[53px] flex items-center justify-center absolute left-[4px] z-0 transition-all duration-700 ease-in-out w-[52px] group-hover:w-[calc(100%-8px)]" />
-            <Phone className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[18px] z-10" />
-            <span className="relative z-10 ml-[64px] font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
-              Call us: 0434 161 161
+            <Star className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[18px] z-10" />
+            <span className="relative z-10 ml-[64px] pr-4 font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
+              Get a quote
             </span>
-          </a>
+          </Link>
         </div>
 
         {/* Animated Hamburger to Cross Button */}
@@ -194,7 +218,7 @@ export default function HomePageHeader() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-medium tracking-tight hover:text-[#0b4255] transition-colors py-1 w-full text-left"
+                  className={mobileLinkClasses(link.href)}
                 >
                   {link.name}
                 </Link>
