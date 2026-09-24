@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "@/components/ui/image";
+import Link from "next/link";
 
 const PhoneIcon = () => (
   <svg
@@ -113,18 +114,18 @@ export default function Footer() {
                   <h4 className="text-[#757575] text-[16px] sm:text-[18px] font-normal mb-1">
                     Company
                   </h4>
-                  <a
-                    href="#"
+                  <Link
+                    href="/"
                     className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Home
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    href="/about"
                     className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     About Us
-                  </a>
+                  </Link>
                 </div>
 
                 {/* More Links */}
@@ -132,18 +133,18 @@ export default function Footer() {
                   <h4 className="text-[#757575] text-[16px] sm:text-[18px] font-normal mb-1">
                     More
                   </h4>
-                  <a
-                    href="#"
+                  <Link
+                    href="/services"
                     className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Services
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    href="/contact"
                     className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Contact
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Legal & Policy Links */}
@@ -151,18 +152,18 @@ export default function Footer() {
                   <h4 className="text-[#757575] text-[16px] sm:text-[18px] font-normal mb-1">
                     Legal & Policy
                   </h4>
-                  <a
-                    href="#"
+                  <Link
+                    href="/privacy-policy"
                     className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Privacy Policy
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    href="/terms-and-conditions"
                     className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >
                     Terms and Conditions
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

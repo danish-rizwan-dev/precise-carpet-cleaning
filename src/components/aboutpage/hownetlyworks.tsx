@@ -22,7 +22,7 @@ const STEPS = [
     id: 2,
     title: '3. Enjoy Fresh Carpets',
     description: 'Sit back and enjoy a cleaner, fresher environment that looks and feels great.',
-    image: '/howitworks/crouselthreeimggirl.webp',
+    image: '/howitworks/crouselthreeimggirl.png',
   },
 ];
 
@@ -116,11 +116,10 @@ export default function HowNetlyWorks() {
                     key={step.id}
                     src={step.image}
                     alt={step.title}
-                    width={1176}
-                    height={650}
+                    fill
                     sizes="(max-width: 1176px) 100vw, 1176px"
                     priority={idx === 0}
-                    className={`h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
+                    className={`object-cover transition-opacity duration-700 ease-in-out ${
                       activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
                     }`}
                   />

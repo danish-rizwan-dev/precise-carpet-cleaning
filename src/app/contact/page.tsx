@@ -410,7 +410,7 @@ export default function GetInTouchSection() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full h-[50px] px-4 py-[14px] bg-[#2b80f7] hover:bg-[#eabb00] hover:text-black text-white font-semibold text-[15px] rounded-[12px] transition-all duration-200 flex items-center justify-center cursor-pointer mt-2"
+                className="w-full h-[50px] px-4 py-[14px] bg-[#ffb400] hover:bg-black text-black hover:text-white font-semibold text-[15px] rounded-[12px] transition-all duration-200 flex items-center justify-center cursor-pointer mt-2"
               >
                 Send Message
               </button>
