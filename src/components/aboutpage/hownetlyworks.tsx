@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
 
@@ -52,7 +52,7 @@ export default function HowNetlyWorks() {
           0% { width: 0%; opacity: 0.6; }
           100% { width: 100%; opacity: 1; }
         }
-        .animate-progress-red {
+        .animate-progress-yellow {
           animation: progressFill 5s linear forwards;
         }
       `,
@@ -68,7 +68,7 @@ export default function HowNetlyWorks() {
 
         {/* --- CAROUSEL STEP CONTENT --- */}
         <div className="w-full max-w-[1176px] flex flex-col relative">
-          {/* Step Selectors with Red Progress Bar */}
+          {/* Step Selectors with Yellow Progress Bar */}
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 mb-12 relative z-20">
             {STEPS.map((step, idx) => {
               const isActive = activeTab === idx;
@@ -93,12 +93,12 @@ export default function HowNetlyWorks() {
                     {step.description}
                   </p>
 
-                  {/* Red Progress Track & Fill */}
+                  {/* Yellow Progress Track & Fill */}
                   <div className="w-full max-w-[200px] h-[3px] bg-[#f0f0f0] rounded-full overflow-hidden relative mt-auto">
                     {isActive && (
                       <div
                         key={progressKey}
-                        className="absolute top-0 left-0 h-full bg-[#E53E3E] animate-progress-red"
+                        className="absolute top-0 left-0 h-full bg-[#ffb400] animate-progress-yellow"
                       />
                     )}
                   </div>
@@ -116,10 +116,11 @@ export default function HowNetlyWorks() {
                     key={step.id}
                     src={step.image}
                     alt={step.title}
-                    fill
+                    width={1176}
+                    height={650}
                     sizes="(max-width: 1176px) 100vw, 1176px"
                     priority={idx === 0}
-                    className={`object-cover transition-opacity duration-700 ease-in-out ${
+                    className={`h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
                       activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
                     }`}
                   />

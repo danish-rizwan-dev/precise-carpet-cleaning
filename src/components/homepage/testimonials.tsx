@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
 
@@ -187,9 +187,10 @@ export default function Testimonials() {
                   <Image
                     src={testimonial.image}
                     alt={testimonial.name}
-                    fill
+                    width={48}
+                    height={48}
                     sizes="48px"
-                    className="object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="flex flex-col">
@@ -233,9 +234,10 @@ export default function Testimonials() {
               <Image
                 src="/testimonials/vacumecleaner.webp"
                 alt="Cleaner working professionally with equipment"
-                fill
+                width={500}
+                height={420}
                 sizes="(max-width: 1024px) 100vw, 500px"
-                className="object-cover"
+                className="h-full w-full object-cover"
               />
             </div>
           </ScrollMoveImage>

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { Phone, Star } from "lucide-react";
 import ScrollMoveImage from "../ui/scrollMoveImage";
@@ -74,9 +74,10 @@ export default function ServicesSection() {
                   <Image
                     src={service.image}
                     alt={service.title}
-                    fill
+                    width={408}
+                    height={315}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 370px"
-                    className="object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </ScrollMoveImage>

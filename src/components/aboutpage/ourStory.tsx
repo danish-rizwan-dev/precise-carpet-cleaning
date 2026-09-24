@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/image";
 
 import ScrollMoveImage from "@/components/ui/scrollMoveImage";
 import CountUp from "@/components/ui/countUp";
@@ -46,8 +46,11 @@ export default function OurStorySection() {
           Our Story
         </h2>
         <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28px]">
-          We help create cleaner environments that support everyday comfort,
-          health, happiness, and inner peace of mind.
+          With 9 years of experience in professional carpet cleaning, we provide
+          reliable, high-quality cleaning services for homes and businesses
+          across Sydney. For the past 3 years, we have operated our own carpet
+          cleaning business, bringing hands-on expertise and professional
+          service to every job.
         </p>
       </div>
 
@@ -74,20 +77,39 @@ export default function OurStorySection() {
               <Image
                 src="/about/ourStoryimg2.webp"
                 alt="Cleaner wiping banister"
-                fill
+                width={588}
+                height={375}
                 sizes="(max-width: 1024px) 100vw, 588px"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           </ScrollMoveImage>
 
           <p className="text-[16px] sm:text-[18px] font-medium text-[#171206] leading-[31.2px] text-left">
-            Our work goes beyond just surface cleaning. We help create cleaner
-            environments that support everyday comfort, health, and peace of
-            mind for all. By doing so, we ensure a better quality of life for
-            everyone, fostering a strong sense of well-being and community.
+            We use modern, professional-grade carpet cleaning equipment designed
+            to deliver a deep and thorough clean. Whether it&apos;s everyday
+            dirt, heavily used carpets or carpets that need refreshing, our aim
+            is to achieve excellent results while treating every property with
+            care.
           </p>
         </div>
+      </div>
+
+      {/* About Us Body Copy */}
+      <div className="w-full max-w-[860px] mx-auto mb-16 flex flex-col gap-5 text-left">
+        <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
+          Our services include residential and commercial carpet cleaning,
+          end-of-lease carpet cleaning, and advanced stain removal treatments.
+          We understand that different carpets and stains require different
+          approaches, so we assess the condition of the carpet and use the
+          appropriate cleaning method for the job.
+        </p>
+        <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
+          We proudly service Sydney and surrounding areas, helping homeowners,
+          tenants, landlords and businesses keep their carpets clean and
+          presentable. Our focus is simple: professional workmanship, dependable
+          service and quality results you can see.
+        </p>
       </div>
 
       {/* Stats Bar Container */}

@@ -1,8 +1,9 @@
 "use client";
 
 import FaqPage from "@/components/homepage/faq";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
+import FeaturesStrip from "@/components/ui/featuresStrip";
 
 const OFFERS = [
   {
@@ -47,6 +48,40 @@ const OFFERS = [
   },
 ];
 
+const SERVICES = [
+  "Rug Cleaning",
+  "Mattress Cleaning",
+  "Residential Carpet Cleaning",
+  "Commercial Carpet Cleaning",
+  "Tile & Grout Cleaning",
+  "Stain and Spot Removal",
+  "Pet Stain and Odour Treatment",
+  "End of Lease Carpet Cleaning",
+  "Upholstery and Lounge Cleaning",
+  "Flood and Water Damage Carpet Cleaning",
+  "Stairs & High Traffic Areas",
+];
+
+const ServiceCheckIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="shrink-0"
+  >
+    <circle cx="10" cy="10" r="10" fill="#FEBF03" />
+    <path
+      d="M6 10L8.5 12.5L14 7"
+      stroke="#171206"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export default function ServicesPage() {
   return (
     <main>
@@ -55,14 +90,32 @@ export default function ServicesPage() {
         {/* Header Container */}
         <div className="max-w-[1272px] w-full text-center mb-8 sm:mb-12 md:mb-[72px]">
           <WordReveal className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
-           Our Services
+            Our Services
           </WordReveal>
           <ScrollReveal delay={0.15}>
             <p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
-             Our professional cleaning services are designed to keep your home consistently clean, comfortable, and stress-free.
+              Our professional cleaning services are designed to keep your home
+              consistently clean, comfortable, and stress-free.
             </p>
           </ScrollReveal>
         </div>
+
+        {/* Services We Provide - Pill List */}
+        <ScrollReveal delay={0.1}>
+          <div className="w-full max-w-[980px] flex flex-wrap justify-center gap-3 sm:gap-4 mb-10 sm:mb-14">
+            {SERVICES.map((service) => (
+              <span
+                key={service}
+                className="group flex items-center gap-2.5 rounded-full border border-[#171206]/10 bg-white px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:border-[#ffb400] hover:shadow-[0_4px_16px_rgba(255,180,0,0.18)] transition-all duration-300 cursor-default"
+              >
+                <ServiceCheckIcon />
+                <span className="text-[14px] sm:text-[16px] font-semibold text-[#171206] leading-[22px] whitespace-nowrap">
+                  {service}
+                </span>
+              </span>
+            ))}
+          </div>
+        </ScrollReveal>
 
         {/* Offers Grid */}
         <div className="w-full max-w-[1272px] flex flex-wrap justify-center gap-6 sm:gap-8">
@@ -102,60 +155,7 @@ export default function ServicesPage() {
       <section className="bg-white pt-0 pb-12 md:pt-2 md:pb-20">
         <div className="mx-auto max-w-[1200px] px-5 sm:px-8 md:px-14">
           {/* Top Features Strip */}
-          <div className="mb-16 grid grid-cols-1 sm:grid-cols-3 items-center gap-5 sm:gap-8">
-            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-              <div className="relative h-[57px] w-[57px] shrink-0">
-                <Image
-                  src="/hero/sameDaysvg.svg"
-                  alt="Same day cleaning"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <span
-                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Same day cleaning
-              </span>
-            </div>
-
-            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-              <div className="relative h-[57px] w-[57px] shrink-0">
-                <Image
-                  src="/hero/safeCleaning.svg"
-                  alt="Safe Chemicals"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <span
-                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Safe Chemicals
-                <br />
-                for Kids &amp; Pets
-              </span>
-            </div>
-
-            <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-              <div className="relative h-[57px] w-[57px] shrink-0">
-                <Image
-                  src="/hero/24hours.svg"
-                  alt="24/7 availability"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <span
-                className="font-semibold text-[16px] leading-tight text-[rgb(91,89,85)] sm:text-[20px] sm:leading-[31.2px]"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                24/7 availability
-              </span>
-            </div>
-          </div>
+          <FeaturesStrip className="mb-16 w-full" />
 
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">

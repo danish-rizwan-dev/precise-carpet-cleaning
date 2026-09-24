@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { use } from "react";
@@ -267,9 +267,10 @@ export default function ServiceDetailsPage({
                       <Image
                         src={item.avatar}
                         alt={item.name}
-                        fill
+                        width={44}
+                        height={44}
                         sizes="44px"
-                        className="object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                     <div className="flex flex-col text-left">

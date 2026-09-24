@@ -1,12 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { Phone, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import { WordReveal } from "../ui/scrollReveal";
+import FeaturesStrip from "../ui/featuresStrip";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -86,9 +87,10 @@ export default function Hero() {
                     <Image
                       src={`/hero/review${i}.webp`}
                       alt="User"
-                      fill
+                      width={46}
+                      height={46}
                       sizes="46px"
-                      className="object-cover"
+                      className="h-full w-full object-cover"
                     />
                   </div>
                 ))}
@@ -169,9 +171,10 @@ export default function Hero() {
                 <Image
                   src="/hero/2bedroomSpecial.avif"
                   alt="2 Bedroom Special from $79"
-                  fill
+                  width={471}
+                  height={180}
                   sizes="(max-width: 640px) 300px, (max-width: 768px) 350px, (max-width: 1024px) 400px, 471px"
-                  className="object-contain object-left"
+                  className="h-full w-full object-contain object-left"
                 />
               </motion.div>
             </div>
@@ -181,60 +184,7 @@ export default function Hero() {
 
       {/* Features Strip */}
       <section className="relative z-10 bg-[#fff] px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 md:px-14">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-5 sm:grid-cols-3 sm:gap-8">
-          <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-            <div className="relative h-[57px] w-[57px] shrink-0">
-              <Image
-                src="/hero/sameDaysvg.svg"
-                alt=""
-                fill
-                className="object-contain"
-              />
-            </div>
-            <span
-              className="font-semibold text-[16px] leading-tight text-[rgb(91, 89, 85)] sm:text-[20px] sm:leading-[31.2px]"
-              style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-            >
-              Same day cleaning
-            </span>
-          </div>
-
-          <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-            <div className="relative h-[57px] w-[57px] shrink-0">
-              <Image
-                src="/hero/safeCleaning.svg"
-                alt=""
-                fill
-                className="object-contain"
-              />
-            </div>
-            <span
-              className="font-semibold text-[16px] leading-tight text-[rgb(91, 89, 85)] sm:text-[20px] sm:leading-[31.2px]"
-              style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-            >
-              Safe Chemicals
-              <br />
-              for Kids &amp; Pets
-            </span>
-          </div>
-
-          <div className="mx-auto flex w-full max-w-[230px] items-center gap-3 sm:max-w-none sm:justify-center">
-            <div className="relative h-[57px] w-[57px] shrink-0">
-              <Image
-                src="/hero/24hours.svg"
-                alt=""
-                fill
-                className="object-contain"
-              />
-            </div>
-            <span
-              className="font-semibold text-[16px] leading-tight text-[rgb(91, 89, 85)] sm:text-[20px] sm:leading-[31.2px]"
-              style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
-            >
-              24/7 availability
-            </span>
-          </div>
-        </div>
+        <FeaturesStrip className="mx-auto w-full max-w-[1200px]" />
       </section>
     </div>
   );

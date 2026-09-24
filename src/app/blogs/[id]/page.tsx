@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { use } from "react";
 import { articlesData } from "@/data/articles";
@@ -108,9 +108,10 @@ export default function BlogPostPage({
                 <Image
                   src={relArticle.image}
                   alt={relArticle.title}
-                  fill
+                  width={624}
+                  height={417}
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 

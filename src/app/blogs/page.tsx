@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { articlesData } from "@/data/articles";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
@@ -42,9 +42,10 @@ export default function LatestArticlesSection() {
                 <Image
                   src={article.image}
                   alt={article.title}
-                  fill
+                  width={624}
+                  height={417}
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import ScrollMoveImage from "../ui/scrollMoveImage";
 import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
 
@@ -116,9 +116,10 @@ export default function CleaningOffers() {
                 <Image
                   src="/cleaningoffers/carpetcleaning.webp"
                   alt="Expert team carpet cleaning"
-                  fill
+                  width={427}
+                  height={353}
                   sizes="(max-width: 1024px) 100vw, 427px"
-                  className="object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
             </ScrollMoveImage>
@@ -164,9 +165,10 @@ export default function CleaningOffers() {
                   <Image
                     src="/cleaningoffers/carpetcleaning2.webp"
                     alt="Upholstery cleaning solution"
-                    fill
+                    width={540}
+                    height={427}
                     sizes="(max-width: 1024px) 100vw, 540px"
-                    className="object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </ScrollMoveImage>

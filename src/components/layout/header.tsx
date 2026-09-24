@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import { usePathname } from "next/navigation";
 import { Phone, Mail, Star } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -79,7 +79,7 @@ export default function Header() {
           <div className="flex items-center gap-3 sm:gap-4">
             <a
               href="mailto:Enquiries@precisecarpetcleaning.com.au"
-              className="text-white hover:text-[#ffb400] transition-colors"
+              className="lg:hidden text-white hover:text-[#ffb400] transition-colors"
               aria-label="Email"
             >
               <Mail size={14} className="stroke-[2.5]" />

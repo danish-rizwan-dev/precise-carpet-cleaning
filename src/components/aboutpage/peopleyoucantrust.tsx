@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
 
 const TEAM_MEMBERS = [

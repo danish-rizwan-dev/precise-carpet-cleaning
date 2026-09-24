@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import CountUp from '../ui/countUp';
 import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
@@ -133,10 +133,11 @@ export default function HowItWorks() {
                     key={step.id}
                     src={step.image}
                     alt={step.title}
-                    fill
+                    width={1176}
+                    height={650}
                     sizes="(max-width: 1176px) 100vw, 1176px"
                     priority={idx === 0}
-                    className={`object-cover transition-opacity duration-700 ease-in-out ${
+                    className={`h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
                       activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
                     }`}
                   />
@@ -177,9 +178,10 @@ export default function HowItWorks() {
                   key={idx}
                   src={item.image}
                   alt={item.title}
-                  fill
+                  width={611}
+                  height={550}
                   sizes="(max-width: 1024px) 100vw, 611px"
-                  className={`object-cover transition-opacity duration-700 ease-in-out ${
+                  className={`h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
                     activeAccordion === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
                   }`}
                 />
