@@ -57,7 +57,7 @@ export default function Hero() {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="120vw"
           className="object-cover object-[55%_center] sm:object-center"
         />
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/95 via-black/75 to-black/30 sm:from-black/85 sm:via-black/50 sm:to-transparent" />

@@ -1,7 +1,7 @@
 "use client";
 
 import FaqPage from "@/components/homepage/faq";
-import Image from "@/components/ui/image";
+import Image from "next/image";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 import FeaturesStrip from "@/components/ui/featuresStrip";
 
@@ -162,10 +162,10 @@ export default function ServicesPage() {
             {/* Left Column - Image */}
             <div className="relative mx-auto h-[411px] w-full max-w-[651px] overflow-hidden rounded-[40px]">
               <Image
-                src="/ourServices/recoveryourtime.webp"
+                src="/ourServices/recoveryourtime.png"
                 alt="Professional carpet cleaner at work"
                 fill
-                sizes="(max-width: 1024px) 100vw, 512px"
+                sizes="(max-width: 1024px) 100vw, 651px"
                 className="object-cover"
                 priority
               />

@@ -110,7 +110,7 @@ export default function BlogPostPage({
                   alt={relArticle.title}
                   width={624}
                   height={417}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 624px"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>

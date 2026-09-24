@@ -76,7 +76,7 @@ export default function ServicesSection() {
                     alt={service.title}
                     width={408}
                     height={315}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 370px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 408px"
                     className="h-full w-full object-cover"
                   />
                 </div>

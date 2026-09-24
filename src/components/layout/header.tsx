@@ -114,7 +114,7 @@ export default function Header() {
             src="/logo.svg"
             alt="Precise Carpet Cleaning Services"
             fill
-            sizes="(max-width: 640px) 175px, 145px"
+            sizes="(max-width: 640px) 145px, 175px"
             style={{ filter: logoFilter }}
             className="object-contain object-left"
             priority
