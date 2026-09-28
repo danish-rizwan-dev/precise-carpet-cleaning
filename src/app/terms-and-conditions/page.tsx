@@ -189,7 +189,7 @@ export default function TermsAndConditionsPage() {
             </h2>
             <p>
               If you have any questions about these Terms and Conditions,
-              please contact us at Enquiries@precisecarpetcleaning.com.au or
+              please contact us at enquiries@precisecarpetcleaning.com.au or
               call 0434 161 161.
             </p>
           </div>

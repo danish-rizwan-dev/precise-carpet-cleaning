@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
             </h2>
             <p>
               We may collect personal information such as your name, phone
-              number, email address, home address, and service details when you
+              number, Email address, home address, and service details when you
               book a cleaning service, fill out a contact form, or communicate
               with us.
             </p>

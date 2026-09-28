@@ -192,10 +192,10 @@ export default function GetInTouchSection() {
                   <MailIcon />
                 </div>
                 <a
-                  href="mailto:Enquiries@precisecarpetcleaning.com.au"
+                  href="mailto:enquiries@precisecarpetcleaning.com.au"
                   className="text-[15px] sm:text-[16px] font-medium text-[#171206] hover:underline break-all min-w-0"
                 >
-                  Enquiries@precisecarpetcleaning.com.au
+                  enquiries@precisecarpetcleaning.com.au
                 </a>
               </div>
             </div>

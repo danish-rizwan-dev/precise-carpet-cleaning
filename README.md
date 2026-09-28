@@ -24,7 +24,7 @@
 ### Top 5 Priority Fixes
 
 1. **Fix the SITE_URL** (`layout.tsx:13`) — currently pointing to Framer staging domain
-2. **Fix contact page business information** (`contact/page.tsx`) — wrong phone, wrong address, wrong email
+2. **Fix contact page business information** (`contact/page.tsx`) — wrong phone, wrong address, wrong Email
 3. **Fix footer links** (`footer.tsx`) — all `href="#"` placeholders
 4. **Replace "Neatly" brand references** (`services.ts`, `privacy-policy/page.tsx`) — template leftover brand name
 5. **Create `sitemap.ts` and `robots.txt`** — essential for search engine crawling

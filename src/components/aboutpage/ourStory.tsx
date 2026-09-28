@@ -40,93 +40,117 @@ export default function OurStorySection() {
   return (
     <>
       <section id="our-story" className="w-full max-w-[1272px] mx-auto py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif] bg-white text-[#171206]">
-      {/* Header Container */}
-      <div className="text-center max-w-[620px] mx-auto mb-12 sm:mb-16">
-        <h2 className="text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-4px] leading-[1.15] mb-3">
-          Our Story
-        </h2>
-        <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28px]">
-          With 9 years of experience in professional carpet cleaning, we provide
-          reliable, high-quality cleaning services for homes and businesses
-          across Sydney. For the past 3 years, we have operated our own carpet
-          cleaning business, bringing hands-on expertise and professional
-          service to every job.
-        </p>
-      </div>
-
-      {/* 2-Column Showcase */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full mb-16 items-start">
-        {/* Left Side Main Image */}
-        <ScrollMoveImage className="w-full">
-          <div className="w-full h-[400px] sm:h-[480px] lg:h-[530px] relative rounded-[32px] overflow-hidden group">
-            <Image
-              src="/about/ourStoryimg1.webp"
-              alt="Cleaner holding bucket"
-              fill
-              sizes="(max-width: 1024px) 100vw, 588px"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              priority
-            />
-          </div>
-        </ScrollMoveImage>
-
-        {/* Right Side Stack: Image + Description */}
-        <div className="flex flex-col gap-8 justify-between h-full">
-          <ScrollMoveImage className="w-full shrink-0">
-            <div className="w-full h-[280px] sm:h-[340px] lg:h-[375px] relative rounded-[32px] overflow-hidden group">
-              <Image
-                src="/about/ourStoryimg2.webp"
-                alt="Cleaner wiping banister"
-                width={588}
-                height={375}
-                sizes="(max-width: 1024px) 100vw, 588px"
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-          </ScrollMoveImage>
-
-          <p className="text-[16px] sm:text-[18px] font-medium text-[#171206] leading-[31.2px] text-left">
-            We use modern, professional-grade carpet cleaning equipment designed
-            to deliver a deep and thorough clean. Whether it&apos;s everyday
-            dirt, heavily used carpets or carpets that need refreshing, our aim
-            is to achieve excellent results while treating every property with
-            care.
+        {/* Header Container */}
+        <div className="text-center max-w-[620px] mx-auto mb-12 sm:mb-16">
+          <h2 className="text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-4px] leading-[1.15] mb-3">
+            Our Story
+          </h2>
+          <p className="text-[15px] sm:text-[16px] font-medium text-[#5B5955] leading-[26px]">
+            Get to know the people and the values behind Precise Carpet
+            Cleaning Services.
           </p>
         </div>
-      </div>
 
-      {/* About Us Body Copy */}
-      <div className="w-full max-w-[860px] mx-auto mb-16 flex flex-col gap-5 text-left">
-        <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
-          Our services include residential and commercial carpet cleaning,
-          end-of-lease carpet cleaning, and advanced stain removal treatments.
-          We understand that different carpets and stains require different
-          approaches, so we assess the condition of the carpet and use the
-          appropriate cleaning method for the job.
-        </p>
-        <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
-          We proudly service Sydney and surrounding areas, helping homeowners,
-          tenants, landlords and businesses keep their carpets clean and
-          presentable. Our focus is simple: professional workmanship, dependable
-          service and quality results you can see.
-        </p>
-      </div>
+        {/* Details left + Sticky collage right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start mb-16">
+          {/* Left Side: Story Details */}
+          <div className="flex flex-col gap-4 sm:gap-5 lg:gap-16 order-2 lg:order-1">
+            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
+              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
+                Who we are
+              </h3>
+              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
+                With 9 years of experience in professional carpet cleaning, we
+                provide reliable, high-quality cleaning services for homes and
+                businesses across Sydney. For the past 3 years, we have operated
+                our own carpet cleaning business, bringing hands-on expertise
+                and professional service to every job.
+              </p>
+            </div>
 
-      {/* Stats Bar Container */}
-      <div className="w-full bg-[#F2F7F9] rounded-[18px] py-[42px] px-6 sm:px-[76px] grid grid-cols-2 lg:grid-cols-4 gap-8 justify-between items-center text-center">
-        {STATS.map((stat, idx) => (
-          <div key={idx} className="flex flex-col items-center">
-            <h3 className="text-[36px] sm:text-[48px] font-bold text-[#171206] tracking-[-1px] leading-[50px] mb-1">
-              <CountUp target={stat.value} />
-            </h3>
-            <p className="text-[16px] sm:text-[20px] font-medium text-[#5B5955]">
-              {stat.label}
-            </p>
+            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
+              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
+                Our equipment
+              </h3>
+              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
+                We use modern, professional-grade carpet cleaning equipment
+                designed to deliver a deep and thorough clean. Whether
+                it&apos;s everyday dirt, heavily used carpets or carpets that
+                need refreshing, our aim is to achieve excellent results while
+                treating every property with care.
+              </p>
+            </div>
+
+            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
+              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
+                What we do
+              </h3>
+              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
+                Our services include residential and commercial carpet cleaning,
+                end-of-lease carpet cleaning, and advanced stain removal
+                treatments. We understand that different carpets and stains
+                require different approaches, so we assess the condition of the
+                carpet and use the appropriate cleaning method for the job.
+              </p>
+            </div>
+
+            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
+              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
+                Where we work
+              </h3>
+              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
+                We proudly service Sydney and surrounding areas, helping
+                homeowners, tenants, landlords and businesses keep their carpets
+                clean and presentable. Our focus is simple: professional
+                workmanship, dependable service and quality results you can see.
+              </p>
+            </div>
           </div>
-        ))}
-      </div>
-    </section>
-      
+
+          {/* Right Side: Sticky Image Collage */}
+          <div className="w-full order-1 lg:order-2 lg:sticky lg:top-8">
+            <ScrollMoveImage className="w-full relative">
+              <div className="relative">
+                <div className="w-full h-[300px] sm:h-[360px] lg:h-[400px] relative rounded-[32px] overflow-hidden group">
+                  <Image
+                    src="/about/ourStoryimg1.webp"
+                    alt="Cleaner holding bucket"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 572px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    priority
+                  />
+                </div>
+
+                <div className="absolute left-0 sm:-left-6 -bottom-5 sm:-bottom-8 z-10 w-[58%] max-w-[300px] h-[150px] sm:h-[175px] lg:h-[190px] rounded-[24px] overflow-hidden ring-4 sm:ring-8 ring-white shadow-[0_18px_40px_rgba(23,18,6,0.18)] group">
+                  <Image
+                    src="/about/ourStoryimg2.webp"
+                    alt="Cleaner wiping banister"
+                    fill
+                    sizes="300px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+            </ScrollMoveImage>
+          </div>
+        </div>
+
+        {/* Stats Bar Container */}
+        <div className="w-full bg-[#F2F7F9] rounded-[18px] py-[42px] px-6 sm:px-[76px] grid grid-cols-2 lg:grid-cols-4 gap-8 justify-between items-center text-center">
+          {STATS.map((stat, idx) => (
+            <div key={idx} className="flex flex-col items-center">
+              <h3 className="text-[36px] sm:text-[48px] font-bold text-[#171206] tracking-[-1px] leading-[50px] mb-1">
+                <CountUp target={stat.value} />
+              </h3>
+              <p className="text-[16px] sm:text-[20px] font-medium text-[#5B5955]">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="w-full max-w-[1272px] mx-auto py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif]">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
           {/* Left Side Image */}

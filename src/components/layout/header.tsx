@@ -67,18 +67,18 @@ export default function Header() {
               <span>Call us: 0434 161 161</span>
             </a>
             <a
-              href="mailto:Enquiries@precisecarpetcleaning.com.au"
+              href="mailto:enquiries@precisecarpetcleaning.com.au"
               className="hidden lg:flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Mail size={14} className="stroke-[2.5]" />
-              <span>Enquiries@precisecarpetcleaning.com.au</span>
+              <span>enquiries@precisecarpetcleaning.com.au</span>
             </a>
           </div>
 
           {/* Right Side: Social Icons */}
           <div className="flex items-center gap-3 sm:gap-4">
             <a
-              href="mailto:Enquiries@precisecarpetcleaning.com.au"
+              href="mailto:enquiries@precisecarpetcleaning.com.au"
               className="lg:hidden text-white hover:text-[#ffb400] transition-colors"
               aria-label="Email"
             >
