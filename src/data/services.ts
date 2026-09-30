@@ -277,4 +277,168 @@ export const servicesData: Record<string, ServiceDetail> = {
       },
     ],
   },
+
+  "tile-grout-cleaning": {
+    id: "tile-grout-cleaning",
+    title: "Professional Tile & Grout Cleaning Services",
+    subtitle:
+      "Restore the original look of your floors with our professional tile and grout cleaning services.",
+    image: "/ourServices/tilegroutcleaning.webp",
+    sections: [
+      {
+        title: "",
+        content:
+          "Over time, tiles and grout can become stained, discoloured and covered with built-up dirt, grime and soap residue. Our professional cleaning process helps remove deep-seated dirt and refresh tired-looking tiled surfaces.",
+      },
+      {
+        title: "",
+        content:
+          "We provide tile and grout cleaning for bathrooms, kitchens, floors, showers and commercial areas, using professional equipment and effective cleaning methods to achieve a cleaner and fresher finish.",
+      },
+      {
+        title: "",
+        content:
+          "Whether you need a one-off deep clean, end-of-lease cleaning or regular maintenance, our experienced team delivers reliable and professional results for homes and businesses.",
+      },
+      {
+        title: "",
+        content:
+          "Serving Sydney and surrounding areas, we are committed to providing quality workmanship, convenient service and competitive pricing.",
+      },
+      {
+        title: "",
+        content:
+          "Book your professional tile and grout cleaning service today and bring your tiles back to life.",
+      },
+    ],
+  },
+
+  "rug-cleaning": {
+    id: "rug-cleaning",
+    title: "Professional Rug Cleaning Services",
+    subtitle:
+      "Keep your rugs looking fresh, clean and well maintained with our professional rug cleaning services.",
+    image: "/ourServices/rugcleaing.webp",
+    sections: [
+      {
+        title: "",
+        content:
+          "Rugs can collect dirt, dust, stains, pet hair, allergens and odours over time. Our professional cleaning methods help remove built-up dirt and restore the appearance and freshness of your rugs.",
+      },
+      {
+        title: "",
+        content:
+          "We provide rug cleaning for homes, offices, rental properties and commercial spaces, with cleaning solutions suited to a variety of rug types and materials. Whether your rug needs a regular clean, stain removal or a deep clean, our experienced team can help.",
+      },
+      {
+        title: "",
+        content:
+          "Serving Sydney and surrounding areas, we focus on reliable service, quality workmanship and excellent results.",
+      },
+      {
+        title: "",
+        content:
+          "Book your professional rug cleaning service today and give your rugs a fresh, clean finish.",
+      },
+    ],
+  },
+
+  "mattress-steam-cleaning": {
+    id: "mattress-steam-cleaning",
+    title: "Professional Mattress Steam Cleaning Services",
+    subtitle:
+      "Enjoy a cleaner, fresher and more hygienic sleeping environment with our professional mattress steam cleaning services.",
+    image: "/ourServices/mattrecesclean.webp",
+    sections: [
+      {
+        title: "",
+        content:
+          "Over time, mattresses can collect dust, dirt, sweat, stains, odours and other unwanted build-up. Professional steam cleaning can help refresh your mattress and improve its overall cleanliness.",
+      },
+      {
+        title: "",
+        content:
+          "We provide mattress steam cleaning for homes, apartments, rental properties and accommodation businesses, using professional equipment and effective cleaning methods designed to remove dirt and stains while freshening the mattress.",
+      },
+      {
+        title: "",
+        content:
+          "Whether you need a regular mattress clean, stain removal or a deep clean, our experienced team provides reliable and convenient service across Sydney and surrounding areas.",
+      },
+      {
+        title: "",
+        content:
+          "Book your professional mattress steam cleaning service today and give your mattress a fresh, clean finish.",
+      },
+    ],
+  },
+
+  "leather-lounge-cleaning": {
+    id: "leather-lounge-cleaning",
+    title: "Professional Leather Lounge Cleaning Services",
+    subtitle:
+      "Restore the look and comfort of your furniture with our professional leather lounge cleaning services.",
+    image: "/ourServices/leathercleaning.webp",
+    sections: [
+      {
+        title: "",
+        content:
+          "Over time, leather lounges can collect dust, dirt, body oils, stains and grime, causing the surface to look dull, dry or worn. Our professional cleaning process helps remove built-up dirt and refresh the appearance of your leather furniture.",
+      },
+      {
+        title: "",
+        content:
+          "We provide leather lounge cleaning for homes, apartments, offices, rental properties and commercial spaces, using professional equipment and effective cleaning methods suitable for a variety of leather furniture types.",
+      },
+      {
+        title: "",
+        content:
+          "Whether you need regular leather cleaning, stain removal, conditioning or a deep clean, our experienced team provides reliable and convenient service across Sydney and surrounding areas.",
+      },
+      {
+        title: "",
+        content:
+          "Book your professional leather lounge cleaning service today and give your furniture a fresh, clean finish.",
+      },
+    ],
+  },
+
+  "upholstery-steam-cleaning": {
+    id: "upholstery-steam-cleaning",
+    title: "Professional Upholstery Steam Cleaning Services",
+    subtitle:
+      "Enjoy cleaner, fresher and more comfortable furniture with our professional upholstery steam cleaning services.",
+    image: "/ourServices/sofaandcouch.webp",
+    sections: [
+      {
+        title: "",
+        content:
+          "Over time, sofas, chairs and other upholstered furniture can collect dust, dirt, stains, pet hair, allergens and unwanted odours. Professional steam cleaning helps remove built-up grime and refresh the appearance of your upholstery.",
+      },
+      {
+        title: "",
+        content:
+          "We provide upholstery steam cleaning for homes, apartments, offices, rental properties and commercial spaces, using professional equipment and effective cleaning methods suitable for a variety of fabrics and furniture types.",
+      },
+      {
+        title: "",
+        content:
+          "Whether you need a regular upholstery clean, stain removal or a deep clean, our experienced team provides reliable and convenient service across Sydney and surrounding areas.",
+      },
+      {
+        title: "",
+        content:
+          "Book your professional upholstery steam cleaning service today and give your furniture a fresh, clean finish.",
+      },
+    ],
+  },
 };
+
+/** Primary services shown in the site navigation dropdown. */
+export const servicesNav: { title: string; href: string }[] = [
+  { title: "Tile & Grout Cleaning", href: "/services/tile-grout-cleaning" },
+  { title: "Rug Cleaning", href: "/services/rug-cleaning" },
+  { title: "Mattress Steam Cleaning", href: "/services/mattress-steam-cleaning" },
+  { title: "Leather Lounge Cleaning", href: "/services/leather-lounge-cleaning" },
+  { title: "Upholstery Steam Cleaning", href: "/services/upholstery-steam-cleaning" },
+];

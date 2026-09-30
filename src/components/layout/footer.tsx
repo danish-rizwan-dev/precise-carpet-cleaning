@@ -140,6 +140,12 @@ export default function Footer() {
                     Services
                   </Link>
                   <Link
+                    href="/gallery"
+                    className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
+                  >
+                    Gallery
+                  </Link>
+                  <Link
                     href="/pricing"
                     className="text-[#171206] text-[15px] sm:text-[16px] font-medium hover:text-[#ffb400] transition-colors"
                   >

@@ -4,8 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "@/components/ui/image";
 import { usePathname } from "next/navigation";
-import { Phone, Mail, Star } from "lucide-react";
+import { Phone, Mail, Star, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { servicesNav } from "@/data/services";
 
 const FacebookIcon = ({ size = 14 }: { size?: number }) => (
   <svg
@@ -33,12 +34,15 @@ const InstagramIcon = ({ size = 14 }: { size?: number }) => (
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const pathname = usePathname();
 
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Gallery", href: "/gallery" },
     { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
   ];
@@ -56,7 +60,7 @@ export default function Header() {
     <header className="w-full font-['Plus_Jakarta_Sans',sans-serif] relative z-50">
       {/* Top Bar - Phone on mobile/tablet, full details on lg */}
       <div className="block w-full bg-black text-white text-[13px] sm:text-[14px] font-semibold leading-[21.84px] py-[8px] sm:py-[10px]">
-        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-4 sm:px-6 lg:px-[124px] overflow-hidden">
+        <div className="max-w-[1521px] mx-auto w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-[124px] overflow-hidden">
           {/* Left Side: Contact Details */}
           <div className="flex items-center gap-3 lg:gap-6">
             <a
@@ -107,7 +111,7 @@ export default function Header() {
       </div>
 
       {/* Main Navigation Bar - White background, dark text */}
-      <div className="w-full bg-white h-[70px] sm:h-[76px] lg:h-[105px] flex items-center justify-between px-4 sm:px-6 lg:px-[124px] max-w-[1920px] mx-auto ">
+      <div className="w-full bg-white h-[70px] sm:h-[76px] lg:h-[105px] flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-[124px] max-w-[1920px] mx-auto ">
         {/* Logo Left */}
         <Link href="/" className="relative w-[145px] sm:w-[175px] h-[48px] sm:h-[56px]">
           <Image
@@ -122,21 +126,80 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-8">
-          <nav className="flex items-center gap-8 text-[#171206] font-semibold text-[16px]">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`relative px-1 pb-1.5 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  isActive(link.href)
-                    ? "text-[#ffb400] after:scale-x-100"
-                    : "hover:text-[#ffb400] after:scale-x-0 hover:after:scale-x-100"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+        <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav className="flex items-center gap-6 xl:gap-8 text-[#171206] font-semibold text-[16px]">
+            {navLinks.map((link) =>
+              link.name === "Services" ? (
+                <div
+                  key={link.name}
+                  className="relative"
+                  onMouseEnter={() => setServicesOpen(true)}
+                  onMouseLeave={() => setServicesOpen(false)}
+                >
+                  <Link
+                    href={link.href}
+                    aria-haspopup="menu"
+                    aria-expanded={servicesOpen}
+                    className={`relative px-1 pb-1.5 flex items-center gap-1.5 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      isActive(link.href)
+                        ? "text-[#ffb400] after:scale-x-100"
+                        : "hover:text-[#ffb400] after:scale-x-0 hover:after:scale-x-100"
+                    }`}
+                  >
+                    {link.name}
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        servicesOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                    />
+                  </Link>
+
+                  <AnimatePresence>
+                    {servicesOpen && (
+                      <motion.div
+                        key="services-dropdown"
+                        initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                        transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute left-1/2 -translate-x-1/2 top-full pt-4 z-50"
+                      >
+                        <div className="w-[320px] rounded-[20px] border border-black/[0.06] bg-white p-2 shadow-[0_24px_60px_rgba(0,0,0,0.16)]">
+                          <nav className="flex flex-col gap-0.5">
+                            {servicesNav.map((service) => (
+                              <Link
+                                key={service.href}
+                                href={service.href}
+                                onClick={() => setServicesOpen(false)}
+                                className={`rounded-[14px] px-4 py-2.5 text-[15px] font-medium transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                                  isActive(service.href)
+                                    ? "bg-[#ffb400]/15 text-[#ffb400]"
+                                    : "text-[#171206] hover:bg-[#ffb400]/10 hover:text-[#ffb400]"
+                                }`}
+                              >
+                                {service.title}
+                              </Link>
+                            ))}
+                          </nav>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative px-1 pb-1.5 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[2px] after:rounded-full after:bg-[#ffb400] after:origin-left after:transition-transform after:duration-500 after:ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    isActive(link.href)
+                      ? "text-[#ffb400] after:scale-x-100"
+                      : "hover:text-[#ffb400] after:scale-x-0 hover:after:scale-x-100"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
           </nav>
 
           <Link
@@ -200,9 +263,84 @@ export default function Header() {
                 className="lg:hidden fixed top-[116px] sm:top-[122px] left-4 right-4 sm:left-6 sm:right-6 z-50 mx-auto w-auto max-w-[380px]"
               >
                 <div className="overflow-hidden rounded-[20px] border border-black/[0.06] bg-white/95 p-2.5 shadow-[0_24px_60px_rgba(0,0,0,0.18)] backdrop-blur-xl">
-                  <nav className="flex flex-col gap-0.5">
+                  <nav className="flex flex-col gap-0.5 max-h-[58vh] overflow-y-auto pr-0.5">
                     {navLinks.map((link) => {
                       const active = isActive(link.href);
+
+                      if (link.name === "Services") {
+                        return (
+                          <div key={link.name} className="flex flex-col">
+                            <div
+                              className={`flex items-center justify-between rounded-[14px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                                active
+                                  ? "bg-[#ffb400]/15 text-[#ffb400]"
+                                  : "text-[#171206] hover:bg-[#ffb400]/10 hover:text-[#ffb400]"
+                              }`}
+                            >
+                              <Link
+                                href={link.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="flex-1 flex items-center px-4 py-3 text-[15px] font-semibold"
+                              >
+                                {link.name}
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setMobileServicesOpen((open) => !open)
+                                }
+                                aria-expanded={mobileServicesOpen}
+                                aria-label="Toggle services submenu"
+                                className="p-3 pr-4 flex items-center justify-center"
+                              >
+                                <ChevronDown
+                                  className={`w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                                    mobileServicesOpen
+                                      ? "rotate-180 text-[#ffb400]"
+                                      : "rotate-0"
+                                  }`}
+                                />
+                              </button>
+                            </div>
+
+                            <AnimatePresence initial={false}>
+                              {mobileServicesOpen && (
+                                <motion.div
+                                  key="mobile-services-submenu"
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: "auto", opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{
+                                    duration: 0.3,
+                                    ease: [0.22, 1, 0.36, 1],
+                                  }}
+                                  className="overflow-hidden"
+                                >
+                                  <div className="flex flex-col gap-0.5 pl-4 py-1">
+                                    {servicesNav.map((service) => (
+                                      <Link
+                                        key={service.href}
+                                        href={service.href}
+                                        onClick={() =>
+                                          setIsMobileMenuOpen(false)
+                                        }
+                                        className={`rounded-[12px] px-4 py-2.5 text-[14px] font-medium transition-colors ${
+                                          isActive(service.href)
+                                            ? "bg-[#ffb400]/15 text-[#ffb400]"
+                                            : "text-[#171206] hover:bg-[#ffb400]/10 hover:text-[#ffb400]"
+                                        }`}
+                                      >
+                                        {service.title}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        );
+                      }
+
                       return (
                         <Link
                           key={link.name}

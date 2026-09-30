@@ -418,6 +418,32 @@ export default function GetInTouchSection() {
           </div>
         </ScrollReveal>
       </div>
+
+      {/* Service Area Map */}
+      <ScrollReveal delay={0.2} className="w-full mt-14 sm:mt-20">
+        <div className="w-full flex flex-col items-center gap-5">
+          <div className="flex flex-col items-center text-center gap-2">
+            <h2 className="text-[28px] sm:text-[36px] font-bold text-[#171206] tracking-[-1px] leading-tight">
+              Serving Sydney &amp; Surrounding Areas
+            </h2>
+            <p className="text-[15px] sm:text-[16px] font-medium text-[#5B5955] leading-[26px] max-w-[560px]">
+              We provide professional cleaning services for homes and businesses
+              across Sydney. Find our service area on the map below.
+            </p>
+          </div>
+
+          <div className="w-full h-[300px] sm:h-[380px] lg:h-[460px] overflow-hidden rounded-[22px] border border-gray-100 shadow-[0px_20px_50px_rgba(0,0,0,0.05)] bg-[#FAFAFA]">
+            <iframe
+              title="Map of Sydney, New South Wales, Australia"
+              src="https://www.google.com/maps?q=Sydney,+NSW,+Australia&z=11&output=embed"
+              className="h-full w-full border-0 block"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </ScrollReveal>
     </section>
   );
 }

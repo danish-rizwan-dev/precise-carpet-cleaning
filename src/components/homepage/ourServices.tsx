@@ -13,6 +13,7 @@ const SERVICES = [
     description:
       "Say goodbye to stubborn stains and dirt with our professional carpet cleaning service.",
     image: "/ourServices/carpetcleaning.webp",
+    href: "/services",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const SERVICES = [
     description:
       "Restore the beauty and comfort of your sofas and couches with our specialised cleaning techniques.",
     image: "/ourServices/sofaandcouch.webp",
+    href: "/services/upholstery-steam-cleaning",
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const SERVICES = [
     description:
       "Preserve the luxurious look and feel of your leather furniture with our expert cleaning and conditioning.",
     image: "/ourServices/leathercleaning.webp",
+    href: "/services/leather-lounge-cleaning",
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const SERVICES = [
     description:
       "From delicate area rugs to sturdy floor coverings, we'll leave your rugs looking vibrant and fresh.",
     image: "/ourServices/rugcleaing.webp",
+    href: "/services/rug-cleaning",
   },
   {
     id: 5,
@@ -41,6 +45,7 @@ const SERVICES = [
     description:
       "Ensure a clean and hygienic sleeping environment with our thorough mattress cleaning service.",
     image: "/ourServices/mattrecesclean.webp",
+    href: "/services/mattress-steam-cleaning",
   },
   {
     id: 6,
@@ -48,6 +53,7 @@ const SERVICES = [
     description:
       "Deep clean your tiles and grout, removing built-up dirt, stains and grime to restore a fresh, brighter finish.",
     image: "/ourServices/tilegroutcleaning.webp",
+    href: "/services/tile-grout-cleaning",
   },
 ];
 
@@ -66,31 +72,36 @@ export default function ServicesSection() {
           {SERVICES.map((service) => (
             <ScrollReveal
               key={service.id}
-              className="w-full max-w-[408px] flex flex-col items-start text-left" delay={(service.id - 1) * 0.07}
+              className="w-full max-w-[408px]" delay={(service.id - 1) * 0.07}
             >
-              {/* Image Container */}
-              <ScrollMoveImage className="w-full">
-                <div className="w-full h-[315px] relative rounded-[28px] overflow-hidden mb-6 bg-gray-100 shadow-sm">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    width={408}
-                    height={315}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 408px"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </ScrollMoveImage>
+              <Link
+                href={service.href}
+                className="group w-full flex flex-col items-start text-left"
+              >
+                {/* Image Container */}
+                <ScrollMoveImage className="w-full">
+                  <div className="w-full h-[315px] relative rounded-[28px] overflow-hidden mb-6 bg-gray-100 shadow-sm">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      width={408}
+                      height={315}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 408px"
+                      className="h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                    />
+                  </div>
+                </ScrollMoveImage>
 
-              {/* Text Container */}
-              <div className="flex flex-col items-start px-1">
-                <h3 className="text-[24px] font-bold text-[#171206] leading-[37.44px] tracking-[-0.5px] mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-[18px] font-medium text-[#5B5955] leading-[28.08px]">
-                  {service.description}
-                </p>
-              </div>
+                {/* Text Container */}
+                <div className="flex flex-col items-start px-1">
+                  <h3 className="text-[24px] font-bold text-[#171206] leading-[37.44px] tracking-[-0.5px] mb-2 transition-colors duration-300 group-hover:text-[#0b4255]">
+                    {service.title}
+                  </h3>
+                  <p className="text-[18px] font-medium text-[#5B5955] leading-[28.08px]">
+                    {service.description}
+                  </p>
+                </div>
+              </Link>
             </ScrollReveal>
           ))}
         </div>

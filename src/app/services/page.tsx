@@ -2,6 +2,7 @@
 
 import FaqPage from "@/components/homepage/faq";
 import Image from "next/image";
+import Link from "next/link";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 import FeaturesStrip from "@/components/ui/featuresStrip";
 
@@ -120,9 +121,10 @@ export default function ServicesPage() {
         {/* Offers Grid */}
         <div className="w-full max-w-[1272px] flex flex-wrap justify-center gap-6 sm:gap-8">
           {OFFERS.map((offer) => (
-            <div
+            <Link
               key={offer.id}
-              className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-[#f5f5f5] hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+              href={`/services/${offer.slug}`}
+              className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-[#f5f5f5] hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden cursor-pointer"
             >
               {/* Asset Image */}
               <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
@@ -146,7 +148,7 @@ export default function ServicesPage() {
                   {offer.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

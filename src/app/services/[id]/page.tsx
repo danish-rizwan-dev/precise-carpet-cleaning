@@ -203,7 +203,11 @@ export default function ServiceDetailsPage({
           </div>
 
           {/* Sticky Yellow Sidebar */}
-          <ScrollReveal delay={0.2} direction="right"><div className="lg:col-span-5 sticky top-8 self-start">
+          <ScrollReveal
+            delay={0.2}
+            direction="right"
+            className="lg:col-span-5 sticky top-8 self-start"
+          >
             <div className="w-full bg-[#FFC500] p-6 sm:p-10 text-center flex flex-col items-center justify-center gap-6 shadow-md rounded-[24px]">
               <h3 className="text-[28px] sm:text-[38px] font-bold text-[#171206] tracking-[-1px]">
                 Make A Call
@@ -224,7 +228,6 @@ export default function ServiceDetailsPage({
                 </span>
               </a>
             </div>
-          </div>
           </ScrollReveal>
         </div>
 
