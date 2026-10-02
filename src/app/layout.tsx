@@ -70,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} overflow-x-clip`} style={{ overflowX: "clip" }}>
+    <html lang="en" className={plusJakarta.variable}>
       <body className={`${plusJakarta.className} antialiased `}>
         <Header />
         {children}

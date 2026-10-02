@@ -109,8 +109,8 @@ export default function ServiceDetailsPage({
         <div className="text-center w-full max-w-[1200px] mb-8 py-4">
           {/* Main Heading with dynamic responsive scaling and word spacing */}
           <motion.h1
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="w-full text-[24px] xs:text-[32px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-bold text-[#171206] tracking-normal text-center mb-4 leading-tight sm:leading-normal"
           >
@@ -206,7 +206,7 @@ export default function ServiceDetailsPage({
           <ScrollReveal
             delay={0.2}
             direction="right"
-            className="lg:col-span-5 sticky top-8 self-start"
+            className="w-full lg:col-span-5 lg:sticky lg:top-8 lg:self-start"
           >
             <div className="w-full bg-[#FFC500] p-6 sm:p-10 text-center flex flex-col items-center justify-center gap-6 shadow-md rounded-[24px]">
               <h3 className="text-[28px] sm:text-[38px] font-bold text-[#171206] tracking-[-1px]">

@@ -21,20 +21,33 @@ export default function ScrollReveal({
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.18 });
   const reduceMotion = useReducedMotion();
+  const isSide = direction === "left" || direction === "right";
   const offset = direction === "left" ? { x: -42 } : direction === "right" ? { x: 42 } : { y: 32 };
 
-  return (
+  const motionNode = (
     <motion.div
-      ref={ref}
+      ref={isSide ? undefined : ref}
       initial={reduceMotion ? false : { opacity: 0, ...offset }}
       animate={inView ? { opacity: 1, x: 0, y: 0 } : undefined}
       transition={{ duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-      {...props}
+      {...(isSide ? {} : { className, ...props })}
     >
       {children}
     </motion.div>
   );
+
+  // Horizontal slide-ins are clipped by their own container so the animation
+  // can never push content past the viewport edge or widen the document
+  // (which causes horizontal scrolling / zoom-out on mobile Safari).
+  if (isSide) {
+    return (
+      <div ref={ref} className={`${className} overflow-x-clip`} {...props}>
+        {motionNode}
+      </div>
+    );
+  }
+
+  return motionNode;
 }
 
 type WordRevealProps = {

@@ -110,7 +110,7 @@ export default function ServicesPage() {
                 className="group flex items-center gap-2.5 rounded-full border border-[#171206]/10 bg-white px-4 sm:px-5 py-2.5 sm:py-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:border-[#ffb400] hover:shadow-[0_4px_16px_rgba(255,180,0,0.18)] transition-all duration-300 cursor-default"
               >
                 <ServiceCheckIcon />
-                <span className="text-[14px] sm:text-[16px] font-semibold text-[#171206] leading-[22px] whitespace-nowrap">
+                <span className="text-[14px] sm:text-[16px] font-semibold text-[#171206] leading-[22px]">
                   {service}
                 </span>
               </span>
@@ -124,7 +124,7 @@ export default function ServicesPage() {
             <Link
               key={offer.id}
               href={`/services/${offer.slug}`}
-              className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-[#f5f5f5] hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden cursor-pointer"
+              className="group w-[400px] max-w-full min-h-[380px] sm:min-h-[428px] bg-[#f5f5f5] hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden cursor-pointer"
             >
               {/* Asset Image */}
               <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">

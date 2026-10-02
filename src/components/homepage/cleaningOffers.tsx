@@ -69,11 +69,11 @@ export default function CleaningOffers() {
           {OFFERS.map((offer) => (
             <ScrollReveal
               key={offer.id}
-              className="w-[400px]"
+              className="w-[400px] max-w-full"
               delay={(offer.id - 1) * 0.07}
             >
               <div
-                className="group w-[400px] min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
+                className="group w-[400px] max-w-full min-h-[380px] sm:min-h-[428px] bg-white hover:bg-[#0b4255] rounded-[32px] px-6 py-8 sm:p-8 flex flex-col items-center justify-start text-center transition-all duration-300 hover:shadow-xl relative overflow-hidden"
               >
                 {/* Asset Image */}
                 <div className="w-[180px] h-[122px] relative flex items-center justify-center shrink-0 mb-4 sm:mb-6">
