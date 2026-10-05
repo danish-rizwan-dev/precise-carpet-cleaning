@@ -2,7 +2,7 @@
   "url": "https://precisecarpetcleaning.com.au",
   "name": "Precise Carpet Cleaning Services",
   "shortName": "Precise Carpet Cleaning",
-  "description": "Professional carpet, rug and upholstery cleaning for homes and businesses. 4.9★ rated, same day cleaning, safe chemicals for kids & pets.",
+  "description": "Professional carpet, rug and upholstery cleaning for homes and businesses. 4.9★ rated, same day cleaning, safe chemicals for kids & pets. TEST-PUBLISH",
   "phone": "0434 161 161",
   "phoneHref": "+61434161161",
   "email": "enquiries@precisecarpetcleaning.com.au",
@@ -11,6 +11,6 @@
   "country": "AU",
   "facebook": "https://www.facebook.com/precisecarpetcleaningservices",
   "instagram": "https://www.instagram.com/precisecarpetcleaningservices",
-  "ratingValue": 4.9,
+  "ratingValue": 4.9000000000000003552713678800500929355621337890625,
   "reviewCount": 0
 }
