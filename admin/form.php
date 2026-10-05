@@ -51,19 +51,23 @@ function render_field(string $path, $value, array $def): void
 
         case "image":
             $src = (string)$value;
+            $inputId = "f_" . preg_replace('/[^a-zA-Z0-9]+/', "_", $path);
             ?>
-            <label class="fld fld-wide">
-              <span class="fld-label"><?= e($label) ?></span>
+            <div class="fld fld-wide img-fld">
+              <label class="fld-label" for="<?= e($inputId) ?>"><?= e($label) ?></label>
               <span class="img-row">
-                <input type="text" name="<?= e($path) ?>" value="<?= e($src) ?>" placeholder="/folder/image.ext">
-                <?php if ($src !== ""): ?>
-                  <a class="img-preview" href="<?= e($src) ?>" target="_blank" rel="noopener">
-                    <img src="<?= e($src) ?>" alt="">
-                  </a>
-                <?php endif; ?>
+                <input type="text" id="<?= e($inputId) ?>" class="img-path" name="<?= e($path) ?>" value="<?= e($src) ?>" placeholder="/folder/image.ext" autocomplete="off">
+                <span class="img-preview<?= $src === "" ? " empty" : "" ?>">
+                  <?php if ($src !== ""): ?><img src="<?= e($src) ?>" alt=""><?php endif; ?>
+                </span>
+                <span class="img-btns">
+                  <button type="button" class="btn small img-browse">Browse</button>
+                  <button type="button" class="btn small img-upload">Upload</button>
+                  <button type="button" class="btn small img-clear<?= $src === "" ? " hidden" : "" ?>">Clear</button>
+                </span>
               </span>
-              <small class="hint">Upload new images on the <a href="media.php">Media</a> page, then paste the path here.</small>
-            </label>
+              <small class="hint img-hint"></small>
+            </div>
             <?php
             break;
 
