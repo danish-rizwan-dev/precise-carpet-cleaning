@@ -45,9 +45,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [
       {
-        url: "/hero/herobackgroundimage.png",
-        width: 1600,
-        height: 1000,
+        url: "/hero/herobackgroundimage.jpg",
+        width: 1200,
+        height: 777,
         alt: "Precise Carpet Cleaning Services - professional carpet cleaning",
       },
     ],
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_NAME,
     description: DESCRIPTION,
-    images: ["/hero/herobackgroundimage.png"],
+    images: ["/hero/herobackgroundimage.jpg"],
   },
 };
 

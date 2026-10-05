@@ -22,7 +22,7 @@ const STEPS = [
     id: 2,
     title: '3. Enjoy Fresh Carpets',
     description: 'Sit back and enjoy a cleaner, fresher environment that looks and feels great.',
-    image: '/howitworks/crouselthreeimggirl.png',
+    image: '/howitworks/crouselthreeimggirl.webp',
   },
 ];
 

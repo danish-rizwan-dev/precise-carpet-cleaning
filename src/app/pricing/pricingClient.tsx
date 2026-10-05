@@ -267,22 +267,15 @@ export default function PricingPage() {
             href="/contact"
             className="mt-12 sm:mt-16 relative w-full aspect-[1024/1536] lg:aspect-auto lg:h-[260px] rounded-[32px] overflow-hidden flex items-center group cursor-pointer"
           >
-            <Image
-              src="/pricing/barMobileView.webp"
-              alt="Ready for Cleaner Carpets"
-              fill
-              sizes="(max-width: 1024px) 100vw, 0px"
-              className="object-cover object-center lg:hidden"
-              priority
-            />
-            <Image
-              src="/pricing/bar.webp"
-              alt="Ready for Cleaner Carpets"
-              fill
-              sizes="(max-width: 2048px) 1200px, 1200px"
-              className="object-cover object-center hidden lg:block"
-              priority
-            />
+            <picture>
+              <source media="(min-width: 1024px)" srcSet="/pricing/bar.webp" />
+              <img
+                src="/pricing/barMobileView.webp"
+                alt="Ready for Cleaner Carpets"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
           </Link>
         </div>
       </section>

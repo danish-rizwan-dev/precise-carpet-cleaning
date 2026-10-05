@@ -20,7 +20,7 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   name: site.name,
-  image: `${base}/hero/herobackgroundimage.png`,
+  image: `${base}/hero/herobackgroundimage.jpg`,
   url: `${base}/`,
   telephone: site.phoneHref,
   email: site.email,
