@@ -12,8 +12,31 @@ if (!isset($EDITORS[$key])) {
 }
 $editor = $EDITORS[$key];
 
+/** Number of pages with unpublished changes (+ staged images shown separately). */
+function pending_pages(array $editors): array
+{
+    $out = [];
+    foreach ($editors as $k => $ed) {
+        if (load_draft($k) === null) {
+            continue;
+        }
+        [$live] = gh_get_file($ed["file"]);
+        if (draft_differs($k, $live)) {
+            $out[$k] = $ed["title"];
+        }
+    }
+    return $out;
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     csrf_check();
+    $action = (string)($_POST["action"] ?? "save");
+    if ($action === "discard") {
+        delete_draft($key);
+        $_SESSION["flash"] = "Draft discarded. The published page is unchanged.";
+        header("Location: edit.php?m=" . urlencode($key));
+        exit;
+    }
     try {
         $schema = $editor["schema"];
         if (($schema["type"] ?? "object") === "stringlist") {
@@ -22,27 +45,55 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $data = coerce_root($_POST["data"] ?? [], $schema);
         }
         $json = encode_json($data);
-        gh_put_file($editor["file"], $json, "content({$key}): update via admin panel");
 
-        $msg = "Saved. The site is publishing now — it will be live in about 2–3 minutes.";
-        $warnings = $GLOBALS["COERCE_WARNINGS"];
-        if ($warnings) {
-            $msg .= " Warnings: " . implode(" ", $warnings);
+        [$live] = gh_get_file($editor["file"]);
+        if ($live !== null && json_decode($live, true) == json_decode($json, true)) {
+            delete_draft($key);
+            $_SESSION["flash"] = "No changes to save.";
+        } else {
+            save_draft($key, $json);
+            $_SESSION["flash"] = "saved_as_draft";
         }
-        $_SESSION["flash"] = $msg;
+        if (!empty($GLOBALS["COERCE_WARNINGS"])) {
+            $_SESSION["flash_warnings"] = implode(" ", $GLOBALS["COERCE_WARNINGS"]);
+        }
     } catch (Throwable $e) {
         $_SESSION["flash"] = "Save failed: " . $e->getMessage();
     }
-    header("Location: index.php");
+    header("Location: edit.php?m=" . urlencode($key));
     exit;
 }
 
+$flash = $_SESSION["flash"] ?? null;
+unset($_SESSION["flash"]);
+$flashWarn = $_SESSION["flash_warnings"] ?? null;
+unset($_SESSION["flash_warnings"]);
+$justSaved = ($flash === "saved_as_draft");
+if ($justSaved) {
+    $flash = "Saved as a draft — the live site is not changed yet.";
+}
+
+$loadError = null;
 try {
-    $data = load_json_file($editor["file"]);
+    $draftJson = load_draft($key);
+    if ($draftJson !== null) {
+        $data = json_decode($draftJson, true);
+        if (!is_array($data)) {
+            throw new RuntimeException("Draft JSON is invalid.");
+        }
+        $hasDraft = draft_differs($key, (gh_get_file($editor["file"])[0] ?? null));
+    } else {
+        $data = load_json_file($editor["file"]);
+        $hasDraft = false;
+    }
 } catch (Throwable $e) {
     $loadError = $e->getMessage();
     $data = [];
+    $hasDraft = false;
 }
+
+$pending = pending_pages($EDITORS);
+$pendingCount = count($pending);
 ?>
 <!doctype html>
 <html lang="en">
@@ -58,6 +109,9 @@ try {
   <div class="wrap">
     <strong><a href="index.php" class="plain">Precise Admin</a> / <?= e($editor["title"]) ?></strong>
     <nav>
+      <?php if ($pendingCount): ?>
+        <a class="btn primary small" href="deploy.php">Deploy (<?= $pendingCount ?>)</a>
+      <?php endif; ?>
       <a href="index.php">Dashboard</a>
       <a href="logout.php">Log out</a>
     </nav>
@@ -67,13 +121,42 @@ try {
 <main class="wrap">
   <p class="muted"><?= e($editor["desc"]) ?></p>
 
+  <?php if ($flash): ?>
+    <div class="alert <?= $justSaved ? "ok" : ($loadError ? "error" : "ok") ?>">
+      <?= e($flash) ?>
+      <?php if ($justSaved): ?>
+        <span class="flash-actions">
+          <a class="btn small" href="index.php">Edit another page</a>
+          <?php if ($pendingCount): ?>
+            <a class="btn primary small" href="deploy.php">Deploy now (<?= $pendingCount ?>)</a>
+          <?php endif; ?>
+        </span>
+      <?php endif; ?>
+    </div>
+    <?php if ($flashWarn): ?><div class="alert warn">Warnings: <?= e($flashWarn) ?></div><?php endif; ?>
+  <?php endif; ?>
+
   <?php if (!empty($loadError)): ?>
     <div class="alert error"><?= e($loadError) ?></div>
+  <?php endif; ?>
+
+  <?php if ($hasDraft): ?>
+    <div class="notice draft-notice">
+      <strong>Draft in progress</strong> — this is your unpublished version.
+      It goes live when you press Deploy.
+      <form method="post" action="edit.php?m=<?= e($key) ?>" class="inline-form">
+        <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
+        <input type="hidden" name="m" value="<?= e($key) ?>">
+        <input type="hidden" name="action" value="discard">
+        <button class="btn danger small" type="submit" onclick="return confirm('Discard your draft and revert to the published version?');">Discard draft</button>
+      </form>
+    </div>
   <?php endif; ?>
 
   <form method="post" action="edit.php?m=<?= e($key) ?>" class="editor">
     <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
     <input type="hidden" name="m" value="<?= e($key) ?>">
+    <input type="hidden" name="action" value="save">
 
     <div class="grid root">
       <?php
@@ -91,9 +174,12 @@ try {
     </div>
 
     <div class="save-bar">
-      <button class="btn primary" type="submit">Save &amp; publish</button>
+      <button class="btn primary" type="submit">Save draft</button>
+      <?php if ($pendingCount): ?>
+        <a class="btn" href="deploy.php">Deploy (<?= $pendingCount ?>)</a>
+      <?php endif; ?>
       <a class="btn" href="index.php">Cancel</a>
-      <span class="hint">Publishing takes ~2–3 minutes after saving.</span>
+      <span class="hint">Saving doesn't publish — press Deploy when you're ready (live in ~2–3 min).</span>
     </div>
   </form>
 </main>

@@ -1,0 +1,2 @@
+# Never serve staged edits/uploads (contains unpublished content)
+Require all denied

@@ -4,7 +4,7 @@ require __DIR__ . "/lib.php";
 require_login();
 
 const MEDIA_DIR = "public/gallery";
-const MAX_UPLOAD = 1048576; // 1MB — safe for the GitHub content API
+const MAX_UPLOAD = 5242880; // 5MB — staged locally, committed as one blob per deploy
 const ALLOWED = ["jpg", "jpeg", "png", "webp", "avif", "mp4", "webm"];
 
 $flash = $_SESSION["flash"] ?? null;
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 throw new RuntimeException("Upload failed (PHP error " . (int)($file["error"] ?? -1) . ").");
             }
             if ($file["size"] > MAX_UPLOAD) {
-                throw new RuntimeException("File is larger than 1 MB. Compress it first.");
+                throw new RuntimeException("File is larger than 5 MB. Compress it first.");
             }
             $name = strtolower(trim((string)$file["name"]));
             $name = preg_replace('/[^a-z0-9._-]+/', "-", $name) ?? "";
@@ -35,20 +35,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($content === false) {
                 throw new RuntimeException("Could not read the uploaded file.");
             }
-            gh_put_file(MEDIA_DIR . "/" . $name, $content, "media: add {$name}");
-            $_SESSION["flash"] = "Uploaded {$name}. It will appear on the site after the next publish (2–3 min).";
+            stage_file(MEDIA_DIR . "/" . $name, $content);
+            $_SESSION["flash"] = "Uploaded {$name} — it's staged and goes live with your next Deploy.";
         } elseif ($action === "delete") {
             $name = basename((string)($_POST["name"] ?? ""));
             if (!preg_match('/^[a-z0-9._-]+$/i', $name)) {
                 throw new RuntimeException("Invalid file name.");
             }
-            gh_delete_file(MEDIA_DIR . "/" . $name, "media: delete {$name}");
-            $_SESSION["flash"] = "Deleted {$name}. Changes go live after the next publish (2–3 min).";
+            $rel = MEDIA_DIR . "/" . $name;
+            if (is_file(STAGING_DIR . "/" . $rel)) {
+                unstage_file($rel); // never published — just drop the staged copy
+                $_SESSION["flash"] = "Removed staged file {$name}.";
+            } else {
+                gh_delete_file($rel, "media: delete {$name} [skip ci]");
+                $_SESSION["flash"] = "Deleted {$name} from the repo. It disappears from the site on the next publish.";
+            }
         }
     } catch (Throwable $e) {
         $_SESSION["flash_error"] = $e->getMessage();
     }
     header("Location: media.php");
+    exit;
+}
+
+// Authenticated preview of a staged file (staging dir is blocked by .htaccess).
+if (($_GET["action"] ?? "") === "preview") {
+    $rel = (string)($_GET["f"] ?? "");
+    if (!preg_match('#^[a-z0-9._/-]+$#i', $rel) || str_contains($rel, "..")) {
+        http_response_code(404);
+        exit;
+    }
+    $full = realpath(STAGING_DIR . "/" . $rel);
+    $base = realpath(STAGING_DIR);
+    if ($full === false || $base === false || !str_starts_with($full, $base) || !is_file($full)) {
+        http_response_code(404);
+        exit;
+    }
+    $ext = strtolower(pathinfo($full, PATHINFO_EXTENSION));
+    $types = ["jpg" => "image/jpeg", "jpeg" => "image/jpeg", "png" => "image/png", "webp" => "image/webp", "avif" => "image/avif", "mp4" => "video/mp4", "webm" => "video/webm"];
+    header("Content-Type: " . ($types[$ext] ?? "application/octet-stream"));
+    header("Content-Length: " . (string)filesize($full));
+    header("Cache-Control: private, no-store");
+    readfile($full);
     exit;
 }
 
@@ -59,17 +87,34 @@ try {
     $error = $error ?: ("Could not list media: " . $e->getMessage());
 }
 
-$files = [];
+$byName = [];
 foreach ($entries as $entry) {
     if (($entry["type"] ?? "") !== "file") {
         continue;
     }
     $name = (string)$entry["name"];
     if (preg_match('/\.(jpe?g|png|webp|avif|mp4|webm|mov)$/i', $name)) {
-        $files[] = $entry;
+        $entry["staged"] = false;
+        $byName[$name] = $entry;
     }
 }
+foreach (staged_files() as $s) {
+    if (dirname($s["rel"]) !== MEDIA_DIR) {
+        continue;
+    }
+    if (!preg_match('/\.(jpe?g|png|webp|avif|mp4|webm|mov)$/i', $s["rel"])) {
+        continue;
+    }
+    $byName[basename($s["rel"])] = [
+        "name" => basename($s["rel"]),
+        "path" => $s["rel"],
+        "staged" => true,
+        "size" => $s["size"],
+    ];
+}
+$files = array_values($byName);
 usort($files, fn($a, $b) => strcmp($a["name"], $b["name"]));
+$stagedCount = count(array_filter($files, fn($f) => $f["staged"] ?? false));
 ?>
 <!doctype html>
 <html lang="en">
@@ -85,6 +130,7 @@ usort($files, fn($a, $b) => strcmp($a["name"], $b["name"]));
   <div class="wrap">
     <strong><a href="index.php" class="plain">Precise Admin</a> / Media</strong>
     <nav>
+      <a href="deploy.php">Deploy<?= $stagedCount ? " (" . $stagedCount . ")" : "" ?></a>
       <a href="index.php">Dashboard</a>
       <a href="logout.php">Log out</a>
     </nav>
@@ -96,29 +142,32 @@ usort($files, fn($a, $b) => strcmp($a["name"], $b["name"]));
   <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
 
   <div class="notice">
-    Gallery files live in <code>public/gallery</code>. Photos must be named
-    <code>gallery-NN.jpeg</code> (any image name works — the gallery lists all images).
-    Max <strong>1 MB</strong> per file. Uploads publish with the next build (2–3 min).
+    Gallery files live in <code>public/gallery</code>. Max <strong>5 MB</strong> per file.
+    Uploads are <strong>staged</strong> — they go live together with your next
+    <a href="deploy.php">Deploy</a> (2–3 min).
   </div>
 
   <form method="post" enctype="multipart/form-data" class="upload-bar">
     <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
     <input type="hidden" name="action" value="upload">
     <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp,.avif,.mp4,.webm" required>
-    <button class="btn primary" type="submit">Upload</button>
+    <button class="btn primary" type="submit">Upload (staged)</button>
   </form>
 
   <div class="media-grid">
-    <?php foreach ($files as $f): $name = (string)$f["name"]; $isVideo = preg_match('/\.(mp4|webm|mov)$/i', $name); ?>
-      <div class="media-card">
+    <?php foreach ($files as $f): $name = (string)$f["name"]; $isVideo = preg_match('/\.(mp4|webm|mov)$/i', $name); $isStaged = !empty($f["staged"]); $src = $isStaged
+        ? "media.php?action=preview&f=" . urlencode((string)$f["path"])
+        : "/gallery/" . rawurlencode($name); ?>
+      <div class="media-card<?= $isStaged ? " is-staged" : "" ?>">
         <?php if ($isVideo): ?>
-          <video src="/gallery/<?= e($name) ?>" muted></video>
+          <video src="<?= e($src) ?>" muted></video>
         <?php else: ?>
-          <img src="/gallery/<?= e($name) ?>" alt="<?= e($name) ?>" loading="lazy">
+          <img src="<?= e($src) ?>" alt="<?= e($name) ?>" loading="lazy">
         <?php endif; ?>
         <div class="media-meta">
           <span class="mono" title="<?= e($name) ?>"><?= e($name) ?></span>
-          <form method="post" onsubmit="return confirm('Delete <?= e($name) ?>?');">
+          <?php if ($isStaged): ?><span class="chip">staged</span><?php endif; ?>
+          <form method="post" onsubmit="return confirm('Delete <?= e(str_replace("'", "\\'", $name)) ?>?');">
             <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="name" value="<?= e($name) ?>">

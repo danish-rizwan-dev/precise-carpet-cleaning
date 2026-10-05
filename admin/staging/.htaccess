@@ -1,0 +1,2 @@
+# Never serve staged uploads before they are published
+Require all denied

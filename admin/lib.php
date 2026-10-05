@@ -70,12 +70,12 @@ function csrf_check(): void
     }
 }
 
-/* ---------------- GitHub Contents API ---------------- */
+/* ---------------- GitHub API ---------------- */
 
-function gh_request(string $method, string $path, array $body = null): array
+function gh_api(string $method, string $path, array $body = null): array
 {
     $cfg = config();
-    $url = "https://api.github.com/repos/{$cfg["github_repo"]}/contents/{$path}";
+    $url = "https://api.github.com/repos/{$cfg["github_repo"]}/{$path}";
     $ch = curl_init($url);
     curl_setopt_array($ch, [
         CURLOPT_CUSTOMREQUEST => $method,
@@ -103,6 +103,12 @@ function gh_request(string $method, string $path, array $body = null): array
         throw new RuntimeException("GitHub API (HTTP {$status}): {$msg}");
     }
     return $data;
+}
+
+/** Contents API (file-level GET/PUT/DELETE) */
+function gh_request(string $method, string $path, array $body = null): array
+{
+    return gh_api($method, "contents/{$path}", $body);
 }
 
 /** Returns [decoded content (string) or null, sha (string) or null] */
@@ -230,4 +236,176 @@ function encode_json(array $data): string
         }
     }
     return implode("\n", $lines) . "\n";
+}
+
+/* ---------------- Multi-file commit (Git Data API) ---------------- */
+
+/**
+ * Commit several files in ONE commit (triggers a single workflow run).
+ * $files = [ ["path" => "src/content/site.json", "content" => "...", "binary" => false], ... ]
+ * Binary files: pass raw bytes with "binary" => true.
+ */
+function gh_commit_files(array $files, string $message): void
+{
+    if (!$files) {
+        return;
+    }
+    $cfg = config();
+    if (!empty($cfg["local_root"])) {
+        foreach ($files as $f) {
+            $full = rtrim($cfg["local_root"], "/\\") . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, $f["path"]);
+            $dir = dirname($full);
+            if (!is_dir($dir)) {
+                mkdir($dir, 0775, true);
+            }
+            file_put_contents($full, $f["content"]);
+        }
+        return;
+    }
+
+    $branch = (string)$cfg["github_branch"];
+    $ref = gh_api("GET", "git/ref/heads/" . $branch);
+    $headSha = (string)$ref["object"]["sha"];
+    $headCommit = gh_api("GET", "git/commits/" . $headSha);
+    $baseTree = (string)$headCommit["tree"]["sha"];
+
+    $entries = [];
+    foreach ($files as $f) {
+        $entry = ["path" => $f["path"], "mode" => "100644", "type" => "blob"];
+        if (!empty($f["binary"])) {
+            $blob = gh_api("POST", "git/blobs", [
+                "content" => base64_encode($f["content"]),
+                "encoding" => "base64",
+            ]);
+            $entry["sha"] = $blob["sha"];
+        } else {
+            $entry["content"] = $f["content"];
+        }
+        $entries[] = $entry;
+    }
+
+    $tree = gh_api("POST", "git/trees", [
+        "base_tree" => $baseTree,
+        "tree" => $entries,
+    ]);
+    $commit = gh_api("POST", "git/commits", [
+        "message" => $message,
+        "tree" => $tree["sha"],
+        "parents" => [$headSha],
+    ]);
+    gh_api("PATCH", "git/ref/heads/" . $branch, ["sha" => $commit["sha"]]);
+}
+
+/* ---------------- Drafts (staged edits, published by deploy.php) ---------------- */
+
+const DRAFT_DIR = __DIR__ . "/drafts";
+const STAGING_DIR = __DIR__ . "/staging";
+
+function draft_path(string $key): string
+{
+    if (!preg_match('/^[a-z0-9-]+$/', $key)) {
+        throw new RuntimeException("Invalid draft key.");
+    }
+    return DRAFT_DIR . "/" . $key . ".json";
+}
+
+function load_draft(string $key): ?string
+{
+    $path = draft_path($key);
+    return is_file($path) ? (string)file_get_contents($path) : null;
+}
+
+function save_draft(string $key, string $json): void
+{
+    if (!is_dir(DRAFT_DIR)) {
+        mkdir(DRAFT_DIR, 0775, true);
+    }
+    file_put_contents(draft_path($key), $json);
+}
+
+function delete_draft(string $key): void
+{
+    $path = draft_path($key);
+    if (is_file($path)) {
+        unlink($path);
+    }
+}
+
+function clear_drafts(): void
+{
+    foreach (glob(DRAFT_DIR . "/*.json") ?: [] as $path) {
+        unlink($path);
+    }
+}
+
+/**
+ * True when a draft exists AND differs from what is currently live.
+ * $liveContent is the repo file contents (null = file missing).
+ */
+function draft_differs(string $key, ?string $liveContent): bool
+{
+    $draft = load_draft($key);
+    if ($draft === null) {
+        return false;
+    }
+    if ($liveContent === null) {
+        return true;
+    }
+    $a = json_decode($draft, true);
+    $b = json_decode($liveContent, true);
+    if ($a === null || $b === null) {
+        return $draft !== $liveContent;
+    }
+    return $a != $b; // loose: key order/formatting differences don't count as changes
+}
+
+/** Recursively list staged files. Returns [ ["rel" => "public/gallery/x.jpg", "full" => "/abs/path", "size" => 123], ... ] */
+function staged_files(): array
+{
+    $out = [];
+    if (!is_dir(STAGING_DIR)) {
+        return $out;
+    }
+    $it = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator(STAGING_DIR, FilesystemIterator::SKIP_DOTS)
+    );
+    foreach ($it as $file) {
+        if (!$file->isFile() || $file->getFilename() === ".htaccess" || $file->getFilename() === ".gitignore") {
+            continue;
+        }
+        $full = $file->getPathname();
+        $rel = ltrim(str_replace("\\", "/", substr($full, strlen(STAGING_DIR))), "/");
+        $out[] = ["rel" => $rel, "full" => $full, "size" => (int)$file->getSize()];
+    }
+    usort($out, fn($a, $b) => strcmp($a["rel"], $b["rel"]));
+    return $out;
+}
+
+function stage_file(string $relTarget, string $content): void
+{
+    if (!preg_match('#^[a-z0-9._/-]+$#i', $relTarget) || str_contains($relTarget, "..")) {
+        throw new RuntimeException("Invalid staging path.");
+    }
+    $full = STAGING_DIR . "/" . $relTarget;
+    $dir = dirname($full);
+    if (!is_dir($dir)) {
+        mkdir($dir, 0775, true);
+    }
+    file_put_contents($full, $content);
+}
+
+function clear_staging(): void
+{
+    foreach (staged_files() as $f) {
+        unlink($f["full"]);
+    }
+}
+
+/** Unlink a staged file by repo-relative path (e.g. "public/gallery/x.jpg"). */
+function unstage_file(string $rel): void
+{
+    $full = STAGING_DIR . "/" . $rel;
+    if (is_file($full)) {
+        unlink($full);
+    }
 }
