@@ -99,8 +99,8 @@ function gh_request(string $method, string $path, array $body = null): array
     }
     $data = json_decode((string)$res, true) ?? [];
     if ($status < 200 || $status >= 300) {
-        $msg = $data["message"] ?? "HTTP {$status}";
-        throw new RuntimeException("GitHub API: {$msg}");
+        $msg = $data["message"] ?? "unknown error";
+        throw new RuntimeException("GitHub API (HTTP {$status}): {$msg}");
     }
     return $data;
 }
