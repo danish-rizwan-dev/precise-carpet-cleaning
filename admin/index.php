@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require __DIR__ . "/lib.php";
 require __DIR__ . "/registry.php";
+require __DIR__ . "/layout.php";
 require_login();
 
 $flash = $_SESSION["flash"] ?? null;
@@ -19,32 +20,16 @@ foreach ($EDITORS as $key => $ed) {
 }
 $pendingCount = count($pending);
 $staged = staged_files();
-?>
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Dashboard — Precise Admin</title>
-<link rel="stylesheet" href="assets/admin.css">
-</head>
-<body>
-<header class="topbar">
-  <div class="wrap">
-    <strong>Precise Admin</strong>
-    <nav>
-      <?php if ($pendingCount || $staged): ?>
-        <a class="btn primary small" href="deploy.php">Deploy (<?= $pendingCount + count($staged) ?>)</a>
-      <?php endif; ?>
-      <a href="media.php">Media</a>
-      <a href="/" target="_blank" rel="noopener">View site ↗</a>
-      <a href="logout.php">Log out</a>
-    </nav>
-  </div>
-</header>
 
-<main class="wrap">
+$nav = [];
+if ($pendingCount || $staged) {
+    $nav[] = ["label" => "Deploy (" . ($pendingCount + count($staged)) . ")", "href" => "deploy.php", "class" => "btn primary small"];
+}
+$nav[] = ["label" => "Media", "href" => "media.php"];
+$nav[] = ["label" => "View site ↗", "href" => "/", "target" => "_blank"];
+$nav[] = ["label" => "Log out", "href" => "logout.php"];
+page_start("Dashboard", $nav, "Dashboard");
+?>
   <?php if ($flash): ?><div class="alert ok"><?= e($flash) ?></div><?php endif; ?>
 
   <?php if ($pendingCount || $staged): ?>
@@ -81,6 +66,4 @@ $staged = staged_files();
       <span class="card-cta">Open →</span>
     </a>
   </div>
-</main>
-</body>
-</html>
+<?php page_end(); ?>

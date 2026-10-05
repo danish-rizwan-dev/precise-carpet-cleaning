@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require __DIR__ . "/lib.php";
 require __DIR__ . "/registry.php";
+require __DIR__ . "/layout.php";
 require_login();
 
 /** Pending content pages: key => ["title" => ..., "json" => ..., "file" => ...] */
@@ -74,28 +75,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $pages = pending_content($EDITORS);
 $staged = staged_files();
 $total = count($pages) + count($staged);
-?>
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Deploy — Precise Admin</title>
-<link rel="stylesheet" href="assets/admin.css">
-</head>
-<body>
-<header class="topbar">
-  <div class="wrap">
-    <strong><a href="index.php" class="plain">Precise Admin</a> / Deploy</strong>
-    <nav>
-      <a href="index.php">Dashboard</a>
-      <a href="logout.php">Log out</a>
-    </nav>
-  </div>
-</header>
 
-<main class="wrap">
+$nav = [
+    ["label" => "Dashboard", "href" => "index.php"],
+    ["label" => "Log out", "href" => "logout.php"],
+];
+page_start("Deploy", $nav, "Deploy");
+?>
   <?php if ($flash): ?><div class="alert ok"><?= e($flash) ?></div><?php endif; ?>
   <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
 
@@ -149,6 +135,4 @@ $total = count($pages) + count($staged);
     </div>
     <p><a class="btn primary" href="index.php">Go to Dashboard</a></p>
   <?php endif; ?>
-</main>
-</body>
-</html>
+<?php page_end(); ?>

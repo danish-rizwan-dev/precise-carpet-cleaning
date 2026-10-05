@@ -87,7 +87,7 @@ $EDITORS = [
                                 "title" => ["label" => "Title", "type" => "text"],
                                 "description" => ["label" => "Description", "type" => "textarea"],
                                 "image" => ["label" => "Image", "type" => "image"],
-                                "href" => ["label" => "Link (e.g. /services/rug-cleaning)", "type" => "text"],
+                                "href" => ["label" => "Link (pick a page or type a URL)", "type" => "text", "suggest" => "routes"],
                             ],
                         ],
                     ],
@@ -192,7 +192,7 @@ $EDITORS = [
                     "type" => "list",
                     "fields" => [
                         "title" => ["label" => "Label", "type" => "text"],
-                        "href" => ["label" => "Link", "type" => "text"],
+                        "href" => ["label" => "Link (pick a page or type a URL)", "type" => "text", "suggest" => "routes"],
                     ],
                 ],
                 "checklist" => [

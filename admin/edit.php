@@ -3,6 +3,7 @@ declare(strict_types=1);
 require __DIR__ . "/lib.php";
 require __DIR__ . "/registry.php";
 require __DIR__ . "/form.php";
+require __DIR__ . "/layout.php";
 require_login();
 
 $key = (string)($_GET["m"] ?? $_POST["m"] ?? "");
@@ -68,6 +69,34 @@ $flash = $_SESSION["flash"] ?? null;
 unset($_SESSION["flash"]);
 $flashWarn = $_SESSION["flash_warnings"] ?? null;
 unset($_SESSION["flash_warnings"]);
+
+/* Link suggestions for fields with "suggest" => "routes" (render-time only). */
+$GLOBALS["DATALISTS"]["routes"] = (static function (): array {
+    $routes = [
+        "/",
+        "/about",
+        "/appointment",
+        "/blogs",
+        "/contact",
+        "/gallery",
+        "/pricing",
+        "/services",
+        "/privacy-policy",
+        "/terms-and-conditions",
+    ];
+    try {
+        $services = load_json_file("src/content/services.json");
+        foreach (($services["servicesData"] ?? []) as $k => $v) {
+            $id = is_array($v) ? (string)($v["id"] ?? $k) : (string)$k;
+            if ($id !== "") {
+                $routes[] = "/services/" . $id;
+            }
+        }
+    } catch (Throwable $e) {
+        // suggestions are optional
+    }
+    return $routes;
+})();
 $justSaved = ($flash === "saved_as_draft");
 if ($justSaved) {
     $flash = "Saved as a draft — the live site is not changed yet.";
@@ -94,31 +123,15 @@ try {
 
 $pending = pending_pages($EDITORS);
 $pendingCount = count($pending);
-?>
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title><?= e($editor["title"]) ?> — Precise Admin</title>
-<link rel="stylesheet" href="assets/admin.css">
-</head>
-<body>
-<header class="topbar">
-  <div class="wrap">
-    <strong><a href="index.php" class="plain">Precise Admin</a> / <?= e($editor["title"]) ?></strong>
-    <nav>
-      <?php if ($pendingCount): ?>
-        <a class="btn primary small" href="deploy.php">Deploy (<?= $pendingCount ?>)</a>
-      <?php endif; ?>
-      <a href="index.php">Dashboard</a>
-      <a href="logout.php">Log out</a>
-    </nav>
-  </div>
-</header>
 
-<main class="wrap">
+$nav = [];
+if ($pendingCount) {
+    $nav[] = ["label" => "Deploy ({$pendingCount})", "href" => "deploy.php", "class" => "btn primary small"];
+}
+$nav[] = ["label" => "Dashboard", "href" => "index.php"];
+$nav[] = ["label" => "Log out", "href" => "logout.php"];
+page_start($editor["title"], $nav, $editor["title"]);
+?>
   <p class="muted"><?= e($editor["desc"]) ?></p>
 
   <?php if ($flash): ?>
@@ -182,8 +195,4 @@ $pendingCount = count($pending);
       <span class="hint">Saving doesn't publish — press Deploy when you're ready (live in ~2–3 min).</span>
     </div>
   </form>
-</main>
-
-<script src="assets/admin.js"></script>
-</body>
-</html>
+<?php page_end(["assets/admin.js"]); ?>

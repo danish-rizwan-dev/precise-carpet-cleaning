@@ -1,7 +1,23 @@
 (function () {
   var rid = 0;
 
-  /* ---------------- list rows: add / remove ---------------- */
+  /* ---------------- list rows: add / remove / reorder / duplicate ---------------- */
+  function renumber(block) {
+    if (!block) return;
+    var path = block.getAttribute("data-path");
+    if (!path) return;
+    var rows = block.querySelectorAll(":scope > .rows > .row");
+    Array.prototype.forEach.call(rows, function (row, i) {
+      Array.prototype.forEach.call(row.querySelectorAll("[name]"), function (f) {
+        var n = f.getAttribute("name");
+        if (n.indexOf(path + "[") !== 0) return;
+        var rest = n.slice(path.length);
+        var m = rest.match(/^\[[^\]]*\]/);
+        if (m) f.setAttribute("name", path + "[" + i + "]" + rest.slice(m[0].length));
+      });
+    });
+  }
+
   document.addEventListener("click", function (e) {
     var addBtn = e.target.closest(".btn-add");
     if (addBtn) {
@@ -12,6 +28,7 @@
       var html = tpl.innerHTML.split("__I__").join(String(rid));
       var rows = block.querySelector(":scope > .rows");
       rows.insertAdjacentHTML("beforeend", html);
+      renumber(block);
       var first = rows.lastElementChild.querySelector("input, textarea");
       if (first) first.focus();
       return;
@@ -19,8 +36,47 @@
 
     var removeBtn = e.target.closest(".btn-remove");
     if (removeBtn) {
+      var rblock = removeBtn.closest(".list-block");
       var row = removeBtn.closest(".row");
-      if (row) row.remove();
+      if (row) {
+        row.remove();
+        if (rblock) renumber(rblock);
+      }
+      return;
+    }
+
+    var upBtn = e.target.closest(".row-up");
+    if (upBtn) {
+      var rowU = upBtn.closest(".row");
+      var prev = rowU && rowU.previousElementSibling;
+      if (prev) {
+        rowU.parentNode.insertBefore(rowU, prev);
+        renumber(rowU.closest(".list-block"));
+      }
+      return;
+    }
+
+    var downBtn = e.target.closest(".row-down");
+    if (downBtn) {
+      var rowD = downBtn.closest(".row");
+      var next = rowD && rowD.nextElementSibling;
+      if (next) {
+        rowD.parentNode.insertBefore(next, rowD);
+        renumber(rowD.closest(".list-block"));
+      }
+      return;
+    }
+
+    var dupBtn = e.target.closest(".row-dup");
+    if (dupBtn) {
+      var rowDup = dupBtn.closest(".row");
+      if (rowDup) {
+        var clone = rowDup.cloneNode(true);
+        rowDup.parentNode.insertBefore(clone, rowDup.nextSibling);
+        renumber(clone.closest(".list-block"));
+        var inp = clone.querySelector("input, textarea");
+        if (inp) inp.focus();
+      }
     }
   });
 

@@ -9,15 +9,47 @@ declare(strict_types=1);
 
 $GLOBALS["COERCE_WARNINGS"] = [];
 
+/** Render a shared <datalist> exactly once per suggest key. */
+function render_datalist(string $key, array $options): void
+{
+    static $rendered = [];
+    if (isset($rendered[$key])) {
+        return;
+    }
+    $rendered[$key] = true;
+    ?>
+    <datalist id="dl_<?= e($key) ?>">
+      <?php foreach ($options as $o): ?><option value="<?= e((string)$o) ?>"></option><?php endforeach; ?>
+    </datalist>
+    <?php
+}
+
+/** Toolbar for a list row: reorder / duplicate / remove. */
+function row_toolbar(): void
+{
+    ?>
+    <div class="row-bar">
+      <button type="button" class="row-btn row-up" title="Move up">↑ Up</button>
+      <button type="button" class="row-btn row-down" title="Move down">↓ Down</button>
+      <button type="button" class="row-btn row-dup" title="Copy this row">Duplicate</button>
+      <button type="button" class="btn-remove">Remove</button>
+    </div>
+    <?php
+}
+
 function render_field(string $path, $value, array $def): void
 {
     $label = (string)($def["label"] ?? "");
     switch ($def["type"]) {
         case "text":
+            $suggest = (string)($def["suggest"] ?? "");
+            $opts = $suggest !== "" ? ($GLOBALS["DATALISTS"][$suggest] ?? []) : [];
             ?>
             <label class="fld">
               <span class="fld-label"><?= e($label) ?></span>
-              <input type="text" name="<?= e($path) ?>" value="<?= e((string)$value) ?>">
+              <input type="text" name="<?= e($path) ?>" value="<?= e((string)$value) ?>"
+                <?php if ($opts): ?>list="dl_<?= e($suggest) ?>" autocomplete="off"<?php endif; ?>>
+              <?php if ($opts): render_datalist($suggest, $opts); endif; ?>
             </label>
             <?php
             break;
@@ -109,7 +141,7 @@ function render_list(string $path, $value, array $def): void
     $isMap = $def["type"] === "objectmap";
     $entryLabel = $isMap ? "entry" : rtrim(substr($label, -1) === "s" ? substr($label, 0, -1) : $label, " ");
     ?>
-    <fieldset class="grp list-block">
+    <fieldset class="grp list-block" data-path="<?= e($path) ?>">
       <legend><?= e($label) ?></legend>
       <?php if (!empty($def["hint"])): ?>
         <p class="hint"><?= e($def["hint"]) ?></p>
@@ -118,6 +150,7 @@ function render_list(string $path, $value, array $def): void
       <div class="rows">
         <?php $i = 0; foreach ($rows as $row): ?>
           <div class="row">
+            <?php row_toolbar(); ?>
             <div class="grid">
               <?php foreach ($def["fields"] as $key => $sub) {
                   $rv = is_array($row) ? ($row[$key] ?? "") : "";
@@ -127,27 +160,23 @@ function render_list(string $path, $value, array $def): void
                   render_field($path . "[" . $i . "][" . $key . "]", $rv, $sub);
               } ?>
             </div>
-            <button type="button" class="btn-remove" title="Remove">Remove</button>
           </div>
           <?php $i++; endforeach; ?>
       </div>
 
       <template>
         <div class="row">
+          <?php row_toolbar(); ?>
           <div class="grid">
             <?php foreach ($def["fields"] as $key => $sub): ?>
-              <?php
-              $empty = ($sub["type"] ?? "") === "stringlist" ? "" : "";
-              render_field($path . "[__I__][" . $key . "]", $empty, $sub);
-              ?>
+              <?php render_field($path . "[__I__][" . $key . "]", "", $sub); ?>
             <?php endforeach; ?>
           </div>
-          <button type="button" class="btn-remove" title="Remove">Remove</button>
         </div>
       </template>
 
       <div class="row-actions">
-        <button type="button" class="btn-add">+ Add <?= e($isMap ? $entryLabel : $entryLabel) ?></button>
+        <button type="button" class="btn-add">+ Add <?= e($entryLabel) ?></button>
       </div>
     </fieldset>
     <?php

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require __DIR__ . "/lib.php";
+require __DIR__ . "/layout.php";
 require_login();
 
 const MEDIA_DIR = "public/gallery";
@@ -201,29 +202,13 @@ foreach (staged_files() as $s) {
 $files = array_values($byName);
 usort($files, fn($a, $b) => strcmp($a["name"], $b["name"]));
 $stagedCount = count(array_filter($files, fn($f) => $f["staged"] ?? false));
-?>
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Media — Precise Admin</title>
-<link rel="stylesheet" href="assets/admin.css">
-</head>
-<body>
-<header class="topbar">
-  <div class="wrap">
-    <strong><a href="index.php" class="plain">Precise Admin</a> / Media</strong>
-    <nav>
-      <a href="deploy.php">Deploy<?= $stagedCount ? " (" . $stagedCount . ")" : "" ?></a>
-      <a href="index.php">Dashboard</a>
-      <a href="logout.php">Log out</a>
-    </nav>
-  </div>
-</header>
 
-<main class="wrap">
+$nav = [];
+$nav[] = ["label" => "Deploy" . ($stagedCount ? " ({$stagedCount})" : ""), "href" => "deploy.php"];
+$nav[] = ["label" => "Dashboard", "href" => "index.php"];
+$nav[] = ["label" => "Log out", "href" => "logout.php"];
+page_start("Media", $nav, "Media");
+?>
   <?php if ($flash): ?><div class="alert ok"><?= e($flash) ?></div><?php endif; ?>
   <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
 
@@ -273,6 +258,4 @@ $stagedCount = count(array_filter($files, fn($f) => $f["staged"] ?? false));
     <?php endforeach; ?>
     <?php if (!$files): ?><p class="muted">No files in this folder (or GitHub is unreachable).</p><?php endif; ?>
   </div>
-</main>
-</body>
-</html>
+<?php page_end(); ?>
