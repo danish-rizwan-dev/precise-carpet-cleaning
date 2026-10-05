@@ -1,3 +1,5 @@
+DirectoryIndex index.php
+
 # Never serve config (contains secrets) or dotfiles
 <FilesMatch "^(config\.php|config\.example\.php)$">
   Require all denied
