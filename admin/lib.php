@@ -100,7 +100,7 @@ function gh_api(string $method, string $path, array $body = null): array
     $data = json_decode((string)$res, true) ?? [];
     if ($status < 200 || $status >= 300) {
         $msg = $data["message"] ?? "unknown error";
-        throw new RuntimeException("GitHub API (HTTP {$status}): {$msg}");
+        throw new RuntimeException("GitHub API (HTTP {$status}) at {$path}: {$msg}");
     }
     return $data;
 }
@@ -293,7 +293,8 @@ function gh_commit_files(array $files, string $message): void
         "tree" => $tree["sha"],
         "parents" => [$headSha],
     ]);
-    gh_api("PATCH", "git/ref/heads/" . $branch, ["sha" => $commit["sha"]]);
+    // Note: GET uses singular "git/ref", update uses plural "git/refs".
+    gh_api("PATCH", "git/refs/heads/" . $branch, ["sha" => $commit["sha"]]);
 }
 
 /* ---------------- Drafts (staged edits, published by deploy.php) ---------------- */

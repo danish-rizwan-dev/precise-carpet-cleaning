@@ -142,7 +142,8 @@ $stagedCount = count(array_filter($files, fn($f) => $f["staged"] ?? false));
   <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
 
   <div class="notice">
-    Gallery files live in <code>public/gallery</code>. Max <strong>5 MB</strong> per file.
+    Gallery files live in <code>public/gallery</code> — <strong>any filename works</strong>,
+    every image appears on the gallery page after deploy. Max <strong>5 MB</strong> per file.
     Uploads are <strong>staged</strong> — they go live together with your next
     <a href="deploy.php">Deploy</a> (2–3 min).
   </div>
