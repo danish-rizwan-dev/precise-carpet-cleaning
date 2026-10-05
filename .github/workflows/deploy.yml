@@ -68,7 +68,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/new.precisecarpetcleaning.com.au/
+          server-dir: /
           local-dir: ./out/
 
       - name: Deploy admin panel to public_html/admin/
@@ -77,5 +77,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/new.precisecarpetcleaning.com.au/admin/
+          server-dir: /admin/
           local-dir: ./admin/
