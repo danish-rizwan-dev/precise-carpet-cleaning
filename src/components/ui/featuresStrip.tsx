@@ -1,32 +1,5 @@
 import Image from "@/components/ui/image";
-
-const FEATURES = [
-  {
-    icon: "/hero/sameDaysvg.svg",
-    alt: "Same day cleaning icon",
-    label: (
-      <>
-        Same day cleaning
-      </>
-    ),
-  },
-  {
-    icon: "/hero/safeCleaning.svg",
-    alt: "Safe chemicals icon",
-    label: (
-      <>
-        Safe Chemicals
-        <br />
-        for Kids &amp; Pets
-      </>
-    ),
-  },
-  {
-    icon: "/hero/24hours.svg",
-    alt: "24/7 availability icon",
-    label: <>24/7 availability</>,
-  },
-];
+import FEATURES from "@/content/features.json";
 
 export default function FeaturesStrip({ className = "" }: { className?: string }) {
   return (
@@ -52,6 +25,12 @@ export default function FeaturesStrip({ className = "" }: { className?: string }
             style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}
           >
             {feature.label}
+            {"labelLine2" in feature && feature.labelLine2 && (
+              <>
+                <br />
+                {feature.labelLine2}
+              </>
+            )}
           </span>
         </div>
       ))}

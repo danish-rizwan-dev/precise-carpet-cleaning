@@ -1,5 +1,7 @@
 "use client";
 
+import site from "@/content/site.json";
+
 import { useState } from "react";
 import Link from "next/link";
 import Image from "@/components/ui/image";
@@ -64,32 +66,32 @@ export default function Header() {
           {/* Left Side: Contact Details */}
           <div className="flex items-center gap-3 lg:gap-6">
             <a
-              href="tel:0434161161"
+              href={`tel:${site.phoneHref}`}
               className="flex items-center gap-2 hover:text-[#ffb400] transition-colors whitespace-nowrap"
             >
               <Phone size={14} className="stroke-[2.5]" />
-              <span>Call us: 0434 161 161</span>
+              <span>Call us: {site.phone}</span>
             </a>
             <a
-              href="mailto:enquiries@precisecarpetcleaning.com.au"
+              href={`mailto:${site.email}`}
               className="hidden lg:flex items-center gap-2 hover:text-[#ffb400] transition-colors"
             >
               <Mail size={14} className="stroke-[2.5]" />
-              <span>enquiries@precisecarpetcleaning.com.au</span>
+              <span>{site.email}</span>
             </a>
           </div>
 
           {/* Right Side: Social Icons */}
           <div className="flex items-center gap-3 sm:gap-4">
             <a
-              href="mailto:enquiries@precisecarpetcleaning.com.au"
+              href={`mailto:${site.email}`}
               className="lg:hidden text-white hover:text-[#ffb400] transition-colors"
               aria-label="Email"
             >
               <Mail size={14} className="stroke-[2.5]" />
             </a>
             <a
-              href="https://www.facebook.com/precisecarpetcleaningservices"
+              href={site.facebook}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#ffb400] transition-colors"
@@ -98,7 +100,7 @@ export default function Header() {
               <FacebookIcon />
             </a>
             <a
-              href="https://www.instagram.com/precisecarpetcleaningservices"
+              href={site.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-[#ffb400] transition-colors"

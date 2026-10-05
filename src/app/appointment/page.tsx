@@ -1,13 +1,15 @@
-"use client";
+import type { Metadata } from "next";
+import AppointmentClient from "./appointmentClient";
 
-import BookCleaningSection from "@/components/appointmentpage/appointmentform";
-import FaqPage from "@/components/homepage/faq";
+export const metadata: Metadata = {
+  title: "Book an Appointment",
+  description:
+    "Book your carpet, rug or upholstery cleaning appointment online in under a minute. Same-day availability across Sydney.",
+  alternates: {
+    canonical: "/appointment/",
+  },
+};
 
 export default function AppointmentPage() {
-  return (
-    <>
-      <BookCleaningSection />
-      <FaqPage />
-    </>
-  );
+  return <AppointmentClient />;
 }

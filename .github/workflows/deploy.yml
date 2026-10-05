@@ -1,0 +1,81 @@
+name: Build & deploy to cPanel
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build (static export -> out/)
+        run: npm run build
+
+      - name: Generate admin config (from secrets)
+        env:
+          ADMIN_USER: ${{ secrets.ADMIN_USER }}
+          ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
+          GH_ADMIN_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import os
+
+          def php_str(s):
+              return "'" + s.replace("\\", "\\\\").replace("'", "\\'") + "'"
+
+          cfg = {
+              "admin_user": os.environ.get("ADMIN_USER") or "admin",
+              "admin_password_hash": os.environ.get("ADMIN_PASSWORD_HASH") or "",
+              "github_token": os.environ.get("GH_ADMIN_TOKEN") or "",
+              "github_repo": "danish-rizwan-dev/precise-carpet-cleaning",
+              "github_branch": "master",
+          }
+          if not cfg["admin_password_hash"] or not cfg["github_token"]:
+              raise SystemExit("ADMIN_PASSWORD_HASH / GH_ADMIN_TOKEN secrets are not set")
+
+          lines = ["<?php", "return ["]
+          for k, v in cfg.items():
+              lines.append("    " + php_str(k) + " => " + php_str(v) + ",")
+          lines.append("];")
+          with open("admin/config.php", "w", encoding="utf-8") as fh:
+              fh.write("\n".join(lines) + "\n")
+          print("admin/config.php written")
+          PY
+
+      - name: Deploy site to public_html/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/new.precisecarpetcleaning.com.au/
+          local-dir: ./out/
+
+      - name: Deploy admin panel to public_html/admin/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/new.precisecarpetcleaning.com.au/admin/
+          local-dir: ./admin/

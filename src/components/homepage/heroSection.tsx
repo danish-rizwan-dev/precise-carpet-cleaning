@@ -8,6 +8,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 import { WordReveal } from "../ui/scrollReveal";
 import FeaturesStrip from "../ui/featuresStrip";
+import home from "@/content/home.json";
+import site from "@/content/site.json";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -96,16 +98,16 @@ export default function Hero() {
                 ))}
               </div>
 
-              <div className="flex flex-col text-left mt-1">
-                <div className="flex items-center gap-1.5 font-bold text-white text-[18px]">
-                  <span>Ratings</span>
-                  <Star className="w-[18px] h-[18px] text-[#ffb400] fill-[#ffb400]" />
-                  <span>4.9</span>
+                <div className="flex flex-col text-left mt-1">
+                  <div className="flex items-center gap-1.5 font-bold text-white text-[18px]">
+                    <span>{home.hero.ratingLabel}</span>
+                    <Star className="w-[18px] h-[18px] text-[#ffb400] fill-[#ffb400]" />
+                    <span>{home.hero.ratingValue}</span>
+                  </div>
+                  <span className="text-gray-200 font-medium text-[15px] mt-0.5">
+                    {home.hero.ratingNote}
+                  </span>
                 </div>
-                <span className="text-gray-200 font-medium text-[15px] mt-0.5">
-                  Trusted reviews from Google!
-                </span>
-              </div>
             </motion.div>
 
             {/* Main Text Content */}
@@ -114,15 +116,14 @@ export default function Hero() {
               <WordReveal
                 as="h1"
                 className="text-[40px] sm:text-[48px] md:text-[58px] lg:text-[72px] font-bold leading-[1.08] tracking-[-1px] sm:tracking-[-2px] lg:tracking-[-3px] text-white"
-              >Sydney’s Carpet Cleaning Experts</WordReveal>
+              >{home.hero.title}</WordReveal>
 
               {/* Subtitle */}
               <motion.h2
                 variants={itemVariants}
                 className="text-[24px] sm:text-[28px] md:text-[34px] lg:text-[40px] font-semibold leading-[1.25] tracking-tight text-[#e5eaec] mt-1"
               >
-                Residential & Commercial <br className="hidden sm:inline" />{" "}
-                Carpet Cleaning
+                {home.hero.subtitle}
               </motion.h2>
 
               {/* Description */}
@@ -130,7 +131,7 @@ export default function Hero() {
                 variants={itemVariants}
                 className="text-[16px] sm:text-[17px] md:text-[18px] font-normal leading-[1.4] text-[#e5eaec] mt-1"
               >
-                Revitalising carpets & upholstery to their former glory.
+                {home.hero.description}
               </motion.p>
 
               {/* Buttons */}
@@ -140,13 +141,13 @@ export default function Hero() {
               >
                 {/* Call Us Button */}
                 <a
-                  href="tel:0434161161"
+                  href={`tel:${site.phoneHref}`}
                   className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[230px] transition-all duration-300 overflow-hidden"
                 >
                   <div className="bg-white rounded-[8px] absolute left-[4px] inset-y-[4px] z-0 transition-all duration-700 ease-in-out w-[53px] group-hover:w-[calc(100%-8px)]" />
                   <Phone className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[21px] z-10 top-1/2 -translate-y-1/2" />
                   <span className="relative z-10 ml-[64px] pr-6 font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
-                    Call us: 0434 161 161
+                    Call us: {site.phone}
                   </span>
                 </a>
 
@@ -169,8 +170,8 @@ export default function Hero() {
                 className="relative w-[300px] sm:w-[350px] md:w-[400px] lg:w-[471px] max-w-full h-[112px] sm:h-[133px] md:h-[152px] lg:h-[180px] mt-2"
               >
                 <Image
-                  src="/hero/2bedroomSpecial.avif"
-                  alt="2 Bedroom Special from $79"
+                  src={home.hero.offerImage}
+                  alt={home.hero.offerAlt}
                   width={471}
                   height={180}
                   sizes="(max-width: 640px) 300px, (max-width: 768px) 350px, (max-width: 1024px) 400px, 471px"

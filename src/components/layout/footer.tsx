@@ -1,5 +1,7 @@
 "use client";
 
+import site from "@/content/site.json";
+
 import Image from "@/components/ui/image";
 import Link from "next/link";
 
@@ -58,7 +60,7 @@ export default function Footer() {
               fresher home without the hassle.
             </p>
             <a
-              href="tel:0434161161"
+              href={`tel:${site.phoneHref}`}
               className="group relative flex items-center   text-white rounded-[12px] h-[61px] transition-all duration-300 overflow-hidden w-fit mt-6 md:mt-4"
             >
               {/* Expandable White Background Box */}

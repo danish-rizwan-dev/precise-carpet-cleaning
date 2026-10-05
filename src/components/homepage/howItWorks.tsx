@@ -5,52 +5,12 @@ import Image from '@/components/ui/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import CountUp from '../ui/countUp';
 import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
+import content from '@/content/home.json';
 
-const STEPS = [
-  {
-    id: 0,
-    title: '1. Book Your Service',
-    description: 'Choose your carpet cleaning service, select a convenient date, and tell us what your carpets need.',
-    image: '/howitworks/crouselmobile.jpg',
-  },
-  {
-    id: 1,
-    title: '2. We Deep Clean',
-    description: 'Our professionals use specialised equipment and proven cleaning methods to lift dirt, stains, odours and built-up grime.',
-    image: '/howitworks/preciseVaccume.jpg',
-  },
-  {
-    id: 2,
-    title: '3. Enjoy Fresh Carpets',
-    description: 'Sit back and enjoy cleaner, fresher carpets that look better and feel great underfoot.',
-    image: '/howitworks/crouselthreeimggirl.png',
-  },
-];
-
-const STATS = [
-  { value: '4.9', label: 'Average Rating' },
-  { value: '1.2k+', label: 'Happy Clients' },
-  { value: '300+', label: 'Regular Clients' },
-  { value: '100%', label: 'Background-Checked Staff' },
-];
-
-const ACCORDION_DATA = [
-  {
-    title: 'Save Time Every Week',
-    description: 'Hiring a professional to clean your space effectively frees up your valuable time for work, family, or relaxation.',
-    image: '/howitworks/sofagirl.png',
-  },
-  {
-    title: 'Feel Safe Letting Us In',
-    description: 'Our trusted and professional cleaners treat your home with care, ensuring a safe and reliable cleaning experience every time.',
-    image: '/howitworks/handshakeimggirls.png',
-  },
-  {
-    title: 'Simple, Stress-Free Booking',
-    description: 'Booking with us is quick and easy. Choose your service, pick a time that works for you, and we\'ll take care of the rest.',
-    image: '/howitworks/mobileprecise.png',
-  },
-];
+const { howItWorks: HW } = content;
+const STEPS = HW.steps;
+const STATS = HW.stats;
+const ACCORDION_DATA = HW.accordion;
 
 export default function HowItWorks() {
   const [activeTab, setActiveTab] = useState(0);
@@ -87,8 +47,8 @@ export default function HowItWorks() {
         
         {/* --- PART 1: HOW IT WORKS CAROUSEL --- */}
         <div className="max-w-[597px] w-full text-center mb-12 sm:mb-16">
-          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">How Precise Carpet Cleaning Works</WordReveal>
-          <ScrollReveal delay={0.2}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">Book your carpet cleaning in a few simple steps and let our trained professionals take care of the rest.</p></ScrollReveal>
+          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">{HW.heading}</WordReveal>
+          <ScrollReveal delay={0.2}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">{HW.subtitle}</p></ScrollReveal>
         </div>
 
         <div className="w-full max-w-[1176px] flex flex-col relative">
@@ -189,8 +149,8 @@ export default function HowItWorks() {
 
           {/* Right Side: Text & Accordion */}
           <ScrollReveal direction="right" className="w-full lg:w-[520px] flex flex-col lg:mt-[40px] order-1 lg:order-2">
-            <WordReveal className="text-[40px] md:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">Save Your Time</WordReveal>
-            <p className="text-[16px] md:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-8">We clean so you don’t have to. Get your valuable time back for work, family, or much-needed rest.</p>
+            <WordReveal className="text-[40px] md:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">{HW.saveTimeHeading}</WordReveal>
+            <p className="text-[16px] md:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-8">{HW.saveTimeSubtitle}</p>
 
             <div className="flex flex-col w-full">
               {ACCORDION_DATA.map((item, idx) => {

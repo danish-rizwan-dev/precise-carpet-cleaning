@@ -5,57 +5,10 @@ import Link from "next/link";
 import { Phone, Star } from "lucide-react";
 import ScrollMoveImage from "../ui/scrollMoveImage";
 import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
+import home from "@/content/home.json";
+import site from "@/content/site.json";
 
-const SERVICES = [
-  {
-    id: 1,
-    title: "Carpet Cleaning",
-    description:
-      "Say goodbye to stubborn stains and dirt with our professional carpet cleaning service.",
-    image: "/ourServices/carpetcleaning.webp",
-    href: "/services",
-  },
-  {
-    id: 2,
-    title: "Sofa & Couch Cleaning",
-    description:
-      "Restore the beauty and comfort of your sofas and couches with our specialised cleaning techniques.",
-    image: "/ourServices/sofaandcouch.webp",
-    href: "/services/upholstery-steam-cleaning",
-  },
-  {
-    id: 3,
-    title: "Leather Furniture Cleaning",
-    description:
-      "Preserve the luxurious look and feel of your leather furniture with our expert cleaning and conditioning.",
-    image: "/ourServices/leathercleaning.webp",
-    href: "/services/leather-lounge-cleaning",
-  },
-  {
-    id: 4,
-    title: "Rug Cleaning",
-    description:
-      "From delicate area rugs to sturdy floor coverings, we'll leave your rugs looking vibrant and fresh.",
-    image: "/ourServices/rugcleaing.webp",
-    href: "/services/rug-cleaning",
-  },
-  {
-    id: 5,
-    title: "Mattress Cleaning",
-    description:
-      "Ensure a clean and hygienic sleeping environment with our thorough mattress cleaning service.",
-    image: "/ourServices/mattrecesclean.webp",
-    href: "/services/mattress-steam-cleaning",
-  },
-  {
-    id: 6,
-    title: "Tile & Grout Cleaning",
-    description:
-      "Deep clean your tiles and grout, removing built-up dirt, stains and grime to restore a fresh, brighter finish.",
-    image: "/ourServices/tilegroutcleaning.webp",
-    href: "/services/tile-grout-cleaning",
-  },
-];
+const SERVICES = home.servicesSection.cards;
 
 export default function ServicesSection() {
   return (
@@ -63,8 +16,8 @@ export default function ServicesSection() {
       <div className="max-w-[1272px] w-full flex flex-col items-center">
         {/* Section Header */}
         <div className="max-w-[715px] w-full text-center mb-12 md:mb-16">
-          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">Our services</WordReveal>
-          <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] max-w-[650px] mx-auto">Our services cater to both residential and commercial clients, ensuring that homes and businesses alike enjoy a clean environment.</p></ScrollReveal>
+          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">{home.servicesSection.heading}</WordReveal>
+          <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] max-w-[650px] mx-auto">{home.servicesSection.subtitle}</p></ScrollReveal>
         </div>
 
         {/* Services 3-Column Grid */}
@@ -110,13 +63,13 @@ export default function ServicesSection() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 -mb-14">
           {/* Call Us Button */}
           <a
-            href="tel:0434161161"
+            href={`tel:${site.phoneHref}`}
             className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[230px] transition-all duration-300 overflow-hidden"
           >
             <div className="bg-white rounded-[8px] absolute left-[4px] inset-y-[4px] z-0 transition-all duration-700 ease-in-out w-[53px] group-hover:w-[calc(100%-8px)]" />
             <Phone className="w-[20px] h-[20px] text-[#ffb400] fill-[#ffb400] absolute left-[21px] z-10 top-1/2 -translate-y-1/2" />
             <span className="relative z-10 ml-[64px] pr-6 font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
-              Call us: 0434 161 161
+              Call us: {site.phone}
             </span>
           </a>
 

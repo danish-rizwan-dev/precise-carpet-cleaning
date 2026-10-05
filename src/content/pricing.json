@@ -1,0 +1,35 @@
+{
+  "heading": "Our Pricing",
+  "subtitle": "High-quality carpet cleaning at fair and transparent prices. Choose the option that suits your home or business.",
+  "residential": [
+    { "id": 1, "title": "2 Bedroom", "price": "$79" },
+    { "id": 2, "title": "3 Bedroom", "price": "$119" },
+    { "id": 3, "title": "4 Bedroom", "price": "$179" }
+  ],
+  "commercial": [
+    {
+      "id": 1,
+      "title": "Small Space",
+      "range": "50 sqm – 100 sqm",
+      "price": "$2.50",
+      "suffix": "/sqm",
+      "showFrom": true
+    },
+    {
+      "id": 2,
+      "title": "Medium Space",
+      "range": "100 sqm – 400 sqm",
+      "price": "$1.50",
+      "suffix": "/sqm",
+      "showFrom": true
+    },
+    {
+      "id": 3,
+      "title": "Large Space",
+      "range": "500 sqm+",
+      "price": "$0.75",
+      "suffix": "/sqm",
+      "showFrom": true
+    }
+  ]
+}

@@ -1,12 +1,14 @@
 "use client";
 
+import site from "@/content/site.json";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "@/components/ui/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play, X, ZoomIn } from "lucide-react";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
-type GalleryItem = {
+export type GalleryItem = {
   type: "image" | "video";
   src: string;
   alt: string;
@@ -17,24 +19,8 @@ type OpenState = {
   index: number;
 };
 
-const PHOTO_COUNT = 22;
-
-const photos: GalleryItem[] = Array.from({ length: PHOTO_COUNT }, (_, index) => {
-  const number = String(index + 1).padStart(2, "0");
-  return {
-    type: "image",
-    src: `/gallery/gallery-${number}.jpeg`,
-    alt: `Precise Carpet Cleaning result ${index + 1}`,
-  };
-});
-
-const videos: GalleryItem[] = [
-  {
-    type: "video",
-    src: "/gallery/gallery-video.mp4",
-    alt: "Precise Carpet Cleaning work in progress video",
-  },
-];
+/* Photos and videos are supplied by the server page from public/gallery,
+   so adding or removing files there updates the gallery on each build. */
 
 /* Tilted collage layout: white-framed photos at alternating angles and
    heights, staggered like prints tossed on a table. */
@@ -66,7 +52,13 @@ const ZoomIcon = () => (
   </span>
 );
 
-export default function GalleryClient() {
+export default function GalleryClient({
+  photos,
+  videos,
+}: {
+  photos: GalleryItem[];
+  videos: GalleryItem[];
+}) {
   const [open, setOpen] = useState<OpenState | null>(null);
   const isOpen = open !== null;
 
@@ -78,7 +70,7 @@ export default function GalleryClient() {
         const list = state.type === "image" ? photos : videos;
         return { ...state, index: (state.index + 1) % list.length };
       }),
-    []
+    [photos, videos]
   );
   const prev = useCallback(
     () =>
@@ -90,7 +82,7 @@ export default function GalleryClient() {
           index: (state.index - 1 + list.length) % list.length,
         };
       }),
-    []
+    [photos, videos]
   );
 
   useEffect(() => {
@@ -116,7 +108,7 @@ export default function GalleryClient() {
     if (!open) return null;
     const list = open.type === "image" ? photos : videos;
     return list[open.index] ?? null;
-  }, [open]);
+  }, [open, photos, videos]);
 
   const activeCount = open?.type === "image" ? photos.length : videos.length;
 
@@ -224,7 +216,7 @@ export default function GalleryClient() {
               professional cleaning service today.
             </p>
             <a
-              href="tel:0434161161"
+              href={`tel:${site.phoneHref}`}
               className="group relative flex items-center bg-[#0b4255] text-white rounded-[12px] h-[61px] min-w-[230px] transition-all duration-300 overflow-hidden"
             >
               <div className="bg-white rounded-[8px] absolute left-[4px] inset-y-[4px] z-0 transition-all duration-700 ease-in-out w-[53px] group-hover:w-[calc(100%-8px)]" />
@@ -239,7 +231,7 @@ export default function GalleryClient() {
                 </svg>
               </span>
               <span className="relative z-10 ml-[64px] pr-6 font-semibold text-[16px] whitespace-nowrap transition-colors duration-300 group-hover:text-[#0b4255]">
-                Call us: 0434 161 161
+                Call us: {site.phone}
               </span>
             </a>
           </div>

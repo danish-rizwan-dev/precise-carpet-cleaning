@@ -4,51 +4,10 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from '@/components/ui/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
+import testimonialsContent from '@/content/testimonials.json';
 
-const TESTIMONIALS = [
-  {
-    id: 1,
-    name: 'Daniel Wilson',
-    role: 'Homeowner',
-    text: 'We had years of built-up dirt and a few tough stains in our carpets. The difference after cleaning was incredible. It feels like a new home.',
-    image: '/testimonials/daniel.jpg',
-  },
-  {
-    id: 2,
-    name: 'James Wilson',
-    role: 'Homeowner',
-    text: 'From booking to completion, everything was easy and hassle-free. The carpets smell fresh, feel cleaner, and the whole room looks better.',
-    image: '/testimonials/james.webp',
-  },
-  {
-    id: 3,
-    name: 'Sarah',
-    role: 'Software Engineer',
-    text: 'The carpets look completely refreshed! The team was professional, on time, and did an amazing job removing some really stubborn stains.',
-    image: '/testimonials/Sarah.webp',
-  },
-  {
-    id: 4,
-    name: 'Michael Thompson',
-    role: 'Property Manager',
-    text: 'Excellent service from start to finish. The booking was simple, the team arrived on time, and the carpets looked fantastic afterwards.',
-    image: '/testimonials/Michael.jpg',
-  },
-  {
-    id: 5,
-    name: 'Emily Rogers',
-    role: 'Interior Designer',
-    text: 'I was genuinely impressed with the attention to detail. The carpets feel fresh, clean, and look noticeably brighter. Highly recommend their service.',
-    image: '/testimonials/emily.webp',
-  },
-];
-
-const FEATURES = [
-  'Consistent Results You Can Rely On',
-  'Flexible to Fit Your Lifestyle',
-  'Results That Feel Different',
-  'A Healthier Home Environment',
-];
+const TESTIMONIALS = testimonialsContent.homepage;
+const FEATURES = testimonialsContent.features;
 
 const CheckIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">

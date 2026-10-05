@@ -1,0 +1,116 @@
+{
+  "hero": {
+    "title": "Sydney’s Carpet Cleaning Experts",
+    "subtitle": "Residential & Commercial Carpet Cleaning",
+    "description": "Revitalising carpets & upholstery to their former glory.",
+    "ratingValue": "4.9",
+    "ratingLabel": "Ratings",
+    "ratingNote": "Trusted reviews from Google!",
+    "offerImage": "/hero/2bedroomSpecial.avif",
+    "offerAlt": "2 Bedroom Special from $79"
+  },
+  "offersSection": {
+    "heading": "Exclusive Cleaning Offers",
+    "subtitle": "Save more while keeping your home fresh, clean & protected."
+  },
+  "showcase": {
+    "paragraph": "With our expert team and top-of-the-line equipment, we deliver exceptional results that exceed expectations. Whether you're a homeowner looking to refresh your living space or a business owner aiming to impress clients, we have the solutions to meet your needs."
+  },
+  "servicesSection": {
+    "heading": "Our services",
+    "subtitle": "Our services cater to both residential and commercial clients, ensuring that homes and businesses alike enjoy a clean environment.",
+    "cards": [
+      {
+        "id": 1,
+        "title": "Carpet Cleaning",
+        "description": "Say goodbye to stubborn stains and dirt with our professional carpet cleaning service.",
+        "image": "/ourServices/carpetcleaning.webp",
+        "href": "/services"
+      },
+      {
+        "id": 2,
+        "title": "Sofa & Couch Cleaning",
+        "description": "Restore the beauty and comfort of your sofas and couches with our specialised cleaning techniques.",
+        "image": "/ourServices/sofaandcouch.webp",
+        "href": "/services/upholstery-steam-cleaning"
+      },
+      {
+        "id": 3,
+        "title": "Leather Furniture Cleaning",
+        "description": "Preserve the luxurious look and feel of your leather furniture with our expert cleaning and conditioning.",
+        "image": "/ourServices/leathercleaning.webp",
+        "href": "/services/leather-lounge-cleaning"
+      },
+      {
+        "id": 4,
+        "title": "Rug Cleaning",
+        "description": "From delicate area rugs to sturdy floor coverings, we'll leave your rugs looking vibrant and fresh.",
+        "image": "/ourServices/rugcleaing.webp",
+        "href": "/services/rug-cleaning"
+      },
+      {
+        "id": 5,
+        "title": "Mattress Cleaning",
+        "description": "Ensure a clean and hygienic sleeping environment with our thorough mattress cleaning service.",
+        "image": "/ourServices/mattrecesclean.webp",
+        "href": "/services/mattress-steam-cleaning"
+      },
+      {
+        "id": 6,
+        "title": "Tile & Grout Cleaning",
+        "description": "Deep clean your tiles and grout, removing built-up dirt, stains and grime to restore a fresh, brighter finish.",
+        "image": "/ourServices/tilegroutcleaning.webp",
+        "href": "/services/tile-grout-cleaning"
+      }
+    ]
+  },
+  "howItWorks": {
+    "heading": "How Precise Carpet Cleaning Works",
+    "subtitle": "Book your carpet cleaning in a few simple steps and let our trained professionals take care of the rest.",
+    "steps": [
+      {
+        "id": 0,
+        "title": "1. Book Your Service",
+        "description": "Choose your carpet cleaning service, select a convenient date, and tell us what your carpets need.",
+        "image": "/howitworks/crouselmobile.jpg"
+      },
+      {
+        "id": 1,
+        "title": "2. We Deep Clean",
+        "description": "Our professionals use specialised equipment and proven cleaning methods to lift dirt, stains, odours and built-up grime.",
+        "image": "/howitworks/preciseVaccume.jpg"
+      },
+      {
+        "id": 2,
+        "title": "3. Enjoy Fresh Carpets",
+        "description": "Sit back and enjoy cleaner, fresher carpets that look better and feel great underfoot.",
+        "image": "/howitworks/crouselthreeimggirl.png"
+      }
+    ],
+    "stats": [
+      { "value": "4.9", "label": "Average Rating" },
+      { "value": "1.2k+", "label": "Happy Clients" },
+      { "value": "300+", "label": "Regular Clients" },
+      { "value": "100%", "label": "Background-Checked Staff" }
+    ],
+    "saveTimeHeading": "Save Your Time",
+    "saveTimeSubtitle": "We clean so you don’t have to. Get your valuable time back for work, family, or much-needed rest.",
+    "accordion": [
+      {
+        "title": "Save Time Every Week",
+        "description": "Hiring a professional to clean your space effectively frees up your valuable time for work, family, or relaxation.",
+        "image": "/howitworks/sofagirl.png"
+      },
+      {
+        "title": "Feel Safe Letting Us In",
+        "description": "Our trusted and professional cleaners treat your home with care, ensuring a safe and reliable cleaning experience every time.",
+        "image": "/howitworks/handshakeimggirls.png"
+      },
+      {
+        "title": "Simple, Stress-Free Booking",
+        "description": "Booking with us is quick and easy. Choose your service, pick a time that works for you, and we'll take care of the rest.",
+        "image": "/howitworks/mobileprecise.png"
+      }
+    ]
+  }
+}

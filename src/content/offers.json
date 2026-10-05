@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "slug": "lounge-steam-cleaning-10-off",
+    "image": "/cleaningoffers/steamclean.png",
+    "title": "10% off any lounge steam cleaning",
+    "description": "Give your lounge a fresh, deep clean while enjoying great savings."
+  },
+  {
+    "id": 2,
+    "slug": "free-enzyme-pet-odour-treatment",
+    "image": "/cleaningoffers/freeenzymepet.png",
+    "title": "FREE Enzyme pet odour treatment",
+    "description": "Say goodbye to lingering pet smells with our deep enzyme treatment."
+  },
+  {
+    "id": 3,
+    "slug": "book-carpet-rug-upholstery-free-scotchgard",
+    "image": "/cleaningoffers/bookcarpetrug.png",
+    "title": "Book Carpet, Rug & Upholstery – Get FREE Scotchgard!",
+    "description": "Deep clean your home and keep it looking fresh for longer."
+  },
+  {
+    "id": 4,
+    "slug": "pet-children-friendly-chemicals",
+    "image": "/cleaningoffers/petfrirendly.png",
+    "title": "Pet & Children Friendly Chemicals",
+    "description": "Gentle yet effective cleaning solutions that are carefully chosen to be safer for children, pets and your home."
+  },
+  {
+    "id": 5,
+    "slug": "leather-cleaning-complimentary-protection",
+    "image": "/cleaningoffers/leatherclean.png",
+    "title": "With every leather cleaning service, you'll receive a complimentary leather protection treatment.",
+    "description": "Keep your leather looking fresh, conditioned and protected for longer."
+  }
+]

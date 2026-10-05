@@ -1,4 +1,6 @@
-const WHATSAPP_NUMBER = "61434161161"; // 0434 161 161
+import site from "@/content/site.json";
+
+const WHATSAPP_NUMBER = site.phoneHref.replace("+", "");
 
 export function sendToWhatsApp(message: string) {
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

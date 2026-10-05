@@ -1,3 +1,14 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "How Precise Carpet Cleaning collects, uses and protects your personal information when you book our cleaning services.",
+  alternates: {
+    canonical: "/privacy-policy/",
+  },
+};
+
 export default function PrivacyPolicyPage() {
   return (
     <section className="w-full min-h-screen py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif] bg-white flex justify-center">

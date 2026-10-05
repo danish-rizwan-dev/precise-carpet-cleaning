@@ -3,49 +3,8 @@
 import Image from "@/components/ui/image";
 import ScrollMoveImage from "../ui/scrollMoveImage";
 import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
-
-const OFFERS = [
-  {
-    id: 1,
-    slug: "lounge-steam-cleaning-10-off",
-    image: "/cleaningoffers/steamclean.png",
-    title: "10% off any lounge steam cleaning",
-    description:
-      "Give your lounge a fresh, deep clean while enjoying great savings.",
-  },
-  {
-    id: 2,
-    slug: "free-enzyme-pet-odour-treatment",
-    image: "/cleaningoffers/freeenzymepet.png",
-    title: "FREE Enzyme pet odour treatment",
-    description:
-      "Say goodbye to lingering pet smells with our deep enzyme treatment.",
-  },
-  {
-    id: 3,
-    slug: "book-carpet-rug-upholstery-free-scotchgard",
-    image: "/cleaningoffers/bookcarpetrug.png",
-    title: "Book Carpet, Rug & Upholstery – Get FREE Scotchgard!",
-    description: "Deep clean your home and keep it looking fresh for longer.",
-  },
-  {
-    id: 4,
-    slug: "pet-children-friendly-chemicals",
-    image: "/cleaningoffers/petfrirendly.png",
-    title: "Pet & Children Friendly Chemicals",
-    description:
-      "Gentle yet effective cleaning solutions that are carefully chosen to be safer for children, pets and your home.",
-  },
-  {
-    id: 5,
-    slug: "leather-cleaning-complimentary-protection",
-    image: "/cleaningoffers/leatherclean.png",
-    title:
-      "With every leather cleaning service, you'll receive a complimentary leather protection treatment.",
-    description:
-      "Keep your leather looking fresh, conditioned and protected for longer.",
-  },
-];
+import OFFERS from "@/content/offers.json";
+import home from "@/content/home.json";
 
 export default function CleaningOffers() {
   return (
@@ -55,11 +14,11 @@ export default function CleaningOffers() {
         {/* Header Container */}
         <div className="max-w-[1272px] w-full text-center mb-8 sm:mb-12 md:mb-[72px]">
           <WordReveal className="text-3xl sm:text-4xl md:text-[48px] lg:text-[60px] font-extrabold text-[#171206] tracking-tight leading-tight mb-3">
-            Exclusive Cleaning Offers
+            {home.offersSection.heading}
           </WordReveal>
           <ScrollReveal delay={0.18}>
             <p className="text-sm sm:text-base md:text-lg lg:text-[18px] font-medium text-[#171206]/70 max-w-[524px] mx-auto">
-              Save more while keeping your home fresh, clean &amp; protected.
+              {home.offersSection.subtitle}
             </p>
           </ScrollReveal>
         </div>
@@ -147,11 +106,7 @@ export default function CleaningOffers() {
               className="max-w-[612px] mb-10 text-center lg:text-left lg:ml-25 z-20"
             >
               <p className="text-lg sm:text-xl lg:text-[24px] font-bold text-[#171206] leading-[1.45] tracking-tight">
-                With our expert team and top-of-the-line equipment, we deliver
-                exceptional results that exceed expectations. Whether
-                you&apos;re a homeowner looking to refresh your living space or
-                a business owner aiming to impress clients, we have the
-                solutions to meet your needs.
+                {home.showcase.paragraph}
               </p>
             </ScrollReveal>
             {/* bottom image tilted right (clockwise)  shift if more right */}

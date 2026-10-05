@@ -1,0 +1,18 @@
+[
+  {
+    "icon": "/hero/sameDaysvg.svg",
+    "alt": "Same day cleaning icon",
+    "label": "Same day cleaning"
+  },
+  {
+    "icon": "/hero/safeCleaning.svg",
+    "alt": "Safe chemicals icon",
+    "label": "Safe Chemicals",
+    "labelLine2": "for Kids & Pets"
+  },
+  {
+    "icon": "/hero/24hours.svg",
+    "alt": "24/7 availability icon",
+    "label": "24/7 availability"
+  }
+]

@@ -1,16 +1,15 @@
-"use client";
+import type { Metadata } from "next";
+import AboutClient from "./aboutClient";
 
-import HowNetlyWorks from "@/components/aboutpage/hownetlyworks";
-import OurStorySection from "@/components/aboutpage/ourStory";
-import PeopleYouCanTrustSection from "@/components/aboutpage/peopleyoucantrust";
-
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Learn about Precise Carpet Cleaning — Sydney's trusted carpet, rug and upholstery cleaning professionals, trusted by homes and businesses.",
+  alternates: {
+    canonical: "/about/",
+  },
+};
 
 export default function AboutPage() {
-  return (
-   <>
-   <OurStorySection />
-   <HowNetlyWorks />
-   <PeopleYouCanTrustSection />
-   </>
-  );
+  return <AboutClient />;
 }

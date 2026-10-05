@@ -1,0 +1,89 @@
+{
+  "homepage": [
+    {
+      "id": 1,
+      "name": "Daniel Wilson",
+      "role": "Homeowner",
+      "text": "We had years of built-up dirt and a few tough stains in our carpets. The difference after cleaning was incredible. It feels like a new home.",
+      "image": "/testimonials/daniel.jpg"
+    },
+    {
+      "id": 2,
+      "name": "James Wilson",
+      "role": "Homeowner",
+      "text": "From booking to completion, everything was easy and hassle-free. The carpets smell fresh, feel cleaner, and the whole room looks better.",
+      "image": "/testimonials/james.webp"
+    },
+    {
+      "id": 3,
+      "name": "Sarah",
+      "role": "Software Engineer",
+      "text": "The carpets look completely refreshed! The team was professional, on time, and did an amazing job removing some really stubborn stains.",
+      "image": "/testimonials/Sarah.webp"
+    },
+    {
+      "id": 4,
+      "name": "Michael Thompson",
+      "role": "Property Manager",
+      "text": "Excellent service from start to finish. The booking was simple, the team arrived on time, and the carpets looked fantastic afterwards.",
+      "image": "/testimonials/Michael.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Emily Rogers",
+      "role": "Interior Designer",
+      "text": "I was genuinely impressed with the attention to detail. The carpets feel fresh, clean, and look noticeably brighter. Highly recommend their service.",
+      "image": "/testimonials/emily.webp"
+    }
+  ],
+  "features": [
+    "Consistent Results You Can Rely On",
+    "Flexible to Fit Your Lifestyle",
+    "Results That Feel Different",
+    "A Healthier Home Environment"
+  ],
+  "serviceDetail": [
+    {
+      "id": 1,
+      "quote": "I used their cleaning the service, and it looked absolutely fantastic. The property was ready for viewing the very same day.",
+      "name": "Michael Thompson",
+      "role": "Real Estate Agent",
+      "avatar": "/ServicesDetails/1.png"
+    },
+    {
+      "id": 2,
+      "quote": "I'm particular about cleanliness, and they met my expectations. Attention to detail was noticeable, especially in the kitchen space.",
+      "name": "Emily Rogers",
+      "role": "Interior Designer",
+      "avatar": "/ServicesDetails/2.png"
+    },
+    {
+      "id": 3,
+      "quote": "The team was super friendly and really professional. They went the extra mile to make everything shine. Totally recommend them!",
+      "name": "James Wilson",
+      "role": "Project Manager",
+      "avatar": "/ServicesDetails/3.png"
+    },
+    {
+      "id": 4,
+      "quote": "I work long hours and struggle to keep things tidy. This service made it easy, and the cleaner did a fantastic job without rushing.",
+      "name": "Daniel Carter",
+      "role": "Software Engineer",
+      "avatar": "/ServicesDetails/4.jpg"
+    },
+    {
+      "id": 5,
+      "quote": "I've tried several cleaning services, but this one is the most reliable. Booking was easy, they were on time, and the house felt clean.",
+      "name": "Sarah Mitchell",
+      "role": "Marketing Manager",
+      "avatar": "/ServicesDetails/5.jpg"
+    },
+    {
+      "id": 6,
+      "quote": "Absolutely fantastic service! They transformed my home and the attention to detail was incredible. Highly recommend to everyone.",
+      "name": "Rachel Adams",
+      "role": "Business Owner",
+      "avatar": "/ServicesDetails/6.png"
+    }
+  ]
+}

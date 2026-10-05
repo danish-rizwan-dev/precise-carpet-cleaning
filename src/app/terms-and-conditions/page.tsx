@@ -1,3 +1,15 @@
+import site from "@/content/site.json";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms and Conditions",
+  description:
+    "Terms and conditions governing the use of Precise Carpet Cleaning's website and booking services.",
+  alternates: {
+    canonical: "/terms-and-conditions/",
+  },
+};
+
 export default function TermsAndConditionsPage() {
   return (
     <section className="w-full min-h-screen py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif] bg-white flex justify-center">
@@ -189,8 +201,7 @@ export default function TermsAndConditionsPage() {
             </h2>
             <p>
               If you have any questions about these Terms and Conditions,
-              please contact us at enquiries@precisecarpetcleaning.com.au or
-              call 0434 161 161.
+              please contact us at {site.email} or call {site.phone}.
             </p>
           </div>
         </div>

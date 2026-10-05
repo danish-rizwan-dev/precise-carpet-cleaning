@@ -4,16 +4,16 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
+import site from "@/content/site.json";
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-plus-jakarta",
 });
 
-const SITE_URL = "https://precisecarpetcleaningservice.framer.website";
-const SITE_NAME = "Precise Carpet Cleaning Services";
-const DESCRIPTION =
-  "Professional carpet, rug and upholstery cleaning for homes and businesses. 4.9★ rated, same day cleaning, safe chemicals for kids & pets.";
+const SITE_URL = site.url;
+const SITE_NAME = site.name;
+const DESCRIPTION = site.description;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
