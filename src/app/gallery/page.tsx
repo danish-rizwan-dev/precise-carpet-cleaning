@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
 import fs from "fs";
 import path from "path";
-import GalleryClient, { type GalleryItem } from "./galleryClient";
+import GalleryClient, {
+  type GalleryItem,
+  type BeforeAfterPair,
+} from "./galleryClient";
 
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "Browse our gallery of professional carpet, rug, upholstery, leather, tile and mattress cleaning results for homes and businesses across Sydney.",
+    "Browse our before and after gallery of professional carpet, rug, upholstery, leather, tile and mattress cleaning results for homes and businesses across Sydney.",
   alternates: {
     canonical: "/gallery/",
   },
 };
 
+const IMAGE_RE = /\.(jpe?g|png|webp|avif)$/i;
+const BEFORE_RE = /^before-gallery-(\d+)\.[^.]+$/i;
+const AFTER_RE = /^after-gallery-(\d+)\.[^.]+$/i;
+
+const extOf = (file: string) => file.slice(file.lastIndexOf(".")).toLowerCase();
+const numOf = (file: string) => {
+  const m = BEFORE_RE.exec(file) ?? AFTER_RE.exec(file);
+  return m ? m[1] : "0";
+};
+
+/** Pairs before-gallery-NN.* with after-gallery-NN.* (same extension first). */
 function readGalleryMedia() {
   const dir = path.join(process.cwd(), "public", "gallery");
 
@@ -22,43 +36,63 @@ function readGalleryMedia() {
     files = [];
   }
 
-  // Any image name works (admin uploads are not restricted to gallery-NN);
-  // ad-hoc uploads are shown first, then the numbered gallery-NN set.
-  const photoFiles = files
-    .filter((file) => /\.(jpe?g|png|webp|avif)$/i.test(file))
-    .sort((a, b) => {
-      const aNum = /^gallery-\d+/i.test(a);
-      const bNum = /^gallery-\d+/i.test(b);
-      if (aNum !== bNum) return aNum ? 1 : -1;
-      return a.localeCompare(b);
+  const befores: string[] = [];
+  const afters: string[] = [];
+  const extras: string[] = [];
+
+  for (const file of files.sort()) {
+    if (!IMAGE_RE.test(file)) continue; // videos are no longer shown
+    if (BEFORE_RE.test(file)) befores.push(file);
+    else if (AFTER_RE.test(file)) afters.push(file);
+    else extras.push(file);
+  }
+
+  const byNumber = (a: string, b: string) =>
+    parseInt(numOf(a), 10) - parseInt(numOf(b), 10) || a.localeCompare(b);
+  befores.sort(byNumber);
+  afters.sort(byNumber);
+
+  const used = new Set<string>();
+  const pairs: BeforeAfterPair[] = [];
+
+  for (const before of befores) {
+    const num = numOf(before);
+    const ext = extOf(before);
+    const after =
+      afters.find((f) => !used.has(f) && numOf(f) === num && extOf(f) === ext) ??
+      afters.find((f) => !used.has(f) && numOf(f) === num);
+    if (after) used.add(after);
+
+    // Only complete pairs are shown — incomplete files (e.g. a before
+    // without its after) are skipped until both images exist.
+    if (!after) continue;
+
+    pairs.push({
+      id: before,
+      number: num,
+      before: { src: `/gallery/${before}`, alt: `Before cleaning — result ${num}` },
+      after: { src: `/gallery/${after}`, alt: `After cleaning — result ${num}` },
     });
+  }
 
-  const videoFiles = files
-    .filter((file) => /\.(mp4|webm|mov)$/i.test(file))
-    .sort();
+  pairs.sort(
+    (a, b) => parseInt(a.number, 10) - parseInt(b.number, 10) || a.id.localeCompare(b.id)
+  );
 
-  const photos: GalleryItem[] = photoFiles.map((file, index) => ({
+  const extraItems: GalleryItem[] = extras.map((file) => ({
     type: "image",
     src: `/gallery/${file}`,
-    alt: /^gallery-\d+/i.test(file)
-      ? `Precise Carpet Cleaning result ${index + 1}`
-      : file
-          .replace(/\.[^.]+$/, "")
-          .replace(/[-_]+/g, " ")
-          .replace(/\s+/g, " ")
-          .trim(),
+    alt: file
+      .replace(/\.[^.]+$/, "")
+      .replace(/[-_]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim(),
   }));
 
-  const videos: GalleryItem[] = videoFiles.map((file) => ({
-    type: "video",
-    src: `/gallery/${file}`,
-    alt: "Precise Carpet Cleaning work in progress video",
-  }));
-
-  return { photos, videos };
+  return { pairs, extras: extraItems };
 }
 
 export default function GalleryPage() {
-  const { photos, videos } = readGalleryMedia();
-  return <GalleryClient photos={photos} videos={videos} />;
+  const { pairs, extras } = readGalleryMedia();
+  return <GalleryClient pairs={pairs} extras={extras} />;
 }

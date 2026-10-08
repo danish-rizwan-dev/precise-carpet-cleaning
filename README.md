@@ -71,6 +71,7 @@
 - Same issue as C6 — entirely client-side, no `generateMetadata`.
 - Fix: Use server component pattern or add `generateMetadata`.
 
+
 ### Content / Business Logic
 
 **C8. Contact page has wrong business information (hardcoded template data)**

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ContactClient from "./contactClient";
+import GetInTouchSection from "@/components/forms/getInTouchSection";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactClient />;
+  return <GetInTouchSection />;
 }

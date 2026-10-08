@@ -2,87 +2,175 @@
 
 import site from "@/content/site.json";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "@/components/ui/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Play, X, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoveHorizontal, X, ZoomIn } from "lucide-react";
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 
 export type GalleryItem = {
-  type: "image" | "video";
+  type: "image";
   src: string;
   alt: string;
 };
 
-type OpenState = {
-  type: "image" | "video";
-  index: number;
+export type GalleryMedia = {
+  src: string;
+  alt: string;
 };
 
-/* Photos and videos are supplied by the server page from public/gallery,
-   so adding or removing files there updates the gallery on each build. */
+/** One numbered result: before-gallery-NN paired with after-gallery-NN. */
+export type BeforeAfterPair = {
+  id: string;
+  number: string;
+  before: GalleryMedia | null;
+  after: GalleryMedia | null;
+};
 
-/* Tilted collage layout: white-framed photos at alternating angles and
-   heights, staggered like prints tossed on a table. */
-const PHOTO_WIDTHS = [
-  "w-[calc(50%-6px)] sm:w-[290px] lg:w-[310px]",
-  "w-[calc(50%-6px)] sm:w-[360px] lg:w-[380px]",
-  "w-[calc(50%-6px)] sm:w-[320px] lg:w-[340px]",
-];
+type LightItem =
+  | { kind: "pair"; pair: BeforeAfterPair }
+  | { kind: "image"; item: GalleryItem };
 
-const PHOTO_HEIGHTS = [
-  "h-[155px] sm:h-[195px] lg:h-[215px]",
-  "h-[165px] sm:h-[215px] lg:h-[235px]",
-  "h-[150px] sm:h-[185px] lg:h-[205px]",
-];
+const GRID_SIZES = "(max-width: 640px) 100vw, 50vw";
 
-const PHOTO_TILT = [
-  "-rotate-[3deg] sm:-rotate-[3.5deg]",
-  "rotate-[2.5deg] sm:rotate-[3deg]",
-  "-rotate-[2deg] sm:-rotate-[2.5deg]",
-  "rotate-[3deg] sm:rotate-[3.5deg]",
-  "-rotate-[1.5deg] sm:-rotate-[2deg]",
-];
+/* ---------------- Before / After slider ---------------- */
 
-const PHOTO_OFFSET = ["", "sm:mt-5", "sm:mt-2", "sm:mt-6", "sm:mt-3"];
+function BeforeAfterSlider({
+  pair,
+  sizes = GRID_SIZES,
+}: {
+  pair: BeforeAfterPair;
+  sizes?: string;
+}) {
+  const [pos, setPos] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
 
-const ZoomIcon = () => (
-  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#171206] shadow-lg transition-transform duration-300 group-hover:scale-110">
-    <ZoomIn className="h-5 w-5" />
-  </span>
-);
+  const moveTo = (clientX: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (!rect.width) return;
+    const pct = ((clientX - rect.left) / rect.width) * 100;
+    setPos(Math.max(0, Math.min(100, pct)));
+  };
+
+  const { before, after, number } = pair;
+
+  // Incomplete pair — show the single image we have.
+  if (!before || !after) {
+    const only = (before ?? after)!;
+    return (
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[16px] bg-gray-100">
+        <Image src={only.src} alt={only.alt} fill draggable={false} sizes={sizes} className="object-cover" />
+        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white">
+          {before ? "Before" : "After"}
+        </span>
+        <span className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-[#0b4255] px-3 py-1.5 text-[12px] font-bold text-white">
+          No. {number}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      role="slider"
+      aria-label={`Before and after comparison ${number}`}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(pos)}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowLeft") setPos((p) => Math.max(0, p - 4));
+        if (e.key === "ArrowRight") setPos((p) => Math.min(100, p + 4));
+      }}
+      onPointerDown={(e) => {
+        e.preventDefault();
+        dragging.current = true;
+        e.currentTarget.setPointerCapture(e.pointerId);
+        moveTo(e.clientX);
+      }}
+      onPointerMove={(e) => {
+        if (dragging.current) moveTo(e.clientX);
+      }}
+      onPointerUp={() => {
+        dragging.current = false;
+      }}
+      onPointerCancel={() => {
+        dragging.current = false;
+      }}
+      className="relative aspect-[4/5] max-h-[74vh] w-full touch-pan-y select-none overflow-hidden rounded-[16px] bg-gray-100"
+    >
+      {/* After — full image underneath */}
+      <Image src={after.src} alt={after.alt} fill draggable={false} sizes={sizes} className="object-cover" />
+
+      {/* Before — clipped to the left of the divider */}
+      <div
+        className="absolute inset-0"
+        style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
+        <Image src={before.src} alt={before.alt} fill draggable={false} sizes={sizes} className="object-cover" />
+      </div>
+
+      {/* Divider + handle */}
+      <div
+        className="pointer-events-none absolute inset-y-0 z-10"
+        style={{ left: `${pos}%` }}
+      >
+        <div className="absolute inset-y-0 -left-px w-[2px] bg-white shadow-[0_0_10px_rgba(0,0,0,0.4)]" />
+        <div className="absolute top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white shadow-[0_6px_18px_rgba(0,0,0,0.3)]">
+          <ChevronLeft className="h-4 w-4 -mr-0.5 text-[#0b4255]" />
+          <ChevronRight className="h-4 w-4 -ml-0.5 text-[#0b4255]" />
+        </div>
+      </div>
+
+      {/* Labels */}
+      <span className="pointer-events-none absolute left-3 top-3 z-10 rounded-full bg-black/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white">
+        Before
+      </span>
+      <span className="pointer-events-none absolute right-3 top-3 z-10 rounded-full bg-[#0b4255]/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white">
+        After
+      </span>
+      <span className="pointer-events-none absolute bottom-3 left-3 z-10 rounded-full bg-[#0b4255] px-3 py-1.5 text-[12px] font-bold text-white">
+        No. {number}
+      </span>
+      <span className="pointer-events-none absolute bottom-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-[#171206] opacity-90 shadow-md">
+        <MoveHorizontal className="h-4 w-4" />
+      </span>
+    </div>
+  );
+}
+
+/* ---------------- Page ---------------- */
 
 export default function GalleryClient({
-  photos,
-  videos,
+  pairs,
+  extras,
 }: {
-  photos: GalleryItem[];
-  videos: GalleryItem[];
+  pairs: BeforeAfterPair[];
+  extras: GalleryItem[];
 }) {
-  const [open, setOpen] = useState<OpenState | null>(null);
+  const items = useMemo<LightItem[]>(
+    () => [
+      ...pairs.map((pair) => ({ kind: "pair" as const, pair })),
+      ...extras.map((item) => ({ kind: "image" as const, item })),
+    ],
+    [pairs, extras]
+  );
+
+  const [open, setOpen] = useState<number | null>(null);
   const isOpen = open !== null;
 
   const close = useCallback(() => setOpen(null), []);
   const next = useCallback(
-    () =>
-      setOpen((state) => {
-        if (!state) return state;
-        const list = state.type === "image" ? photos : videos;
-        return { ...state, index: (state.index + 1) % list.length };
-      }),
-    [photos, videos]
+    () => setOpen((i) => (i === null ? i : (i + 1) % items.length)),
+    [items.length]
   );
   const prev = useCallback(
-    () =>
-      setOpen((state) => {
-        if (!state) return state;
-        const list = state.type === "image" ? photos : videos;
-        return {
-          ...state,
-          index: (state.index - 1 + list.length) % list.length,
-        };
-      }),
-    [photos, videos]
+    () => setOpen((i) => (i === null ? i : (i - 1 + items.length) % items.length)),
+    [items.length]
   );
 
   useEffect(() => {
@@ -104,109 +192,78 @@ export default function GalleryClient({
     };
   }, [isOpen, close, next, prev]);
 
-  const activeItem = useMemo(() => {
-    if (!open) return null;
-    const list = open.type === "image" ? photos : videos;
-    return list[open.index] ?? null;
-  }, [open, photos, videos]);
-
-  const activeCount = open?.type === "image" ? photos.length : videos.length;
+  const active = open !== null ? items[open] : null;
 
   return (
     <section className="w-full py-14 sm:py-16 px-4 sm:px-8 bg-white font-['Plus_Jakarta_Sans',sans-serif]">
       <div className="max-w-[1272px] mx-auto flex flex-col items-center">
         {/* Header Section */}
-        <div className="text-center max-w-[750px] mb-12 sm:mb-14">
+        <div className="text-center max-w-[750px] mb-8 sm:mb-10">
           <WordReveal className="text-[40px] sm:text-[54px] lg:text-[72px] font-bold text-[#171206] tracking-[-2px] leading-[1.1] mb-5">
             Our Gallery
           </WordReveal>
           <ScrollReveal delay={0.15}>
             <p className="text-[16px] sm:text-[18px] lg:text-[20px] font-medium text-[#5B5955] leading-[30px]">
-              Take a look at our recent work. Real homes and businesses across
-              Sydney, cleaned by our professional team.
+              Real results from homes and businesses across Sydney — every photo
+              is a numbered before &amp; after from our team.
             </p>
           </ScrollReveal>
         </div>
 
-        {/* Photos - tilted collage rows */}
-        <ScrollReveal delay={0.1} className="w-full">
-          <div className="flex w-full flex-wrap justify-center gap-x-3 gap-y-7 sm:gap-x-5 sm:gap-y-10">
-            {photos.map((photo, index) => (
-              <button
-                key={photo.src}
-                type="button"
-                onClick={() => setOpen({ type: "image", index })}
-                aria-label={`Open photo ${index + 1} of ${photos.length}`}
-                style={{ zIndex: index % 2 === 0 ? 1 : 2 }}
-                className={`group relative shrink-0 bg-white p-2 sm:p-2.5 rounded-[18px] sm:rounded-[22px] shadow-[0_12px_34px_rgba(0,0,0,0.14)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:rotate-0 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] cursor-pointer ${
-                  PHOTO_WIDTHS[index % PHOTO_WIDTHS.length]
-                } ${
-                  PHOTO_HEIGHTS[index % PHOTO_HEIGHTS.length]
-                } ${PHOTO_TILT[index % PHOTO_TILT.length]} ${
-                  PHOTO_OFFSET[index % PHOTO_OFFSET.length]
-                }`}
+        {/* Before / After grid */}
+        {items.length > 0 ? (
+          <div className="grid w-full grid-cols-1 gap-5 sm:gap-7 sm:grid-cols-2">
+            {items.map((item, index) => (
+              <ScrollReveal
+                key={item.kind === "pair" ? item.pair.id : item.item.src}
+                delay={0.05 * (index % 4)}
+                className="w-full"
               >
-                <div className="relative w-full h-full overflow-hidden rounded-[12px] sm:rounded-[15px] bg-gray-100">
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    sizes="(max-width: 640px) 50vw, 380px"
-                    className="h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-                  />
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/25 group-hover:opacity-100">
-                    <ZoomIcon />
-                  </span>
-                </div>
-              </button>
+                <figure className="group w-full select-none rounded-[22px] border border-gray-100 bg-white p-2.5 sm:p-3 shadow-[0px_20px_50px_rgba(0,0,0,0.07)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0px_24px_60px_rgba(0,0,0,0.13)]">
+                  {item.kind === "pair" ? (
+                    <BeforeAfterSlider pair={item.pair} />
+                  ) : (
+      <div className="relative aspect-[4/5] max-h-[74vh] w-full overflow-hidden rounded-[16px] bg-gray-100">
+                      <Image
+                        src={item.item.src}
+                        alt={item.item.alt}
+                        fill
+                        draggable={false}
+                        sizes={GRID_SIZES}
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+
+                  <figcaption className="flex items-center justify-between gap-3 px-1 pb-0.5 pt-3">
+                    <div className="flex min-w-0 flex-col">
+                      <span className="truncate text-[15px] sm:text-[16px] font-bold text-[#171206]">
+                        {item.kind === "pair"
+                          ? `Transformation No. ${item.pair.number}`
+                          : item.item.alt}
+                      </span>
+                      <span className="text-[13px] font-medium text-[#5B5955]">
+                        {item.kind === "pair" ? "Before & after" : "Gallery photo"}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setOpen(index)}
+                      aria-label={`Open result ${index + 1} of ${items.length} full size`}
+                      className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white text-[#171206] transition-colors duration-300 hover:border-[#0b4255] hover:bg-[#0b4255] hover:text-white"
+                    >
+                      <ZoomIn className="h-[18px] w-[18px]" />
+                    </button>
+                  </figcaption>
+                </figure>
+              </ScrollReveal>
             ))}
           </div>
-        </ScrollReveal>
-
-        {/* Videos */}
-        <div className="w-full mt-16 sm:mt-20 flex flex-col items-center">
-          <div className="text-center max-w-[720px] mb-8 sm:mb-10">
-            <WordReveal
-              as="h2"
-              className="text-[28px] sm:text-[36px] lg:text-[44px] font-bold text-[#171206] tracking-[-1.5px] leading-tight mb-3"
-            >
-              Videos
-            </WordReveal>
-            <ScrollReveal delay={0.1}>
-              <p className="text-[15px] sm:text-[17px] font-medium text-[#5B5955] leading-[26px]">
-                Watch our team at work — real cleaning results from homes and
-                businesses across Sydney.
-              </p>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal delay={0.1} className="w-full">
-            <div className="flex w-full flex-wrap justify-center gap-5">
-              {videos.map((video, index) => (
-                <button
-                  key={video.src}
-                  type="button"
-                  onClick={() => setOpen({ type: "video", index })}
-                  aria-label={`Play video ${index + 1} of ${videos.length}`}
-                  className="group relative w-full sm:w-[640px] aspect-video shrink-0 overflow-hidden rounded-[18px] sm:rounded-[24px] bg-gray-100 -rotate-[1deg] sm:-rotate-[1.5deg] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:rotate-0 hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] cursor-pointer"
-                >
-                  <video
-                    src={video.src}
-                    muted
-                    playsInline
-                    preload="none"
-                    className="h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-                  />
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors duration-300 group-hover:bg-black/35">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-[#171206] shadow-lg transition-transform duration-300 group-hover:scale-110">
-                      <Play className="h-6 w-6 fill-current translate-x-[1px]" />
-                    </span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </ScrollReveal>
-        </div>
+        ) : (
+          <p className="text-[16px] font-medium text-[#5B5955]">
+            Photos are coming soon — check back shortly.
+          </p>
+        )}
 
         {/* Bottom CTA */}
         <ScrollReveal delay={0.15}>
@@ -240,7 +297,7 @@ export default function GalleryClient({
 
       {/* Lightbox */}
       <AnimatePresence>
-        {isOpen && activeItem && (
+        {isOpen && active && (
           <motion.div
             key="gallery-lightbox"
             initial={{ opacity: 0 }}
@@ -262,7 +319,7 @@ export default function GalleryClient({
 
             {/* Counter */}
             <span className="absolute top-5 left-1/2 -translate-x-1/2 text-[14px] font-semibold text-white/80 tabular-nums">
-              {(open?.index ?? 0) + 1} / {activeCount}
+              {(open ?? 0) + 1} / {items.length}
             </span>
 
             {/* Previous */}
@@ -292,30 +349,34 @@ export default function GalleryClient({
             </button>
 
             <motion.div
-              key={activeItem.src}
+              key={active.kind === "pair" ? active.pair.id : active.item.src}
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="max-w-[1100px] w-full flex items-center justify-center"
+              className="max-h-[86vh] w-full max-w-[620px] flex flex-col items-center gap-3"
             >
-              {activeItem.type === "image" ? (
-                <Image
-                  src={activeItem.src}
-                  alt={activeItem.alt}
-                  width={1600}
-                  height={1200}
-                  sizes="(max-width: 1100px) 100vw, 1100px"
-                  className="w-auto h-auto max-h-[82vh] max-w-full object-contain rounded-[16px] sm:rounded-[24px]"
-                />
+              {active.kind === "pair" ? (
+                <>
+                  <BeforeAfterSlider
+                    pair={active.pair}
+                    sizes="(max-width: 640px) 100vw, 620px"
+                  />
+                  <p className="flex items-center gap-2 text-[13px] font-semibold text-white/75">
+                    <MoveHorizontal className="h-4 w-4" />
+                    Drag to compare
+                  </p>
+                </>
               ) : (
-                <video
-                  src={activeItem.src}
-                  controls
-                  autoPlay
-                  playsInline
-                  className="w-full max-h-[82vh] rounded-[16px] sm:rounded-[24px] bg-black"
+                <Image
+                  src={active.item.src}
+                  alt={active.item.alt}
+                  draggable={false}
+                  width={1200}
+                  height={1500}
+                  sizes="(max-width: 640px) 100vw, 620px"
+                  className="h-auto max-h-[80vh] w-auto max-w-full rounded-[16px] sm:rounded-[24px] object-contain"
                 />
               )}
             </motion.div>
