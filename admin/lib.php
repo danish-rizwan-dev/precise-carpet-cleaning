@@ -35,7 +35,7 @@ const ROLE_SUPER = "super";
 const ROLE_ADMIN = "admin";
 
 /** Editor keys the limited "admin" role may touch (gallery/media is allowed too). */
-const ADMIN_EDITOR_KEYS = ["home", "pricing", "contact-topics"];
+const ADMIN_EDITOR_KEYS = ["home", "pricing", "contact"];
 
 /** All accounts: login => ["password_hash" => ..., "role" => "super"|"admin"]. */
 function users(): array

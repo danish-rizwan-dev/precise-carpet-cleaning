@@ -335,13 +335,19 @@ $EDITORS = [
         ],
     ],
 
-    "contact-topics" => [
-        "title" => "Contact Form Topics",
-        "desc" => "Dropdown options in the contact form.",
-        "file" => "src/content/contactTopics.json",
+    "contact" => [
+        "title" => "Contact Page",
+        "desc" => "The Get in Touch section (heading, intro, location and map) shown on the contact page and homepage.",
+        "file" => "src/content/contact.json",
         "schema" => [
-            "type" => "stringlist",
-            "label" => "Topics (one per line)",
+            "type" => "object",
+            "fields" => [
+                "heading" => ["label" => "Heading", "type" => "text"],
+                "description" => ["label" => "Intro paragraph", "type" => "textarea"],
+                "location" => ["label" => "Location line", "type" => "text"],
+                "mapEmbedUrl" => ["label" => "Google Maps embed URL", "type" => "text"],
+                "mapTitle" => ["label" => "Map title (accessibility)", "type" => "text"],
+            ],
         ],
     ],
 ];

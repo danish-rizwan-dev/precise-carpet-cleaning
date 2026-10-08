@@ -1,6 +1,7 @@
 "use client";
 
 import site from "@/content/site.json";
+import contact from "@/content/contact.json";
 
 import ScrollReveal, { WordReveal } from "@/components/ui/scrollReveal";
 import EnquiryForm from "@/components/forms/enquiryForm";
@@ -60,12 +61,12 @@ export default function GetInTouchSection() {
         <div className="w-full lg:max-w-[500px] lg:self-stretch flex flex-col justify-between lg:min-h-[585px] gap-8 lg:gap-0">
           <div>
             <WordReveal className="inline-block text-[36px] min-[400px]:text-[44px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-2px] sm:tracking-[-4px] leading-[1.15] lg:leading-[82.8px] mb-4 break-words">
-              Get in Touch
+              {contact.heading || "Get in Touch"}
             </WordReveal>
             <ScrollReveal delay={0.15}>
               <p className="text-[15px] sm:text-[18px] font-medium text-[#5B5955] leading-[26px] sm:leading-[28.08px] max-w-[420px]">
-                Have questions or need to book a cleaning? Contact us anytime,
-                and we&apos;ll respond quickly to you.
+                {contact.description ||
+                  "Have questions or need to book a cleaning? Contact us anytime, and we'll respond quickly to you."}
               </p>
             </ScrollReveal>
 
@@ -73,8 +74,8 @@ export default function GetInTouchSection() {
             <ScrollReveal delay={0.25} className="w-full mt-6 sm:mt-8">
               <div className="w-full h-[260px] sm:h-[300px] lg:h-[330px] overflow-hidden rounded-[22px] border border-gray-100 shadow-[0px_20px_50px_rgba(0,0,0,0.05)] bg-[#FAFAFA]">
                 <iframe
-                  title="Map of Sydney, New South Wales, Australia"
-                  src="https://www.google.com/maps?q=Sydney,+NSW,+Australia&z=11&output=embed"
+                  title={contact.mapTitle || "Map"}
+                  src={contact.mapEmbedUrl}
                   className="h-full w-full border-0 block"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -101,7 +102,7 @@ export default function GetInTouchSection() {
                   <LocationIcon />
                 </div>
                 <span className="text-[15px] sm:text-[16px] font-medium text-[#171206]">
-                  New South Wales (NSW)
+                  {contact.location || "New South Wales (NSW)"}
                 </span>
               </div>
 
