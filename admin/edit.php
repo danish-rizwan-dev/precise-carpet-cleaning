@@ -11,6 +11,9 @@ if (!isset($EDITORS[$key])) {
     header("Location: index.php");
     exit;
 }
+if (!can_edit($key)) {
+    deny_access("Your admin account can only edit Home, Pricing, Contact and Gallery.");
+}
 $editor = $EDITORS[$key];
 
 /** Number of pages with unpublished changes (+ staged images shown separately). */
@@ -121,7 +124,7 @@ try {
     $hasDraft = false;
 }
 
-$pending = pending_pages($EDITORS);
+$pending = pending_pages(accessible_editors($EDITORS));
 $pendingCount = count($pending);
 
 $nav = [];

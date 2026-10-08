@@ -8,6 +8,8 @@ require_login();
 $flash = $_SESSION["flash"] ?? null;
 unset($_SESSION["flash"]);
 
+$EDITORS = accessible_editors($EDITORS);
+
 $pending = [];
 foreach ($EDITORS as $key => $ed) {
     if (load_draft($key) === null) {

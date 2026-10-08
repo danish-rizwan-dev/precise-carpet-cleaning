@@ -5,10 +5,18 @@
  * from GitHub Actions secrets on the production deploy.
  */
 return [
-    // Admin login
-    'admin_user' => 'admin',
-    // Generate with: php -r "echo password_hash('your-password', PASSWORD_DEFAULT);"
-    'admin_password_hash' => '$2y$10$replace_me_with_a_real_hash',
+    // Accounts. role: "super" = sees everything, "admin" = Home, Pricing, Contact, Gallery only.
+    // Generate a hash with: php -r "echo password_hash('your-password', PASSWORD_DEFAULT);"
+    'users' => [
+        'superadmin@gmail.com' => [
+            'password_hash' => '$2y$10$replace_me_with_a_super_hash',
+            'role' => 'super',
+        ],
+        'admin@test.gmail.com' => [
+            'password_hash' => '$2y$10$replace_me_with_an_admin_hash',
+            'role' => 'admin',
+        ],
+    ],
 
     // GitHub token with "Contents: read and write" permission on this repo
     'github_token' => 'ghp_replace_me',

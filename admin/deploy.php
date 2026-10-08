@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = (string)($_POST["action"] ?? "");
     try {
         if ($action === "publish") {
-            $pages = pending_content($EDITORS);
+            $pages = pending_content(accessible_editors($EDITORS));
             $staged = staged_files();
             if (!$pages && !$staged) {
                 $_SESSION["flash"] = "Nothing to publish.";
@@ -57,11 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 . (($pages && $staged) ? "," : "")
                 . ($staged ? " " . count($staged) . " file(s)" : "");
             gh_commit_files($files, $msg);
-            clear_drafts();
+            clear_drafts(array_keys($pages));
             clear_staging();
             $_SESSION["flash"] = "Published! The site is rebuilding and will be live in about 2–3 minutes.";
         } elseif ($action === "discard") {
-            clear_drafts();
+            clear_drafts(is_super() ? null : ADMIN_EDITOR_KEYS);
             clear_staging();
             $_SESSION["flash"] = "All drafts and staged files were discarded. The live site is unchanged.";
         }
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit;
 }
 
-$pages = pending_content($EDITORS);
+$pages = pending_content(accessible_editors($EDITORS));
 $staged = staged_files();
 $total = count($pages) + count($staged);
 

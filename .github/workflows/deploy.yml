@@ -33,33 +33,62 @@ jobs:
 
       - name: Generate admin config (from secrets)
         env:
+          ADMIN_USERS: ${{ secrets.ADMIN_USERS }}
           ADMIN_USER: ${{ secrets.ADMIN_USER }}
           ADMIN_PASSWORD_HASH: ${{ secrets.ADMIN_PASSWORD_HASH }}
           GH_ADMIN_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
         run: |
           python3 - <<'PY'
+          import json
           import os
 
           def php_str(s):
               return "'" + s.replace("\\", "\\\\").replace("'", "\\'") + "'"
 
+          def php_val(v, ind=4):
+              if isinstance(v, dict):
+                  pad = " " * ind
+                  out = "[\n"
+                  for k, x in v.items():
+                      out += pad + "    " + php_str(k) + " => " + php_val(x, ind + 4) + ",\n"
+                  out += pad + "]"
+                  return out
+              return php_str(v)
+
+          users = {}
+          raw = os.environ.get("ADMIN_USERS") or ""
+          if raw.strip():
+              for entry in json.loads(raw):
+                  users[entry["user"]] = {
+                      "password_hash": entry["password_hash"],
+                      "role": entry.get("role") or "admin",
+                  }
+          elif os.environ.get("ADMIN_PASSWORD_HASH"):
+              # Legacy single-account secret = super admin.
+              users[os.environ.get("ADMIN_USER") or "admin"] = {
+                  "password_hash": os.environ["ADMIN_PASSWORD_HASH"],
+                  "role": "super",
+              }
+
+          if not users:
+              raise SystemExit("ADMIN_USERS (or ADMIN_PASSWORD_HASH) secret is not set")
+          if not os.environ.get("GH_ADMIN_TOKEN"):
+              raise SystemExit("GH_ADMIN_TOKEN secret is not set")
+
           cfg = {
-              "admin_user": os.environ.get("ADMIN_USER") or "admin",
-              "admin_password_hash": os.environ.get("ADMIN_PASSWORD_HASH") or "",
+              "users": users,
               "github_token": os.environ.get("GH_ADMIN_TOKEN") or "",
               "github_repo": "danish-rizwan-dev/precise-carpet-cleaning",
               "github_branch": "master",
           }
-          if not cfg["admin_password_hash"] or not cfg["github_token"]:
-              raise SystemExit("ADMIN_PASSWORD_HASH / GH_ADMIN_TOKEN secrets are not set")
 
           lines = ["<?php", "return ["]
           for k, v in cfg.items():
-              lines.append("    " + php_str(k) + " => " + php_str(v) + ",")
+              lines.append("    " + php_str(k) + " => " + php_val(v) + ",")
           lines.append("];")
           with open("admin/config.php", "w", encoding="utf-8") as fh:
               fh.write("\n".join(lines) + "\n")
-          print("admin/config.php written")
+          print("admin/config.php written for %d account(s)" % len(users))
           PY
 
       - name: Deploy site to public_html/

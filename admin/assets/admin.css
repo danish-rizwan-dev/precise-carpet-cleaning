@@ -440,3 +440,18 @@ input:focus, textarea:focus { outline: 2px solid #9ec7d4; border-color: var(--br
 .topbar nav .btn { padding: 6px 12px; font-size: 13px; }
 .topbar nav .btn.primary { background: var(--accent); border-color: var(--accent); color: #3d2c00; }
 .topbar nav .btn.primary:hover { background: #ffc233; }
+
+/* Role badge in the topbar */
+.role-badge {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 9px;
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .35);
+}
+.role-badge.role-super { background: var(--accent); color: #3d2c00; border-color: var(--accent); }
