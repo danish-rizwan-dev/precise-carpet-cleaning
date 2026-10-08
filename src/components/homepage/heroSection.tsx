@@ -7,7 +7,6 @@ import { Phone, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import { WordReveal } from "../ui/scrollReveal";
-import FeaturesStrip from "../ui/featuresStrip";
 import home from "@/content/home.json";
 import site from "@/content/site.json";
 
@@ -181,11 +180,6 @@ export default function Hero() {
             </div>
           </div>
         </motion.div>
-      </section>
-
-      {/* Features Strip */}
-      <section className="relative z-10 bg-[#fff] px-5 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-16 md:px-14">
-        <FeaturesStrip className="mx-auto w-full max-w-[1200px]" />
       </section>
     </div>
   );

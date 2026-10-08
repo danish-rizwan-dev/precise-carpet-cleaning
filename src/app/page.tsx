@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/homepage/heroSection";
-import GetInTouchSection from "@/components/forms/getInTouchSection";
+import SimpleFormCard from "@/components/forms/simpleFormCard";
+import FeaturesStrip from "@/components/ui/featuresStrip";
 import CleaningOffers from "@/components/homepage/cleaningOffers";
 import OurServices from "@/components/homepage/ourServices";
 import HowItWorks from "@/components/homepage/howItWorks";
@@ -73,7 +74,10 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero />
-      <GetInTouchSection />
+      <SimpleFormCard />
+      <section className="w-full bg-white px-5 pb-12 sm:px-8 sm:pb-16 md:px-14">
+        <FeaturesStrip className="mx-auto w-full max-w-[1200px]" />
+      </section>
       <CleaningOffers />
       <OurServices />
       <HowItWorks />
