@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { sendToWhatsApp } from "@/lib/whatsapp";
+import { sendContactEmail } from "@/lib/contactEmail";
 import TOPICS from "@/content/contactTopics.json";
 
 const ChevronDownIcon = ({ className = "" }: { className?: string }) => (
@@ -58,6 +58,8 @@ export default function EnquiryForm({
 
   const [topicError, setTopicError] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,29 +80,89 @@ export default function EnquiryForm({
     };
   }, [dropdownOpen]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.topic) {
       setTopicError(true);
       return;
     }
 
-    const message = [
-      "✨ *NEW ENQUIRY* ✨",
-      "_Precise Carpet Cleaning_",
-      "━━━━━━━━━━━━━━━━",
-      `👤 *Name:* ${formData.firstName} ${formData.lastName}`,
-      `📧 *Email:* ${formData.email || "-"}`,
-      `📱 *Phone:* ${formData.phone}`,
-      `🏠 *Type:* ${formData.serviceType}`,
-      `🧽 *Help with:* ${formData.topic}`,
-      "━━━━━━━━━━━━━━━━",
-      "💬 *Comments:*",
+    setStatus("sending");
+    setErrorMessage("");
+
+    const body = [
+      "NEW ENQUIRY",
+      "Precise Carpet Cleaning",
+      "------------------------------",
+      `Name: ${formData.firstName} ${formData.lastName}`,
+      `Email: ${formData.email || "-"}`,
+      `Phone: ${formData.phone}`,
+      `Type: ${formData.serviceType}`,
+      `Help with: ${formData.topic}`,
+      "------------------------------",
+      "Comments:",
       formData.comments,
     ].join("\n");
 
-    sendToWhatsApp(message);
+    try {
+      await sendContactEmail({
+        subject: "New Enquiry - Precise Carpet Cleaning",
+        body,
+        replyTo: formData.email,
+      });
+      setStatus("success");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        serviceType: "Residence",
+        topic: "",
+        comments: "",
+      });
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    }
   };
+
+  if (status === "success") {
+    return (
+      <div
+        className={`flex flex-col items-center justify-center gap-4 w-full rounded-[16px] border border-[#FEBF03]/40 bg-[#FEBF03]/10 px-6 py-12 text-center ${className}`}
+      >
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-black">
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#FEBF03"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </span>
+        <h3 className="text-[22px] font-bold text-[#171206]">Message sent!</h3>
+        <p className="text-[15px] text-[#5B5955] max-w-[380px]">
+          Thanks for reaching out — your enquiry is on its way to our team and we&apos;ll
+          get back to you shortly. If you added an email address, a confirmation is on
+          its way there too.
+        </p>
+        <button
+          type="button"
+          onClick={() => setStatus("idle")}
+          className="mt-2 h-[46px] px-6 rounded-[12px] bg-black hover:bg-[#0b4255] text-white font-semibold text-[15px] transition-colors cursor-pointer"
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className={`flex flex-col gap-[20px] w-full ${className}`}>
@@ -299,11 +361,15 @@ export default function EnquiryForm({
       </div>
 
       {/* Submit Button */}
+      {status === "error" && (
+        <p className="text-[13px] font-medium text-red-500">{errorMessage}</p>
+      )}
       <button
         type="submit"
-        className="w-full h-[50px] px-4 py-[14px] bg-black hover:bg-[#0b4255] text-white font-semibold text-[15px] rounded-[12px] transition-all duration-200 flex items-center justify-center cursor-pointer mt-2"
+        disabled={status === "sending"}
+        className="w-full h-[50px] px-4 py-[14px] bg-black hover:bg-[#0b4255] text-white font-semibold text-[15px] rounded-[12px] transition-all duration-200 flex items-center justify-center cursor-pointer mt-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {submitLabel}
+        {status === "sending" ? "Sending..." : submitLabel}
       </button>
     </form>
   );

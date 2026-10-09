@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { sendToWhatsApp } from "@/lib/whatsapp";
+import { sendContactEmail } from "@/lib/contactEmail";
 
 const CalendarIcon = () => (
   <svg
@@ -41,29 +41,96 @@ export default function BookCleaningSection() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    email: "",
     phone: "",
     address: "",
     date: "",
     time: "",
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const message = [
-      "📅 *NEW APPOINTMENT* 📅",
-      "_Precise Carpet Cleaning_",
-      "━━━━━━━━━━━━━━━━",
-      `👤 *Name:* ${formData.firstName} ${formData.lastName}`,
-      `📱 *Phone:* ${formData.phone}`,
-      `📍 *Address:* ${formData.address}`,
-      "━━━━━━━━━━━━━━━━",
-      `🗓️ *Date:* ${formData.date || "-"}`,
-      `⏰ *Time:* ${formData.time || "-"}`,
+    setStatus("sending");
+    setErrorMessage("");
+
+    const body = [
+      "NEW APPOINTMENT",
+      "Precise Carpet Cleaning",
+      "------------------------------",
+      `Name: ${formData.firstName} ${formData.lastName}`,
+      `Email: ${formData.email || "-"}`,
+      `Phone: ${formData.phone}`,
+      `Address: ${formData.address}`,
+      "------------------------------",
+      `Date: ${formData.date || "-"}`,
+      `Time: ${formData.time || "-"}`,
     ].join("\n");
 
-    sendToWhatsApp(message);
+    try {
+      await sendContactEmail({
+        subject: "New Appointment Request - Precise Carpet Cleaning",
+        body,
+        replyTo: formData.email,
+      });
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    }
   };
+
+  if (status === "success") {
+    return (
+      <section className="w-full min-h-screen py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif] bg-white flex flex-col items-center justify-center">
+        <div className="w-full max-w-[700px] flex flex-col items-center justify-center gap-4 rounded-[24px] border border-[#FEBF03]/40 bg-[#FEBF03]/10 px-6 py-16 text-center shadow-[0px_20px_50px_rgba(0,0,0,0.06)]">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-black">
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#FEBF03"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </span>
+          <h3 className="text-[26px] font-bold text-[#171206]">Request received!</h3>
+          <p className="max-w-[420px] text-[15px] text-[#5B5955]">
+            Thanks{formData.firstName ? ` ${formData.firstName}` : ""} — your booking
+            request is with our team. We&apos;ll confirm your appointment shortly. A
+            confirmation has also been sent to your email.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                address: "",
+                date: "",
+                time: "",
+              });
+              setStatus("idle");
+            }}
+            className="mt-2 h-[46px] cursor-pointer rounded-[12px] bg-[#2b80f7] px-6 font-medium text-[15px] text-white transition-colors hover:bg-[#eabb00] hover:text-black"
+          >
+            Book another appointment
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full min-h-screen py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif] bg-white flex flex-col items-center justify-center">
@@ -90,6 +157,7 @@ export default function BookCleaningSection() {
               <input
                 type="text"
                 placeholder="Peter"
+                required
                 value={formData.firstName}
                 onChange={(e) =>
                   setFormData({ ...formData, firstName: e.target.value })
@@ -105,6 +173,7 @@ export default function BookCleaningSection() {
               <input
                 type="text"
                 placeholder="Thomson"
+                required
                 value={formData.lastName}
                 onChange={(e) =>
                   setFormData({ ...formData, lastName: e.target.value })
@@ -112,6 +181,23 @@ export default function BookCleaningSection() {
                 className="w-full h-[52px] px-4 rounded-[12px] border border-gray-200 bg-white text-[15px] text-[#171206] placeholder-gray-400 focus:outline-none focus:border-[#2b80f7] transition-colors"
               />
             </div>
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col gap-2">
+            <label className="text-[14px] font-semibold text-[#171206]">
+              Your Email
+            </label>
+            <input
+              type="email"
+              placeholder="Type your mail address"
+              required
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              className="w-full h-[52px] px-4 rounded-[12px] border border-gray-200 bg-white text-[15px] text-[#171206] placeholder-gray-400 focus:outline-none focus:border-[#2b80f7] transition-colors"
+            />
           </div>
 
           {/* Contact Row */}
@@ -123,6 +209,7 @@ export default function BookCleaningSection() {
               <input
                 type="tel"
                 placeholder="XXX-XXX-XXX"
+                required
                 value={formData.phone}
                 onChange={(e) =>
                   setFormData({ ...formData, phone: e.target.value })
@@ -138,6 +225,7 @@ export default function BookCleaningSection() {
               <input
                 type="text"
                 placeholder="New York, NY 10020"
+                required
                 value={formData.address}
                 onChange={(e) =>
                   setFormData({ ...formData, address: e.target.value })
@@ -189,11 +277,15 @@ export default function BookCleaningSection() {
           </div>
 
           {/* Submit Button */}
+          {status === "error" && (
+            <p className="text-[13px] font-medium text-red-500">{errorMessage}</p>
+          )}
           <button
             type="submit"
-            className="w-full h-[52px] bg-[#2b80f7] hover:bg-[#eabb00] hover:text-black text-white font-medium text-[16px] rounded-[12px] transition-colors duration-200 mt-2 cursor-pointer"
+            disabled={status === "sending"}
+            className="w-full h-[52px] bg-[#2b80f7] hover:bg-[#eabb00] hover:text-black text-white font-medium text-[16px] rounded-[12px] transition-colors duration-200 mt-2 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Book Appointment
+            {status === "sending" ? "Sending..." : "Book Appointment"}
           </button>
         </form>
       </div>

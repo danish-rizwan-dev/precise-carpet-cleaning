@@ -6,7 +6,7 @@ import contact from "@/content/contact.json";
 import site from "@/content/site.json";
 import TOPICS from "@/content/contactTopics.json";
 import ScrollReveal from "@/components/ui/scrollReveal";
-import { sendToWhatsApp } from "@/lib/whatsapp";
+import { sendContactEmail } from "@/lib/contactEmail";
 
 const PhoneIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FEBF03" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -55,6 +55,8 @@ export default function SimpleFormCard({ className = "" }: { className?: string 
 
   const [topicError, setTopicError] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -75,28 +77,51 @@ export default function SimpleFormCard({ className = "" }: { className?: string 
     };
   }, [dropdownOpen]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.topic) {
       setTopicError(true);
       return;
     }
 
-    const message = [
-      "✨ *NEW ENQUIRY* ✨",
-      "_Precise Carpet Cleaning_",
-      "━━━━━━━━━━━━━━━━",
-      `👤 *Name:* ${formData.name}`,
-      `📧 *Email:* ${formData.email || "-"}`,
-      `📱 *Phone:* ${formData.phone}`,
-      `🏠 *Type:* ${formData.serviceType}`,
-      `🧽 *Help with:* ${formData.topic}`,
-      "━━━━━━━━━━━━━━━━",
-      "💬 *Message:*",
+    setStatus("sending");
+    setErrorMessage("");
+
+    const body = [
+      "NEW ENQUIRY",
+      "Precise Carpet Cleaning",
+      "------------------------------",
+      `Name: ${formData.name}`,
+      `Email: ${formData.email || "-"}`,
+      `Phone: ${formData.phone}`,
+      `Type: ${formData.serviceType}`,
+      `Help with: ${formData.topic}`,
+      "------------------------------",
+      "Message:",
       formData.message,
     ].join("\n");
 
-    sendToWhatsApp(message);
+    try {
+      await sendContactEmail({
+        subject: "New Enquiry - Precise Carpet Cleaning",
+        body,
+        replyTo: formData.email,
+      });
+      setStatus("success");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        serviceType: "Residence",
+        topic: "",
+        message: "",
+      });
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    }
   };
 
   return (
@@ -143,6 +168,37 @@ export default function SimpleFormCard({ className = "" }: { className?: string 
 
           {/* Right — form */}
           <div className="bg-white p-6 sm:p-9">
+            {status === "success" ? (
+              <div className="flex h-full flex-col items-center justify-center gap-4 rounded-[16px] border border-[#FEBF03]/40 bg-[#FEBF03]/10 px-6 py-14 text-center">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-black">
+                  <svg
+                    width="26"
+                    height="26"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#FEBF03"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                <h3 className="text-[22px] font-bold text-[#171206]">Message sent!</h3>
+                <p className="max-w-[380px] text-[15px] text-[#5B5955]">
+                  Thanks for reaching out — your enquiry is on its way to our team and
+                  we&apos;ll get back to you shortly. If you added an email address, a
+                  confirmation is on its way there too.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-2 h-[46px] cursor-pointer rounded-[12px] bg-black px-6 font-semibold text-[15px] text-white transition-colors hover:bg-[#0b4255]"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit} className="flex w-full flex-col gap-5">
               {/* Name */}
               <div className="flex flex-col gap-2">
@@ -295,13 +351,19 @@ export default function SimpleFormCard({ className = "" }: { className?: string 
                 />
               </div>
 
+              {status === "error" && (
+                <p className="text-[13px] font-medium text-red-500">{errorMessage}</p>
+              )}
+
               <button
                 type="submit"
-                className="mt-1 flex h-[52px] w-full items-center justify-center rounded-[12px] bg-black px-4 font-semibold text-[15px] text-white transition-all duration-200 hover:bg-[#0b4255] cursor-pointer"
+                disabled={status === "sending"}
+                className="mt-1 flex h-[52px] w-full items-center justify-center rounded-[12px] bg-black px-4 font-semibold text-[15px] text-white transition-all duration-200 hover:bg-[#0b4255] cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Send Message
+                {status === "sending" ? "Sending..." : "Send Message"}
               </button>
             </form>
+            )}
           </div>
         </div>
       </ScrollReveal>
