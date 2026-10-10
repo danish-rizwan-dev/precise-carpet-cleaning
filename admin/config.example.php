@@ -12,7 +12,7 @@ return [
             'password_hash' => '$2y$10$replace_me_with_a_super_hash',
             'role' => 'super',
         ],
-        'admin@test.gmail.com' => [
+        'enquiries@precisecarpetcleaning.com.au' => [
             'password_hash' => '$2y$10$replace_me_with_an_admin_hash',
             'role' => 'admin',
         ],
