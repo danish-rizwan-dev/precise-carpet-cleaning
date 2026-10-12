@@ -306,7 +306,7 @@ export default function SimpleFormCard({ className = "" }: { className?: string 
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -8, scale: 0.97 }}
                         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute z-50 mt-2 w-full origin-top overflow-hidden rounded-[12px] border border-gray-100 bg-white py-1.5 shadow-[0px_20px_50px_rgba(0,0,0,0.1)]"
+                        className="form-dropdown-scrollbar absolute z-50 mt-2 max-h-60 w-full origin-top overflow-y-auto overscroll-contain rounded-[12px] border border-gray-100 bg-white py-1.5 shadow-[0px_20px_50px_rgba(0,0,0,0.1)]"
                       >
                         {TOPICS.map((topic) => (
                           <button

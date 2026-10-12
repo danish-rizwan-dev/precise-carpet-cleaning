@@ -5,3 +5,16 @@
   --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
+.form-dropdown-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+.form-dropdown-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form-dropdown-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: #d1d5db;
+}
