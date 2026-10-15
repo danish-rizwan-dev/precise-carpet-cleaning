@@ -5,9 +5,6 @@ export const metadata: Metadata = {
   title: "Terms and Conditions",
   description:
     "Terms and conditions governing the use of Precise Carpet Cleaning's website and booking services.",
-  alternates: {
-    canonical: "/terms-and-conditions/",
-  },
 };
 
 export default function TermsAndConditionsPage() {

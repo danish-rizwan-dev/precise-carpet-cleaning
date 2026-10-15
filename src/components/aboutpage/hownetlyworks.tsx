@@ -4,27 +4,9 @@ import { useState, useEffect } from 'react';
 import Image from '@/components/ui/image';
 import ScrollMoveImage from '../ui/scrollMoveImage';
 import ScrollReveal, { WordReveal } from '../ui/scrollReveal';
+import about from '@/content/about.json';
 
-const STEPS = [
-  {
-    id: 0,
-    title: '1. Book Your Service',
-    description: 'Choose your cleaning service, select a convenient date, and tell us what your space needs.',
-    image: '/howitworks/crouselmobile.jpg',
-  },
-  {
-    id: 1,
-    title: '2. We Deep Clean',
-    description: 'Our professionals use specialized equipment and proven cleaning methods to tackle dirt and built-up grime.',
-    image: '/howitworks/preciseVaccume.jpg',
-  },
-  {
-    id: 2,
-    title: '3. Enjoy Fresh Carpets',
-    description: 'Sit back and enjoy a cleaner, fresher environment that looks and feels great.',
-    image: '/howitworks/crouselthreeimggirl.webp',
-  },
-];
+const STEPS = about.howItWorks.steps;
 
 export default function HowNetlyWorks() {
   const [activeTab, setActiveTab] = useState(0);
@@ -62,8 +44,8 @@ export default function HowNetlyWorks() {
       <div className="max-w-[1272px] w-full flex flex-col items-center">
         {/* --- HEADER --- */}
         <div className="max-w-[680px] w-full text-center mb-12 sm:mb-16">
-          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">How Netly Works</WordReveal>
-          <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">Please select the service you want, choose a date, and let us know how long you need it for in minutes, if you could.</p></ScrollReveal>
+          <WordReveal className="text-[36px] sm:text-[48px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] mb-4">{about.howItWorks.heading}</WordReveal>
+          <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">{about.howItWorks.subtitle}</p></ScrollReveal>
         </div>
 
         {/* --- CAROUSEL STEP CONTENT --- */}

@@ -61,13 +61,11 @@ jobs:
               for entry in json.loads(raw):
                   users[entry["user"]] = {
                       "password_hash": entry["password_hash"],
-                      "role": entry.get("role") or "admin",
                   }
           elif os.environ.get("ADMIN_PASSWORD_HASH"):
-              # Legacy single-account secret = super admin.
+              # Legacy single-account secret.
               users[os.environ.get("ADMIN_USER") or "admin"] = {
                   "password_hash": os.environ["ADMIN_PASSWORD_HASH"],
-                  "role": "super",
               }
 
           if not users:

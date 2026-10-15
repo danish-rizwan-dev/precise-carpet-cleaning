@@ -5,16 +5,11 @@
  * from GitHub Actions secrets on the production deploy.
  */
 return [
-    // Accounts. role: "super" = sees everything, "admin" = Home, Pricing, Contact, Gallery only.
+    // Accounts. Every logged-in account can edit all pages in the panel.
     // Generate a hash with: php -r "echo password_hash('your-password', PASSWORD_DEFAULT);"
     'users' => [
-        'superadmin@gmail.com' => [
-            'password_hash' => '$2y$10$replace_me_with_a_super_hash',
-            'role' => 'super',
-        ],
         'enquiries@precisecarpetcleaning.com.au' => [
             'password_hash' => '$2y$10$replace_me_with_an_admin_hash',
-            'role' => 'admin',
         ],
     ],
 

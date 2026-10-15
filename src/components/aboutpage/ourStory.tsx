@@ -2,13 +2,9 @@ import Image from "@/components/ui/image";
 
 import ScrollMoveImage from "@/components/ui/scrollMoveImage";
 import CountUp from "@/components/ui/countUp";
+import about from "@/content/about.json";
 
-const STATS = [
-  { value: "4.9", label: "Average Rating" },
-  { value: "1.2k+", label: "Homes Cleaned" },
-  { value: "300+", label: "Regular Clients" },
-  { value: "100%", label: "Background-Checked Staff" },
-];
+const story = about.ourStory;
 
 const CheckIcon = () => (
   <svg
@@ -29,13 +25,6 @@ const CheckIcon = () => (
   </svg>
 );
 
-const FEATURES = [
-  "More free time for family or work",
-  "No time spent on chores",
-  "Less daily stress",
-  "Increased productivity at work",
-  "More time for personal hobbies",
-];
 export default function OurStorySection() {
   return (
     <>
@@ -43,11 +32,10 @@ export default function OurStorySection() {
         {/* Header Container */}
         <div className="text-center max-w-[620px] mx-auto mb-12 sm:mb-16">
           <h2 className="text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-[#171206] tracking-[-4px] leading-[1.15] mb-3">
-            Our Story
+            {story.heading}
           </h2>
           <p className="text-[15px] sm:text-[16px] font-medium text-[#5B5955] leading-[26px]">
-            Get to know the people and the values behind Precise Carpet
-            Cleaning Services.
+            {story.subtitle}
           </p>
         </div>
 
@@ -55,56 +43,19 @@ export default function OurStorySection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start mb-16">
           {/* Left Side: Story Details */}
           <div className="flex flex-col gap-4 sm:gap-5 lg:gap-16 order-2 lg:order-1">
-            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
-              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
-                Who we are
-              </h3>
-              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
-                With 9 years of experience in professional carpet cleaning, we
-                provide reliable, high-quality cleaning services for homes and
-                businesses across Sydney. For the past 3 years, we have operated
-                our own carpet cleaning business, bringing hands-on expertise
-                and professional service to every job.
-              </p>
-            </div>
-
-            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
-              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
-                Our equipment
-              </h3>
-              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
-                We use modern, professional-grade carpet cleaning equipment
-                designed to deliver a deep and thorough clean. Whether
-                it&apos;s everyday dirt, heavily used carpets or carpets that
-                need refreshing, our aim is to achieve excellent results while
-                treating every property with care.
-              </p>
-            </div>
-
-            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
-              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
-                What we do
-              </h3>
-              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
-                Our services include residential and commercial carpet cleaning,
-                end-of-lease carpet cleaning, and advanced stain removal
-                treatments. We understand that different carpets and stains
-                require different approaches, so we assess the condition of the
-                carpet and use the appropriate cleaning method for the job.
-              </p>
-            </div>
-
-            <div className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0">
-              <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
-                Where we work
-              </h3>
-              <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
-                We proudly service Sydney and surrounding areas, helping
-                homeowners, tenants, landlords and businesses keep their carpets
-                clean and presentable. Our focus is simple: professional
-                workmanship, dependable service and quality results you can see.
-              </p>
-            </div>
+            {story.cards.map((card, idx) => (
+              <div
+                key={idx}
+                className="rounded-[20px] bg-[#F2F7F9] p-5 sm:p-6 lg:bg-transparent lg:p-0"
+              >
+                <h3 className="text-[12px] font-bold uppercase tracking-[1.2px] text-[#171206] mb-2 lg:hidden">
+                  {card.title}
+                </h3>
+                <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] sm:leading-[31.2px]">
+                  {card.content}
+                </p>
+              </div>
+            ))}
           </div>
 
           {/* Right Side: Sticky Image Collage */}
@@ -113,7 +64,7 @@ export default function OurStorySection() {
               <div className="relative">
                 <div className="w-full h-[300px] sm:h-[360px] lg:h-[400px] relative rounded-[32px] overflow-hidden group">
                   <Image
-                    src="/about/ourStoryimg1.webp"
+                    src={story.images.story1}
                     alt="Cleaner holding bucket"
                     fill
                     sizes="(max-width: 1024px) 100vw, 572px"
@@ -124,7 +75,7 @@ export default function OurStorySection() {
 
                 <div className="absolute left-0 sm:-left-6 -bottom-5 sm:-bottom-8 z-10 w-[58%] max-w-[300px] h-[150px] sm:h-[175px] lg:h-[190px] rounded-[24px] overflow-hidden ring-4 sm:ring-8 ring-white shadow-[0_18px_40px_rgba(23,18,6,0.18)] group">
                   <Image
-                    src="/about/ourStoryimg2.webp"
+                    src={story.images.story2}
                     alt="Cleaner wiping banister"
                     fill
                     sizes="300px"
@@ -138,7 +89,7 @@ export default function OurStorySection() {
 
         {/* Stats Bar Container */}
         <div className="w-full bg-[#F2F7F9] rounded-[18px] py-[42px] px-6 sm:px-[76px] grid grid-cols-2 lg:grid-cols-4 gap-8 justify-between items-center text-center">
-          {STATS.map((stat, idx) => (
+          {story.stats.map((stat, idx) => (
             <div key={idx} className="flex flex-col items-center">
               <h3 className="text-[36px] sm:text-[48px] font-bold text-[#171206] tracking-[-1px] leading-[50px] mb-1">
                 <CountUp target={stat.value} />
@@ -156,7 +107,7 @@ export default function OurStorySection() {
           {/* Left Side Image */}
           <div className="w-full lg:w-[641px] h-[380px] sm:h-[500px] lg:h-[550px] relative rounded-[32px] overflow-hidden shrink-0 group">
             <Image
-              src="/about/consisitentResult.webp"
+              src={story.images.results}
               alt="Consistent Results At Every Visit"
               width={641}
               height={550}
@@ -168,16 +119,15 @@ export default function OurStorySection() {
           {/* Right Side Content */}
           <div className="w-full max-w-[580px] flex flex-col items-start">
             <h2 className="inline-block text-[40px] sm:text-[50px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] lg:leading-[69.6px] mb-4">
-              Consistent Results At Every Visit
+              {story.results.heading}
             </h2>
 
             <p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px] mb-[32px]">
-              We&apos;ve got the right tools and products to give you a way
-              deeper clean than your usual DIY stuff.
+              {story.results.paragraph}
             </p>
 
             <ul className="flex flex-col gap-4 w-full">
-              {FEATURES.map((feature, idx) => (
+              {story.results.features.map((feature, idx) => (
                 <li key={idx} className="flex items-center gap-3">
                   <span className="shrink-0">
                     <CheckIcon />

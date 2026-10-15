@@ -1,56 +1,16 @@
 import Image from "@/components/ui/image";
 import ScrollReveal, { WordReveal } from "../ui/scrollReveal";
+import about from "@/content/about.json";
 
-const TEAM_MEMBERS = [
-  {
-    name: "Michael Carter",
-    role: "Lead Cleaning Specialist",
-    image: "/about/trust/Michael.webp",
-  },
-  {
-    name: "Daniel Brooks",
-    role: "Senior Cleaning Technician",
-    image: "/about/trust/daniel.webp",
-  },
-  {
-    name: "James Wilson",
-    role: "Residential Cleaning Expert",
-    image: "/about/trust/James.webp",
-  },
-  {
-    name: "Andrew Collins",
-    role: "Quality Control Supervisor",
-    image: "/about/trust/Andrew.webp",
-  },
-  {
-    name: "Robert Hayes",
-    role: "Operations & Field Manager",
-    image: "/about/trust/Robert.webp",
-  },
-  {
-    name: "Matthew Turner",
-    role: "Deep Cleaning Specialist",
-    image: "/about/trust/Matthew.webp",
-  },
-  {
-    name: "Jason Miller",
-    role: "Floor & Surface Care Technician",
-    image: "/about/trust/Jason.webp",
-  },
-  {
-    name: "David Thompson",
-    role: "Move-In / Move-Out Cleaning Lead",
-    image: "/about/trust/David.webp",
-  },
-];
+const TEAM_MEMBERS = about.team.members;
 
 export default function PeopleYouCanTrustSection() {
   return (
     <section className="w-full max-w-[1272px] mx-auto py-16 px-4 sm:px-8 font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Header Container */}
       <div className="text-center max-w-[680px] mx-auto mb-12 sm:mb-16">
-        <WordReveal className="text-[40px] sm:text-[50px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] lg:leading-[69.6px] mb-4">People You Can Trust</WordReveal>
-        <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">Our dedicated team consists of highly trained professionals who take immense pride in their work and strive to deliver exceptional results.</p></ScrollReveal>
+        <WordReveal className="text-[40px] sm:text-[50px] lg:text-[60px] font-bold text-[#171206] tracking-[-1.5px] leading-[1.16] lg:leading-[69.6px] mb-4">{about.team.heading}</WordReveal>
+        <ScrollReveal delay={0.15}><p className="text-[16px] sm:text-[18px] font-medium text-[#5B5955] leading-[28.08px]">{about.team.subtitle}</p></ScrollReveal>
       </div>
 
       {/* Grid Container */}

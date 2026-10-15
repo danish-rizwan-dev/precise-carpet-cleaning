@@ -22,41 +22,10 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description: DESCRIPTION,
-  keywords: [
-    "carpet cleaning",
-    "rug cleaning",
-    "upholstery cleaning",
-    "sofa cleaning",
-    "tile grout cleaning",
-    "mattress cleaning",
-    "Sydney carpet cleaning",
-    "professional cleaning services",
-  ],
   applicationName: SITE_NAME,
   robots: {
     index: true,
     follow: true,
-  },
-  openGraph: {
-    type: "website",
-    url: SITE_URL,
-    siteName: SITE_NAME,
-    title: SITE_NAME,
-    description: DESCRIPTION,
-    images: [
-      {
-        url: "/hero/herobackgroundimage.jpg",
-        width: 1200,
-        height: 777,
-        alt: "Precise Carpet Cleaning Services - professional carpet cleaning",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SITE_NAME,
-    description: DESCRIPTION,
-    images: ["/hero/herobackgroundimage.jpg"],
   },
 };
 

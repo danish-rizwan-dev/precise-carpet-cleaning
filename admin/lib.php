@@ -29,15 +29,9 @@ function e(?string $v): string
     return htmlspecialchars((string)$v, ENT_QUOTES, "UTF-8");
 }
 
-/* ---------------- Roles ---------------- */
+/* ---------------- Accounts ---------------- */
 
-const ROLE_SUPER = "super";
-const ROLE_ADMIN = "admin";
-
-/** Editor keys the limited "admin" role may touch (gallery/media is allowed too). */
-const ADMIN_EDITOR_KEYS = ["home", "pricing", "contact"];
-
-/** All accounts: login => ["password_hash" => ..., "role" => "super"|"admin"]. */
+/** All accounts: login => ["password_hash" => ...]. */
 function users(): array
 {
     $cfg = config();
@@ -48,42 +42,9 @@ function users(): array
     if (!empty($cfg["admin_user"])) {
         return [(string)$cfg["admin_user"] => [
             "password_hash" => (string)($cfg["admin_password_hash"] ?? ""),
-            "role" => ROLE_SUPER,
         ]];
     }
     return [];
-}
-
-function current_role(): string
-{
-    return ($_SESSION["role"] ?? ROLE_ADMIN) === ROLE_SUPER ? ROLE_SUPER : ROLE_ADMIN;
-}
-
-function is_super(): bool
-{
-    return current_role() === ROLE_SUPER;
-}
-
-/** Content editors this session may open. */
-function accessible_editors(array $editors): array
-{
-    if (is_super()) {
-        return $editors;
-    }
-    return array_filter($editors, fn($k) => in_array($k, ADMIN_EDITOR_KEYS, true), ARRAY_FILTER_USE_KEY);
-}
-
-function can_edit(string $key): bool
-{
-    return is_super() || in_array($key, ADMIN_EDITOR_KEYS, true);
-}
-
-function deny_access(string $msg = "You don't have access to this page."): never
-{
-    http_response_code(403);
-    exit("<!doctype html><meta charset=\"utf-8\"><title>403</title>"
-        . "<body style=\"font-family:system-ui;padding:40px\"><h2>403 — Forbidden</h2>"
-        . "<p>" . e($msg) . "</p><p><a href=\"index.php\">Back to dashboard</a></p></body>");
 }
 
 function require_login(): void
@@ -91,11 +52,6 @@ function require_login(): void
     if (empty($_SESSION["admin_user"])) {
         header("Location: login.php");
         exit;
-    }
-    if (!isset($_SESSION["role"])) {
-        // Session created before roles existed — resolve from config, default to least privilege.
-        $acct = users()[(string)$_SESSION["admin_user"]] ?? null;
-        $_SESSION["role"] = ($acct["role"] ?? ROLE_ADMIN) === ROLE_SUPER ? ROLE_SUPER : ROLE_ADMIN;
     }
 }
 
@@ -107,7 +63,6 @@ function check_login(string $user, string $pass): bool
     if ($ok) {
         session_regenerate_id(true);
         $_SESSION["admin_user"] = $user;
-        $_SESSION["role"] = ($acct["role"] ?? ROLE_ADMIN) === ROLE_SUPER ? ROLE_SUPER : ROLE_ADMIN;
         $_SESSION["attempts"] = 0;
     } else {
         $_SESSION["attempts"] = ((int)($_SESSION["attempts"] ?? 0)) + 1;

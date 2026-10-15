@@ -26,9 +26,6 @@ const SKIP_EXT = new Set([".svg", ".avif", ".gif", ".ico", ".mp4", ".webmanifest
 const MIN_BYTES = 100 * 1024;
 const MAX_W = 2048;
 
-// og:image — social crawlers want <=1200px and do not reliably support webp.
-const OG_IMAGE = "hero/herobackgroundimage.png";
-
 function walk(dir) {
   const out = [];
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -58,14 +55,7 @@ for (const file of walk(PUBLIC)) {
   let outPath = file;
   let note = "";
 
-  if (rel === OG_IMAGE) {
-    output = await sharp(input)
-      .resize({ width: 1200, withoutEnlargement: true })
-      .jpeg({ quality: 85, mozjpeg: true, chromaSubsampling: "4:4:4" })
-      .toBuffer();
-    outPath = file.replace(/\.png$/, ".jpg");
-    note = "og:image -> jpg 1200w";
-  } else if (rel.startsWith("gallery/") && (ext === ".jpeg" || ext === ".jpg")) {
+  if (rel.startsWith("gallery/") && (ext === ".jpeg" || ext === ".jpg")) {
     // gallery page lists files via readdirSync — extension-free, so WebP is safe.
     output = await sharp(input).webp({ quality: 85, effort: 6 }).toBuffer();
     outPath = file.replace(/\.jpe?g$/, ".webp");

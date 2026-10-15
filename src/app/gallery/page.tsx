@@ -10,9 +10,6 @@ export const metadata: Metadata = {
   title: "Gallery",
   description:
     "Browse our before and after gallery of professional carpet, rug, upholstery, leather, tile and mattress cleaning results for homes and businesses across Sydney.",
-  alternates: {
-    canonical: "/gallery/",
-  },
 };
 
 const IMAGE_RE = /\.(jpe?g|png|webp|avif)$/i;

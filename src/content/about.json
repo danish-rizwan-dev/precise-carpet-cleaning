@@ -1,0 +1,116 @@
+{
+  "ourStory": {
+    "heading": "Our Story",
+    "subtitle": "Get to know the people and the values behind Precise Carpet Cleaning Services.",
+    "cards": [
+      {
+        "title": "Who we are",
+        "content": "With 9 years of experience in professional carpet cleaning, we provide reliable, high-quality cleaning services for homes and businesses across Sydney. For the past 3 years, we have operated our own carpet cleaning business, bringing hands-on expertise and professional service to every job."
+      },
+      {
+        "title": "Our equipment",
+        "content": "We use modern, professional-grade carpet cleaning equipment designed to deliver a deep and thorough clean. Whether it's everyday dirt, heavily used carpets or carpets that need refreshing, our aim is to achieve excellent results while treating every property with care."
+      },
+      {
+        "title": "What we do",
+        "content": "Our services include residential and commercial carpet cleaning, end-of-lease carpet cleaning, and advanced stain removal treatments. We understand that different carpets and stains require different approaches, so we assess the condition of the carpet and use the appropriate cleaning method for the job."
+      },
+      {
+        "title": "Where we work",
+        "content": "We proudly service Sydney and surrounding areas, helping homeowners, tenants, landlords and businesses keep their carpets clean and presentable. Our focus is simple: professional workmanship, dependable service and quality results you can see."
+      }
+    ],
+    "stats": [
+      { "value": "4.9", "label": "Average Rating" },
+      { "value": "1.2k+", "label": "Homes Cleaned" },
+      { "value": "300+", "label": "Regular Clients" },
+      { "value": "100%", "label": "Background-Checked Staff" }
+    ],
+    "images": {
+      "story1": "/about/ourStoryimg1.webp",
+      "story2": "/about/ourStoryimg2.webp",
+      "results": "/about/consisitentResult.webp"
+    },
+    "results": {
+      "heading": "Consistent Results At Every Visit",
+      "paragraph": "We've got the right tools and products to give you a way deeper clean than your usual DIY stuff.",
+      "features": [
+        "More free time for family or work",
+        "No time spent on chores",
+        "Less daily stress",
+        "Increased productivity at work",
+        "More time for personal hobbies"
+      ]
+    }
+  },
+  "howItWorks": {
+    "heading": "How Netly Works",
+    "subtitle": "Please select the service you want, choose a date, and let us know how long you need it for in minutes, if you could.",
+    "steps": [
+      {
+        "id": 0,
+        "title": "1. Book Your Service",
+        "description": "Choose your cleaning service, select a convenient date, and tell us what your space needs.",
+        "image": "/howitworks/crouselmobile.jpg"
+      },
+      {
+        "id": 1,
+        "title": "2. We Deep Clean",
+        "description": "Our professionals use specialized equipment and proven cleaning methods to tackle dirt and built-up grime.",
+        "image": "/howitworks/preciseVaccume.jpg"
+      },
+      {
+        "id": 2,
+        "title": "3. Enjoy Fresh Carpets",
+        "description": "Sit back and enjoy a cleaner, fresher environment that looks and feels great.",
+        "image": "/howitworks/crouselthreeimggirl.webp"
+      }
+    ]
+  },
+  "team": {
+    "heading": "People You Can Trust",
+    "subtitle": "Our dedicated team consists of highly trained professionals who take immense pride in their work and strive to deliver exceptional results.",
+    "members": [
+      {
+        "name": "Michael Carter",
+        "role": "Lead Cleaning Specialist",
+        "image": "/about/trust/Michael.webp"
+      },
+      {
+        "name": "Daniel Brooks",
+        "role": "Senior Cleaning Technician",
+        "image": "/about/trust/daniel.webp"
+      },
+      {
+        "name": "James Wilson",
+        "role": "Residential Cleaning Expert",
+        "image": "/about/trust/James.webp"
+      },
+      {
+        "name": "Andrew Collins",
+        "role": "Quality Control Supervisor",
+        "image": "/about/trust/Andrew.webp"
+      },
+      {
+        "name": "Robert Hayes",
+        "role": "Operations & Field Manager",
+        "image": "/about/trust/Robert.webp"
+      },
+      {
+        "name": "Matthew Turner",
+        "role": "Deep Cleaning Specialist",
+        "image": "/about/trust/Matthew.webp"
+      },
+      {
+        "name": "Jason Miller",
+        "role": "Floor & Surface Care Technician",
+        "image": "/about/trust/Jason.webp"
+      },
+      {
+        "name": "David Thompson",
+        "role": "Move-In / Move-Out Cleaning Lead",
+        "image": "/about/trust/David.webp"
+      }
+    ]
+  }
+}

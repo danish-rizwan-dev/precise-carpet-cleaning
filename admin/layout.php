@@ -21,7 +21,6 @@ function page_start(string $crumb, array $nav, string $title): void
 <header class="topbar">
   <div class="wrap">
     <strong><a href="index.php" class="plain">Precise Admin</a> / <?= e($crumb) ?>
-      <span class="role-badge<?= is_super() ? " role-super" : "" ?>"><?= is_super() ? "Super Admin" : "Admin" ?></span>
     </strong>
     <nav>
       <?php foreach ($nav as $item): ?>
